@@ -442,6 +442,11 @@ namespace NMSShipIOTool
             progressBar2.Visible = false;
         }
 
+        private void buttonSetSeed_Click(object sender, EventArgs e)
+        {
+            
+        }
+
         private void checkBoxI_CheckedChanged(object sender, EventArgs e)
         {
             if (!checkBoxI.Checked)

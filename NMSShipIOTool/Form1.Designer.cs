@@ -16,6 +16,7 @@ namespace NMSShipIOTool
         private System.Windows.Forms.TextBox exportName;
         private System.Windows.Forms.TextBox importPath;
         private System.Windows.Forms.TextBox inputImportText;
+        private System.Windows.Forms.TextBox shipSeed;
 
         private System.Windows.Forms.Label labelPath;
         private System.Windows.Forms.Label labelDescription;
@@ -27,6 +28,8 @@ namespace NMSShipIOTool
         private System.Windows.Forms.Label pathTextI;
         private System.Windows.Forms.Label inputTextI;
         private System.Windows.Forms.Label inputTextIExplanation;
+        private System.Windows.Forms.Label seedSelectText;
+        private System.Windows.Forms.Label seedText;
 
         private System.Windows.Forms.Button buttonSelect;
         private System.Windows.Forms.Button buttonLoad;
@@ -35,6 +38,7 @@ namespace NMSShipIOTool
         private System.Windows.Forms.Button importSelect;
         private System.Windows.Forms.Button buttonImport;
         private System.Windows.Forms.Button aboutButton;
+        private System.Windows.Forms.Button buttonSetSeed;
 
         private System.Windows.Forms.CheckBox checkBoxI;
         private System.Windows.Forms.CheckBox checkBoxE;
@@ -42,9 +46,11 @@ namespace NMSShipIOTool
         private System.Windows.Forms.Label progressBar1;
         private System.Windows.Forms.Label progressBar2;
         private System.Windows.Forms.Label progressBar3;
+        private System.Windows.Forms.Label progressBar4;
 
         private System.Windows.Forms.FlowLayoutPanel radioPanelI;
         private System.Windows.Forms.FlowLayoutPanel radioPanelE;
+        private System.Windows.Forms.FlowLayoutPanel radioPanelS;
 
         /// <summary>
         ///  Clean up any resources being used.
@@ -99,11 +105,19 @@ namespace NMSShipIOTool
             progressBar3 = new Label();
             radioPanelE = new FlowLayoutPanel();
             checkBoxE = new CheckBox();
+            tabPage4 = new TabPage();
+            shipSeed = new TextBox();
+            seedSelectText = new Label();
+            seedText = new Label();
+            buttonSetSeed = new Button();
+            progressBar4 = new Label();
+            radioPanelS = new FlowLayoutPanel();
             aboutButton = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
             tabPage3.SuspendLayout();
+            tabPage4.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -111,10 +125,11 @@ namespace NMSShipIOTool
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
+            tabControl1.Controls.Add(tabPage4);
             tabControl1.Location = new Point(12, 12);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(944, 609);
+            tabControl1.Size = new Size(945, 610);
             tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -128,7 +143,7 @@ namespace NMSShipIOTool
             tabPage1.Controls.Add(progressBar1);
             tabPage1.Location = new Point(4, 26);
             tabPage1.Name = "tabPage1";
-            tabPage1.Size = new Size(936, 579);
+            tabPage1.Size = new Size(937, 580);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "游戏存档";
             // 
@@ -204,7 +219,7 @@ namespace NMSShipIOTool
             tabPage2.Controls.Add(checkBoxI);
             tabPage2.Location = new Point(4, 26);
             tabPage2.Name = "tabPage2";
-            tabPage2.Size = new Size(936, 579);
+            tabPage2.Size = new Size(937, 580);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "自定义飞船导入";
             // 
@@ -318,7 +333,7 @@ namespace NMSShipIOTool
             tabPage3.Controls.Add(checkBoxE);
             tabPage3.Location = new Point(4, 26);
             tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(936, 579);
+            tabPage3.Size = new Size(937, 580);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "自定义飞船导出";
             // 
@@ -332,7 +347,7 @@ namespace NMSShipIOTool
             // 
             // exportName
             // 
-            exportName.Location = new Point(118, 380);
+            exportName.Location = new Point(118, 388);
             exportName.Name = "exportName";
             exportName.Size = new Size(511, 23);
             exportName.TabIndex = 0;
@@ -406,6 +421,68 @@ namespace NMSShipIOTool
             checkBoxE.Text = "启用反混淆";
             checkBoxE.CheckedChanged += checkBoxE_CheckedChanged;
             // 
+            // tabPage4
+            // 
+            tabPage4.Controls.Add(shipSeed);
+            tabPage4.Controls.Add(seedSelectText);
+            tabPage4.Controls.Add(seedText);
+            tabPage4.Controls.Add(buttonSetSeed);
+            tabPage4.Controls.Add(progressBar4);
+            tabPage4.Controls.Add(radioPanelS);
+            tabPage4.Location = new Point(4, 26);
+            tabPage4.Name = "tabPage4";
+            tabPage4.Size = new Size(937, 580);
+            tabPage4.TabIndex = 3;
+            tabPage4.Text = "种子飞船";
+            // 
+            // shipSeed
+            // 
+            shipSeed.Location = new Point(118, 388);
+            shipSeed.Name = "shipSeed";
+            shipSeed.Size = new Size(511, 23);
+            shipSeed.TabIndex = 0;
+            // 
+            // seedSelectText
+            // 
+            seedSelectText.Location = new Point(12, 35);
+            seedSelectText.Name = "seedSelectText";
+            seedSelectText.Size = new Size(184, 23);
+            seedSelectText.TabIndex = 0;
+            seedSelectText.Text = "选择你要导入/导出种子的飞船：";
+            // 
+            // seedText
+            // 
+            seedText.Location = new Point(12, 391);
+            seedText.Name = "seedText";
+            seedText.Size = new Size(100, 23);
+            seedText.TabIndex = 0;
+            seedText.Text = "飞船种子：";
+            // 
+            // buttonSetSeed
+            // 
+            buttonSetSeed.Location = new Point(116, 430);
+            buttonSetSeed.Name = "buttonSetSeed";
+            buttonSetSeed.Size = new Size(100, 33);
+            buttonSetSeed.TabIndex = 0;
+            buttonSetSeed.Text = "导入种子";
+            buttonSetSeed.Click += buttonSetSeed_Click;
+            // 
+            // progressBar4
+            // 
+            progressBar4.Location = new Point(350, 438);
+            progressBar4.Name = "progressBar4";
+            progressBar4.Size = new Size(279, 23);
+            progressBar4.TabIndex = 1;
+            progressBar4.Text = "正在导入，请稍候...";
+            progressBar4.Visible = false;
+            // 
+            // radioPanelS
+            // 
+            radioPanelS.Location = new Point(50, 78);
+            radioPanelS.Name = "radioPanelS";
+            radioPanelS.Size = new Size(426, 286);
+            radioPanelS.TabIndex = 2;
+            // 
             // aboutButton
             // 
             aboutButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
@@ -432,6 +509,8 @@ namespace NMSShipIOTool
             tabPage2.PerformLayout();
             tabPage3.ResumeLayout(false);
             tabPage3.PerformLayout();
+            tabPage4.ResumeLayout(false);
+            tabPage4.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -440,5 +519,6 @@ namespace NMSShipIOTool
         private TabPage tabPage1;
         private TabPage tabPage2;
         private TabPage tabPage3;
+        private TabPage tabPage4;
     }
 }
