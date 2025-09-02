@@ -4,6 +4,9 @@
     <_LastSelectedProfileId>C:\Users\phone\Documents\Project\Personal\NMSShipIOTool\NMSShipIOTool\Properties\PublishProfiles\发布依赖X64单一.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Update="AboutDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="ChoiceDialog.cs">
       <SubType>Form</SubType>
     </Compile>

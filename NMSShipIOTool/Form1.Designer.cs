@@ -34,6 +34,7 @@ namespace NMSShipIOTool
         private System.Windows.Forms.Button buttonExport;
         private System.Windows.Forms.Button importSelect;
         private System.Windows.Forms.Button buttonImport;
+        private System.Windows.Forms.Button aboutButton;
 
         private System.Windows.Forms.CheckBox checkBoxI;
         private System.Windows.Forms.CheckBox checkBoxE;
@@ -98,6 +99,7 @@ namespace NMSShipIOTool
             progressBar3 = new Label();
             radioPanelE = new FlowLayoutPanel();
             checkBoxE = new CheckBox();
+            aboutButton = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -218,8 +220,8 @@ namespace NMSShipIOTool
             // 
             inputImportText.Location = new Point(506, 78);
             inputImportText.Multiline = true;
+            inputImportText.Name = "inputImportText";
             inputImportText.ScrollBars = ScrollBars.Both;
-            inputImportText.Name = "inputInportText";
             inputImportText.Size = new Size(390, 333);
             inputImportText.TabIndex = 1;
             inputImportText.TextChanged += inputImportText_TextChanged;
@@ -404,11 +406,22 @@ namespace NMSShipIOTool
             checkBoxE.Text = "启用反混淆";
             checkBoxE.CheckedChanged += checkBoxE_CheckedChanged;
             // 
+            // aboutButton
+            // 
+            aboutButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            aboutButton.Location = new Point(835, 560);
+            aboutButton.Name = "aboutButton";
+            aboutButton.Size = new Size(100, 40);
+            aboutButton.TabIndex = 0;
+            aboutButton.Text = "关于";
+            aboutButton.Click += aboutButton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(968, 633);
+            Controls.Add(aboutButton);
             Controls.Add(tabControl1);
             Name = "Form1";
             Text = "无人深空自定义飞船导入与导出工具";

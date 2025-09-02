@@ -318,9 +318,11 @@ namespace NMSShipIOTool
             string jsonString;
             if (firstShipBase["@ZJ"] == null) { jsonString = ""; }
             else
-            { jsonString = checkBoxE.Checked 
+            {
+                jsonString = checkBoxE.Checked
                     ? JsonConvert.SerializeObject(Obfuscation.Deobfuscate(firstShipBase["@ZJ"]), Formatting.Indented)
-                    : JsonConvert.SerializeObject(firstShipBase["@ZJ"], Formatting.Indented); }
+                    : JsonConvert.SerializeObject(firstShipBase["@ZJ"], Formatting.Indented);
+            }
             var saveFilePath = System.IO.Path.Combine(filePath, fileName + ".json");
             File.WriteAllText(saveFilePath, jsonString);
             MessageClass.InfoMessageBox("自定义飞船已导出到：" + saveFilePath);
@@ -444,11 +446,11 @@ namespace NMSShipIOTool
         {
             if (!checkBoxI.Checked)
             {
-                var result = MessageClass.WarningMessageBox("你正在关闭导入的混淆功能。由于游戏存档经过混淆加密，在导入明文内容时需要经过混淆。如果你的设备能流畅地运行无人深空，那么混淆对你的设备性能的影响可以忽略不计。\n" + 
-                    "即使你导入的内容未经反混淆仍然是密文，我们也推荐你保持混淆开启。混淆算法不会影响已经经过混淆的内容，开启混淆可以尽可能的降低意外导入明文且未经混淆而导致存档损坏的风险。\n" + 
+                var result = MessageClass.WarningMessageBox("你正在关闭导入的混淆功能。由于游戏存档经过混淆加密，在导入明文内容时需要经过混淆。如果你的设备能流畅地运行无人深空，那么混淆对你的设备性能的影响可以忽略不计。\n" +
+                    "即使你导入的内容未经反混淆仍然是密文，我们也推荐你保持混淆开启。混淆算法不会影响已经经过混淆的内容，开启混淆可以尽可能的降低意外导入明文且未经混淆而导致存档损坏的风险。\n" +
                     "你确定你想要关闭混淆，直接导入 JSON 内容吗？若确定继续，请确保你导入的内容完全经过混淆。任何不当使用造成的个人损失与本工具无关，请在执行危险操作之前备份您的存档文件。");
                 if (result == DialogResult.Cancel) { checkBoxI.Checked = true; }
-                }
+            }
         }
 
         private void checkBoxE_CheckedChanged(object sender, EventArgs e)
@@ -460,6 +462,11 @@ namespace NMSShipIOTool
                     "你确定你想要关闭反混淆，直接导出混淆加密内容吗？若确定继续，请确保经你在分享至其他平台或使用其他三方工具前有能力自行对分享内容进过反混淆。任何不当使用造成的个人损失与本工具无关，请在执行危险操作之前备份您的存档文件。");
                 if (result == DialogResult.Cancel) { checkBoxE.Checked = true; }
             }
+        }
+
+        private void aboutButton_Click(object sender, EventArgs e)
+        {
+            new AboutDialog().ShowDialog(this);
         }
     }
 }
