@@ -193,7 +193,7 @@ namespace NMSShipIOTool
             var baseTokenIndexes = baseTokens.Children().ToList();
             foreach (JToken t in baseTokenIndexes)
             {
-                if (t["peI"] != null && t["peI"]["DPp"] != null && t["peI"]["DPp"].ToString() == "UITempShipBase")
+                if (t["peI"] != null && t["peI"]["DPp"] != null && t["peI"]["DPp"].ToString() == "PlayerShipBase")
                 {
                     shipTokenIndexes.Add(baseTokenIndexes.IndexOf(t));
                 }
