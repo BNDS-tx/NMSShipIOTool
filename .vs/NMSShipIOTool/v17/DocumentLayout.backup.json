@@ -7,12 +7,24 @@
       "RelativeMoniker": "D:0:0:{5C4BC91B-DF61-453A-B847-D393F8B1F020}|NMSShipIOTool\\NMSShipIOTool.csproj|solutionrelative:nmsshipiotool\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{5C4BC91B-DF61-453A-B847-D393F8B1F020}|NMSShipIOTool\\NMSShipIOTool.csproj|c:\\users\\phone\\documents\\project\\personal\\nmsshipiotool\\nmsshipiotool\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5C4BC91B-DF61-453A-B847-D393F8B1F020}|NMSShipIOTool\\NMSShipIOTool.csproj|solutionrelative:nmsshipiotool\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5C4BC91B-DF61-453A-B847-D393F8B1F020}|NMSShipIOTool\\NMSShipIOTool.csproj|c:\\users\\phone\\documents\\project\\personal\\nmsshipiotool\\nmsshipiotool\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5C4BC91B-DF61-453A-B847-D393F8B1F020}|NMSShipIOTool\\NMSShipIOTool.csproj|solutionrelative:nmsshipiotool\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C4BC91B-DF61-453A-B847-D393F8B1F020}|NMSShipIOTool\\NMSShipIOTool.csproj|C:\\Users\\phone\\Documents\\Project\\Personal\\NMSShipIOTool\\nmsshipiotool\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5C4BC91B-DF61-453A-B847-D393F8B1F020}|NMSShipIOTool\\NMSShipIOTool.csproj|solutionrelative:nmsshipiotool\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{5C4BC91B-DF61-453A-B847-D393F8B1F020}|NMSShipIOTool\\NMSShipIOTool.csproj|c:\\users\\phone\\documents\\project\\personal\\nmsshipiotool\\nmsshipiotool\\choicedialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C4BC91B-DF61-453A-B847-D393F8B1F020}|NMSShipIOTool\\NMSShipIOTool.csproj|solutionrelative:nmsshipiotool\\choicedialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C4BC91B-DF61-453A-B847-D393F8B1F020}|NMSShipIOTool\\NMSShipIOTool.csproj|c:\\users\\phone\\documents\\project\\personal\\nmsshipiotool\\nmsshipiotool\\obfuscation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C4BC91B-DF61-453A-B847-D393F8B1F020}|NMSShipIOTool\\NMSShipIOTool.csproj|solutionrelative:nmsshipiotool\\obfuscation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C4BC91B-DF61-453A-B847-D393F8B1F020}|NMSShipIOTool\\NMSShipIOTool.csproj|c:\\users\\phone\\documents\\project\\personal\\nmsshipiotool\\nmsshipiotool\\messageclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C4BC91B-DF61-453A-B847-D393F8B1F020}|NMSShipIOTool\\NMSShipIOTool.csproj|solutionrelative:nmsshipiotool\\messageclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,9 +42,9 @@
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\phone\\Documents\\Project\\Personal\\NMSShipIOTool\\NMSShipIOTool\\Form1.cs",
               "RelativeDocumentMoniker": "NMSShipIOTool\\Form1.cs",
-              "ToolTip": "C:\\Users\\phone\\Documents\\Project\\Personal\\NMSShipIOTool\\NMSShipIOTool\\Form1.cs*",
-              "RelativeToolTip": "NMSShipIOTool\\Form1.cs*",
-              "ViewState": "AgIAAKsAAAAAAAAAAAAmwMQAAAA0AAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\phone\\Documents\\Project\\Personal\\NMSShipIOTool\\NMSShipIOTool\\Form1.cs",
+              "RelativeToolTip": "NMSShipIOTool\\Form1.cs",
+              "ViewState": "AgIAACwBAAAAAAAAAAAiwEABAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-31T18:54:23.042Z",
               "IsPinned": true,
@@ -40,26 +52,64 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Form1.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "C:\\Users\\phone\\Documents\\Project\\Personal\\NMSShipIOTool\\NMSShipIOTool\\Form1.cs",
               "RelativeDocumentMoniker": "NMSShipIOTool\\Form1.cs",
-              "ToolTip": "C:\\Users\\phone\\Documents\\Project\\Personal\\NMSShipIOTool\\NMSShipIOTool\\Form1.cs [\u8BBE\u8BA1]*",
-              "RelativeToolTip": "NMSShipIOTool\\Form1.cs [\u8BBE\u8BA1]*",
+              "ToolTip": "C:\\Users\\phone\\Documents\\Project\\Personal\\NMSShipIOTool\\NMSShipIOTool\\Form1.cs [\u8BBE\u8BA1]",
+              "RelativeToolTip": "NMSShipIOTool\\Form1.cs [\u8BBE\u8BA1]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-01T03:04:56.958Z",
-              "IsPinned": true,
+              "WhenOpened": "2025-09-02T10:36:08.429Z",
               "EditorCaption": " [\u8BBE\u8BA1]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
+              "Title": "MessageClass.cs",
+              "DocumentMoniker": "C:\\Users\\phone\\Documents\\Project\\Personal\\NMSShipIOTool\\NMSShipIOTool\\MessageClass.cs",
+              "RelativeDocumentMoniker": "NMSShipIOTool\\MessageClass.cs",
+              "ToolTip": "C:\\Users\\phone\\Documents\\Project\\Personal\\NMSShipIOTool\\NMSShipIOTool\\MessageClass.cs",
+              "RelativeToolTip": "NMSShipIOTool\\MessageClass.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-02T07:52:30.595Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Obfuscation.cs",
+              "DocumentMoniker": "C:\\Users\\phone\\Documents\\Project\\Personal\\NMSShipIOTool\\NMSShipIOTool\\Obfuscation.cs",
+              "RelativeDocumentMoniker": "NMSShipIOTool\\Obfuscation.cs",
+              "ToolTip": "C:\\Users\\phone\\Documents\\Project\\Personal\\NMSShipIOTool\\NMSShipIOTool\\Obfuscation.cs",
+              "RelativeToolTip": "NMSShipIOTool\\Obfuscation.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-02T07:36:12.441Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ChoiceDialog.cs",
+              "DocumentMoniker": "C:\\Users\\phone\\Documents\\Project\\Personal\\NMSShipIOTool\\NMSShipIOTool\\ChoiceDialog.cs",
+              "RelativeDocumentMoniker": "NMSShipIOTool\\ChoiceDialog.cs",
+              "ToolTip": "C:\\Users\\phone\\Documents\\Project\\Personal\\NMSShipIOTool\\NMSShipIOTool\\ChoiceDialog.cs",
+              "RelativeToolTip": "NMSShipIOTool\\ChoiceDialog.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-02T05:07:48.869Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Form1.Designer.cs",
               "DocumentMoniker": "C:\\Users\\phone\\Documents\\Project\\Personal\\NMSShipIOTool\\NMSShipIOTool\\Form1.Designer.cs",
               "RelativeDocumentMoniker": "NMSShipIOTool\\Form1.Designer.cs",
               "ToolTip": "C:\\Users\\phone\\Documents\\Project\\Personal\\NMSShipIOTool\\NMSShipIOTool\\Form1.Designer.cs",
               "RelativeToolTip": "NMSShipIOTool\\Form1.Designer.cs",
-              "ViewState": "AgIAACcAAAAAAAAAAAAIwBoAAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAABEBAAAAAAAAAAAIwC0BAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-01T02:27:06.334Z",
               "EditorCaption": ""

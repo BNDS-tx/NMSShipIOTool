@@ -32,7 +32,7 @@
       },
       "LazyCache/2.4.0": {
         "dependencies": {
-          "Microsoft.Extensions.Caching.Abstractions": "2.1.0",
+          "Microsoft.Extensions.Caching.Abstractions": "9.0.8",
           "Microsoft.Extensions.Caching.Memory": "2.1.0"
         },
         "runtime": {
@@ -83,20 +83,20 @@
           }
         }
       },
-      "Microsoft.Extensions.Caching.Abstractions/2.1.0": {
+      "Microsoft.Extensions.Caching.Abstractions/9.0.8": {
         "dependencies": {
-          "Microsoft.Extensions.Primitives": "2.1.0"
+          "Microsoft.Extensions.Primitives": "9.0.8"
         },
         "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.Caching.Abstractions.dll": {
-            "assemblyVersion": "2.1.0.0",
-            "fileVersion": "2.1.0.18136"
+          "lib/net9.0/Microsoft.Extensions.Caching.Abstractions.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.825.36511"
           }
         }
       },
       "Microsoft.Extensions.Caching.Memory/2.1.0": {
         "dependencies": {
-          "Microsoft.Extensions.Caching.Abstractions": "2.1.0",
+          "Microsoft.Extensions.Caching.Abstractions": "9.0.8",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "2.1.0",
           "Microsoft.Extensions.Options": "2.1.0"
         },
@@ -118,7 +118,7 @@
       "Microsoft.Extensions.Options/2.1.0": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "2.1.0",
-          "Microsoft.Extensions.Primitives": "2.1.0"
+          "Microsoft.Extensions.Primitives": "9.0.8"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.Options.dll": {
@@ -127,15 +127,11 @@
           }
         }
       },
-      "Microsoft.Extensions.Primitives/2.1.0": {
-        "dependencies": {
-          "System.Memory": "4.5.0",
-          "System.Runtime.CompilerServices.Unsafe": "4.5.0"
-        },
+      "Microsoft.Extensions.Primitives/9.0.8": {
         "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.Primitives.dll": {
-            "assemblyVersion": "2.1.0.0",
-            "fileVersion": "2.1.0.18136"
+          "lib/net9.0/Microsoft.Extensions.Primitives.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.825.36511"
           }
         }
       },
@@ -171,15 +167,6 @@
           "lib/netstandard2.0/SpookilySharp.dll": {
             "assemblyVersion": "1.2.0.0",
             "fileVersion": "1.2.0.0"
-          }
-        }
-      },
-      "System.Memory/4.5.0": {},
-      "System.Runtime.CompilerServices.Unsafe/4.5.0": {
-        "runtime": {
-          "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll": {
-            "assemblyVersion": "4.0.4.0",
-            "fileVersion": "0.0.0.0"
           }
         }
       }
@@ -235,12 +222,12 @@
       "path": "libnom.map/0.13.7",
       "hashPath": "libnom.map.0.13.7.nupkg.sha512"
     },
-    "Microsoft.Extensions.Caching.Abstractions/2.1.0": {
+    "Microsoft.Extensions.Caching.Abstractions/9.0.8": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-R7uAb/JRwb9YQBB0qqLlX2qv4RBC/BqqIqFDqzvCjT0T2uPpbuTINLKGp+7uX2dbxjt3cpebSu5GvebeiKYpQA==",
-      "path": "microsoft.extensions.caching.abstractions/2.1.0",
-      "hashPath": "microsoft.extensions.caching.abstractions.2.1.0.nupkg.sha512"
+      "sha512": "sha512-4h7bsVoKoiK+SlPM+euX/ayGnKZhl47pPCidLTiio9xyG+vgVVfcYxcYQgjm0SCrdSxjG0EGIAKF8EFr3G8Ifw==",
+      "path": "microsoft.extensions.caching.abstractions/9.0.8",
+      "hashPath": "microsoft.extensions.caching.abstractions.9.0.8.nupkg.sha512"
     },
     "Microsoft.Extensions.Caching.Memory/2.1.0": {
       "type": "package",
@@ -263,12 +250,12 @@
       "path": "microsoft.extensions.options/2.1.0",
       "hashPath": "microsoft.extensions.options.2.1.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.Primitives/2.1.0": {
+    "Microsoft.Extensions.Primitives/9.0.8": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-gMwH6wgWOPfyfLfMLEP+ZF7/MSJq35e0xxKEYUjt8veEznY45nBVqdfI876+9SFQq2ChcqKf2UyYc2XYj2v27w==",
-      "path": "microsoft.extensions.primitives/2.1.0",
-      "hashPath": "microsoft.extensions.primitives.2.1.0.nupkg.sha512"
+      "sha512": "sha512-tizSIOEsIgSNSSh+hKeUVPK7xmTIjR8s+mJWOu1KXV3htvNQiPMFRMO17OdI1y/4ZApdBVk49u/08QGC9yvLug==",
+      "path": "microsoft.extensions.primitives/9.0.8",
+      "hashPath": "microsoft.extensions.primitives.9.0.8.nupkg.sha512"
     },
     "Mnemosyne/1.1.0.2": {
       "type": "package",
@@ -297,20 +284,6 @@
       "sha512": "sha512-4kiply6jaxckCmdhIgHYPiwFFCamy8hS0al+tLhFp2OY/Adkllalm/dns4EuZ4Nxcm9Wn9dP7+X9hWU6r2X7vQ==",
       "path": "spookilysharp/1.2.0",
       "hashPath": "spookilysharp.1.2.0.nupkg.sha512"
-    },
-    "System.Memory/4.5.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-m0psCSpUxTGfvwyO0i03ajXVhgBqyXlibXz0Mo1dtKGjaHrXFLnuQ8rNBTmWRqbfRjr4eC6Wah4X5FfuFDu5og==",
-      "path": "system.memory/4.5.0",
-      "hashPath": "system.memory.4.5.0.nupkg.sha512"
-    },
-    "System.Runtime.CompilerServices.Unsafe/4.5.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-YrzNWduCDHhUaSRBxHxL11UkM2fD6y8hITHis4/LbQZ6vj3vdRjoH3IoPWWC9uDXK2wHIqn+b5gv1Np/VKyM1g==",
-      "path": "system.runtime.compilerservices.unsafe/4.5.0",
-      "hashPath": "system.runtime.compilerservices.unsafe.4.5.0.nupkg.sha512"
     }
   }
 }

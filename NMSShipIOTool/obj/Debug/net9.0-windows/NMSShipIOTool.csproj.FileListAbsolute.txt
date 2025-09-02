@@ -33,3 +33,4 @@ C:\Users\phone\Documents\Project\Personal\NMSShipIOTool\NMSShipIOTool\obj\Debug\
 C:\Users\phone\Documents\Project\Personal\NMSShipIOTool\NMSShipIOTool\obj\Debug\net9.0-windows\NMSShipIOTool.pdb
 C:\Users\phone\Documents\Project\Personal\NMSShipIOTool\NMSShipIOTool\obj\Debug\net9.0-windows\NMSShipIOTool.genruntimeconfig.cache
 C:\Users\phone\Documents\Project\Personal\NMSShipIOTool\NMSShipIOTool\obj\Debug\net9.0-windows\ref\NMSShipIOTool.dll
+C:\Users\phone\Documents\Project\Personal\NMSShipIOTool\NMSShipIOTool\obj\Debug\net9.0-windows\ChoiceDialog.resources

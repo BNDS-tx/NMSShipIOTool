@@ -69,7 +69,7 @@
             },
             "Microsoft.Extensions.Caching.Abstractions": {
               "target": "Package",
-              "version": "[2.1.0, )"
+              "version": "[9.0.8, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",

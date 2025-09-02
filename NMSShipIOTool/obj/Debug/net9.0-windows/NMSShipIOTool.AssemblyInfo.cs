@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NMSShipIOTool")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+278107ef5d8aa29acbdb772d2ebd780a150a0df0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+994e4a2576cf94854d0fe7611cca484303f94231")]
 [assembly: System.Reflection.AssemblyProductAttribute("NMSShipIOTool")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NMSShipIOTool")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
