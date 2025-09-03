@@ -508,7 +508,7 @@ namespace NMSShipIOTool
             Controls.Add(aboutButton);
             Controls.Add(tabControl1);
             Name = "Form1";
-            Text = "无人深空自定义飞船导入与导出工具";
+            Text = "无人深空飞船导入与导出工具";
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
