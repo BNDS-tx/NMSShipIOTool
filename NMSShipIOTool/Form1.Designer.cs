@@ -455,7 +455,7 @@ namespace NMSShipIOTool
             // checkBoxNewShip
             // 
             checkBoxNewShip.Checked = false;
-            checkBoxNewShip.CheckState = CheckState.Checked;
+            checkBoxNewShip.CheckState = CheckState.Unchecked;
             checkBoxNewShip.Location = new Point(670, 350);
             checkBoxNewShip.Name = "checkBoxNewShip";
             checkBoxNewShip.Size = new Size(112, 24);
