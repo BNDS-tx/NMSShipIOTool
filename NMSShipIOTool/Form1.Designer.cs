@@ -17,10 +17,10 @@ namespace NMSShipIOTool
         private System.Windows.Forms.TextBox importPath;
         private System.Windows.Forms.TextBox inputImportText;
         private System.Windows.Forms.TextBox shipSeed;
+        private System.Windows.Forms.TextBox labelShipDetected;
 
         private System.Windows.Forms.Label labelPath;
         private System.Windows.Forms.Label labelDescription;
-        private System.Windows.Forms.Label labelShipDetected;
         private System.Windows.Forms.Label shipSelectE;
         private System.Windows.Forms.Label shipSelectI;
         private System.Windows.Forms.Label pathTextE;
@@ -77,7 +77,7 @@ namespace NMSShipIOTool
             tabPage1 = new TabPage();
             labelPath = new Label();
             labelDescription = new Label();
-            labelShipDetected = new Label();
+            labelShipDetected = new TextBox();
             textBoxPath = new TextBox();
             buttonSelect = new Button();
             buttonLoad = new Button();
@@ -157,16 +157,19 @@ namespace NMSShipIOTool
             // 
             // labelDescription
             // 
-            labelDescription.Location = new Point(116, 74);
+            labelDescription.Location = new Point(12, 41);
             labelDescription.Name = "labelDescription";
-            labelDescription.Size = new Size(358, 249);
+            labelDescription.Size = new Size(286, 249);
             labelDescription.TabIndex = 1;
             // 
             // labelShipDetected
             // 
-            labelShipDetected.Location = new Point(480, 74);
+            labelShipDetected.Location = new Point(319, 38);
+            labelShipDetected.Multiline = true;
             labelShipDetected.Name = "labelShipDetected";
-            labelShipDetected.Size = new Size(348, 249);
+            labelShipDetected.ReadOnly = true;
+            labelShipDetected.ScrollBars = ScrollBars.Both;
+            labelShipDetected.Size = new Size(600, 319);
             labelShipDetected.TabIndex = 2;
             // 
             // textBoxPath
@@ -303,6 +306,7 @@ namespace NMSShipIOTool
             // 
             // radioPanelI
             // 
+            radioPanelI.AutoScroll = true;
             radioPanelI.Location = new Point(50, 78);
             radioPanelI.Name = "radioPanelI";
             radioPanelI.Size = new Size(426, 286);
@@ -405,6 +409,7 @@ namespace NMSShipIOTool
             // 
             // radioPanelE
             // 
+            radioPanelE.AutoScroll = true;
             radioPanelE.Location = new Point(50, 78);
             radioPanelE.Name = "radioPanelE";
             radioPanelE.Size = new Size(426, 248);
@@ -441,6 +446,7 @@ namespace NMSShipIOTool
             shipSeed.Name = "shipSeed";
             shipSeed.Size = new Size(511, 23);
             shipSeed.TabIndex = 0;
+            shipSeed.TextChanged += shipSeed_TextChanged;
             // 
             // seedSelectText
             // 
@@ -478,9 +484,10 @@ namespace NMSShipIOTool
             // 
             // radioPanelS
             // 
+            radioPanelS.AutoScroll = true;
             radioPanelS.Location = new Point(50, 78);
             radioPanelS.Name = "radioPanelS";
-            radioPanelS.Size = new Size(426, 286);
+            radioPanelS.Size = new Size(579, 286);
             radioPanelS.TabIndex = 2;
             // 
             // aboutButton
