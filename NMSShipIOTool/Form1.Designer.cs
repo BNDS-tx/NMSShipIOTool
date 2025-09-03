@@ -106,6 +106,12 @@ namespace NMSShipIOTool
             radioPanelE = new FlowLayoutPanel();
             checkBoxE = new CheckBox();
             tabPage4 = new TabPage();
+            checkBoxNewShip = new CheckBox();
+            seedShipIOText = new Label();
+            checkBoxSH0 = new CheckBox();
+            checkBoxS = new CheckBox();
+            buttonSeedShipExport = new Button();
+            buttonSeedShipImport = new Button();
             shipSeed = new TextBox();
             seedSelectText = new Label();
             seedText = new Label();
@@ -428,6 +434,12 @@ namespace NMSShipIOTool
             // 
             // tabPage4
             // 
+            tabPage4.Controls.Add(checkBoxNewShip);
+            tabPage4.Controls.Add(seedShipIOText);
+            tabPage4.Controls.Add(checkBoxSH0);
+            tabPage4.Controls.Add(checkBoxS);
+            tabPage4.Controls.Add(buttonSeedShipExport);
+            tabPage4.Controls.Add(buttonSeedShipImport);
             tabPage4.Controls.Add(shipSeed);
             tabPage4.Controls.Add(seedSelectText);
             tabPage4.Controls.Add(seedText);
@@ -439,6 +451,63 @@ namespace NMSShipIOTool
             tabPage4.Size = new Size(937, 580);
             tabPage4.TabIndex = 3;
             tabPage4.Text = "种子飞船";
+            // 
+            // checkBoxNewShip
+            // 
+            checkBoxNewShip.Checked = true;
+            checkBoxNewShip.CheckState = CheckState.Checked;
+            checkBoxNewShip.Location = new Point(670, 350);
+            checkBoxNewShip.Name = "checkBoxNewShip";
+            checkBoxNewShip.Size = new Size(112, 24);
+            checkBoxNewShip.TabIndex = 13;
+            checkBoxNewShip.Text = "作为新飞船导入";
+            // 
+            // seedShipIOText
+            // 
+            seedShipIOText.Location = new Point(670, 391);
+            seedShipIOText.Name = "seedShipIOText";
+            seedShipIOText.Size = new Size(190, 23);
+            seedShipIOText.TabIndex = 12;
+            seedShipIOText.Text = "你可在此处导出/入飞船文件：";
+            // 
+            // checkBoxSH0
+            // 
+            checkBoxSH0.Checked = true;
+            checkBoxSH0.CheckState = CheckState.Checked;
+            checkBoxSH0.Location = new Point(786, 480);
+            checkBoxSH0.Name = "checkBoxSH0";
+            checkBoxSH0.Size = new Size(100, 24);
+            checkBoxSH0.TabIndex = 11;
+            checkBoxSH0.Text = "保存为 .sh0";
+            // 
+            // checkBoxS
+            // 
+            checkBoxS.Checked = true;
+            checkBoxS.CheckState = CheckState.Checked;
+            checkBoxS.Location = new Point(670, 480);
+            checkBoxS.Name = "checkBoxS";
+            checkBoxS.Size = new Size(100, 24);
+            checkBoxS.TabIndex = 4;
+            checkBoxS.Text = "启用混淆";
+            checkBoxS.CheckedChanged += checkBoxS_CheckedChanged;
+            // 
+            // buttonSeedShipExport
+            // 
+            buttonSeedShipExport.Location = new Point(786, 430);
+            buttonSeedShipExport.Name = "buttonSeedShipExport";
+            buttonSeedShipExport.Size = new Size(100, 33);
+            buttonSeedShipExport.TabIndex = 1;
+            buttonSeedShipExport.Text = "导出飞船";
+            buttonSeedShipExport.Click += buttonSeedShipExport_Click;
+            // 
+            // buttonSeedShipImport
+            // 
+            buttonSeedShipImport.Location = new Point(670, 430);
+            buttonSeedShipImport.Name = "buttonSeedShipImport";
+            buttonSeedShipImport.Size = new Size(100, 33);
+            buttonSeedShipImport.TabIndex = 10;
+            buttonSeedShipImport.Text = "导入飞船";
+            buttonSeedShipImport.Click += buttonSeedShipImport_Click;
             // 
             // shipSeed
             // 
@@ -479,7 +548,7 @@ namespace NMSShipIOTool
             progressBar4.Name = "progressBar4";
             progressBar4.Size = new Size(279, 23);
             progressBar4.TabIndex = 1;
-            progressBar4.Text = "正在导入，请稍候...";
+            progressBar4.Text = "正在处理，请稍候...";
             progressBar4.Visible = false;
             // 
             // radioPanelS
@@ -527,5 +596,11 @@ namespace NMSShipIOTool
         private TabPage tabPage2;
         private TabPage tabPage3;
         private TabPage tabPage4;
+        private Button buttonSeedShipImport;
+        private Button buttonSeedShipExport;
+        private CheckBox checkBoxS;
+        private CheckBox checkBoxSH0;
+        private Label seedShipIOText;
+        private CheckBox checkBoxNewShip;
     }
 }
