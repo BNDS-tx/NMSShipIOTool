@@ -40,7 +40,7 @@
             title.Name = "title";
             title.Size = new Size(600, 200);
             title.TabIndex = 0;
-            title.Text = "NMS Ship I&O Tool\n无人深空飞船导入导出工具";
+            title.Text = "NMS Ship IO Tool\n无人深空飞船导入导出工具";
             title.TextAlign = ContentAlignment.MiddleCenter;
             title.Font = new Font("Microsoft YaHei", 20, FontStyle.Bold);
             // 
