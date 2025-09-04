@@ -18,7 +18,7 @@ public class ChoiceDialog : Form
         this.saves = saves;
         this.Text = title ?? "请选择一个选项";
         this.Width = 400;
-        this.Height = 350;
+        this.Height = 360;
         this.StartPosition = FormStartPosition.CenterParent;
         this.FormBorderStyle = FormBorderStyle.FixedDialog;
         this.MaximizeBox = false;
@@ -27,10 +27,11 @@ public class ChoiceDialog : Form
         radioPanel = new FlowLayoutPanel
         {
             Dock = DockStyle.Top,
-            Height = 200,
+            Height = 220,
             AutoScroll = true,
             FlowDirection = FlowDirection.TopDown,
-            WrapContents = false
+            WrapContents = false,
+            Padding = new Padding(10, 10, 10, 10),
         };
 
         // 动态添加 RadioButton
@@ -54,8 +55,8 @@ public class ChoiceDialog : Form
             Height = 40
         };
 
-        okButton = new Button { Text = "确定", Width = 80 };
-        cancelButton = new Button { Text = "取消", Width = 80 };
+        okButton = new Button { Text = "确定", Margin = new Padding(5, 0, 10, 10), Height = 33, Width = 80 };
+        cancelButton = new Button { Text = "取消", Margin = new Padding(10, 0, 5, 10), Height = 33, Width = 80 };
 
         okButton.Click += (s, e) =>
         {

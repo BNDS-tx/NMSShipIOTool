@@ -83,6 +83,7 @@ namespace NMSShipIOTool
             buttonLoad = new Button();
             progressBar1 = new Label();
             tabPage2 = new TabPage();
+            checkBoxNMSSHIP1 = new CheckBox();
             importPath = new TextBox();
             inputImportText = new TextBox();
             importSelect = new Button();
@@ -95,6 +96,7 @@ namespace NMSShipIOTool
             radioPanelI = new FlowLayoutPanel();
             checkBoxI = new CheckBox();
             tabPage3 = new TabPage();
+            checkBoxNMSSHIP2 = new CheckBox();
             exportPath = new TextBox();
             exportName = new TextBox();
             shipSelectE = new Label();
@@ -119,6 +121,7 @@ namespace NMSShipIOTool
             progressBar4 = new Label();
             radioPanelS = new FlowLayoutPanel();
             aboutButton = new Button();
+            checkBoxNMSSHIP3 = new CheckBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -215,6 +218,7 @@ namespace NMSShipIOTool
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(checkBoxNMSSHIP1);
             tabPage2.Controls.Add(importPath);
             tabPage2.Controls.Add(inputImportText);
             tabPage2.Controls.Add(importSelect);
@@ -231,6 +235,15 @@ namespace NMSShipIOTool
             tabPage2.Size = new Size(937, 580);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "自定义飞船导入";
+            // 
+            // checkBoxNMSSHIP1
+            // 
+            checkBoxNMSSHIP1.Location = new Point(231, 480);
+            checkBoxNMSSHIP1.Name = "checkBoxIIncludeSH0";
+            checkBoxNMSSHIP1.Size = new Size(245, 24);
+            checkBoxNMSSHIP1.TabIndex = 10;
+            checkBoxNMSSHIP1.Text = "启用完整包";
+            checkBoxNMSSHIP1.CheckedChanged += checkBoxIncludeSH0_CheckedChanged;
             // 
             // importPath
             // 
@@ -307,7 +320,7 @@ namespace NMSShipIOTool
             progressBar2.Name = "progressBar2";
             progressBar2.Size = new Size(279, 23);
             progressBar2.TabIndex = 7;
-            progressBar2.Text = "正在导入，请稍候...";
+            progressBar2.Text = "正在处理，请稍候...";
             progressBar2.Visible = false;
             // 
             // radioPanelI
@@ -324,13 +337,14 @@ namespace NMSShipIOTool
             checkBoxI.CheckState = CheckState.Checked;
             checkBoxI.Location = new Point(118, 480);
             checkBoxI.Name = "checkBoxI";
-            checkBoxI.Size = new Size(360, 24);
+            checkBoxI.Size = new Size(98, 24);
             checkBoxI.TabIndex = 9;
             checkBoxI.Text = "启用混淆";
             checkBoxI.CheckedChanged += checkBoxI_CheckedChanged;
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(checkBoxNMSSHIP2);
             tabPage3.Controls.Add(exportPath);
             tabPage3.Controls.Add(exportName);
             tabPage3.Controls.Add(shipSelectE);
@@ -346,6 +360,15 @@ namespace NMSShipIOTool
             tabPage3.Size = new Size(937, 580);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "自定义飞船导出";
+            // 
+            // checkBoxNMSSHIP2
+            // 
+            checkBoxNMSSHIP2.Location = new Point(231, 480);
+            checkBoxNMSSHIP2.Name = "checkBoxEIncludeSH0";
+            checkBoxNMSSHIP2.Size = new Size(245, 24);
+            checkBoxNMSSHIP2.TabIndex = 11;
+            checkBoxNMSSHIP2.Text = "启用完整包";
+            checkBoxNMSSHIP2.CheckedChanged += checkBoxIncludeSH0_CheckedChanged;
             // 
             // exportPath
             // 
@@ -410,7 +433,7 @@ namespace NMSShipIOTool
             progressBar3.Name = "progressBar3";
             progressBar3.Size = new Size(279, 23);
             progressBar3.TabIndex = 1;
-            progressBar3.Text = "正在导出，请稍候...";
+            progressBar3.Text = "正在处理，请稍候...";
             progressBar3.Visible = false;
             // 
             // radioPanelE
@@ -427,13 +450,14 @@ namespace NMSShipIOTool
             checkBoxE.CheckState = CheckState.Checked;
             checkBoxE.Location = new Point(118, 480);
             checkBoxE.Name = "checkBoxE";
-            checkBoxE.Size = new Size(360, 24);
+            checkBoxE.Size = new Size(98, 24);
             checkBoxE.TabIndex = 3;
             checkBoxE.Text = "启用反混淆";
             checkBoxE.CheckedChanged += checkBoxE_CheckedChanged;
             // 
             // tabPage4
             // 
+            tabPage4.Controls.Add(checkBoxNMSSHIP3);
             tabPage4.Controls.Add(checkBoxNewShip);
             tabPage4.Controls.Add(seedShipIOText);
             tabPage4.Controls.Add(checkBoxSH0);
@@ -450,12 +474,10 @@ namespace NMSShipIOTool
             tabPage4.Name = "tabPage4";
             tabPage4.Size = new Size(937, 580);
             tabPage4.TabIndex = 3;
-            tabPage4.Text = "种子飞船";
+            tabPage4.Text = "常规飞船";
             // 
             // checkBoxNewShip
             // 
-            checkBoxNewShip.Checked = false;
-            checkBoxNewShip.CheckState = CheckState.Unchecked;
             checkBoxNewShip.Location = new Point(670, 350);
             checkBoxNewShip.Name = "checkBoxNewShip";
             checkBoxNewShip.Size = new Size(112, 24);
@@ -523,7 +545,7 @@ namespace NMSShipIOTool
             seedSelectText.Name = "seedSelectText";
             seedSelectText.Size = new Size(184, 23);
             seedSelectText.TabIndex = 0;
-            seedSelectText.Text = "选择你要导入/导出种子的飞船：";
+            seedSelectText.Text = "选择你要导入/导出的常规飞船：";
             // 
             // seedText
             // 
@@ -569,6 +591,14 @@ namespace NMSShipIOTool
             aboutButton.Text = "关于";
             aboutButton.Click += aboutButton_Click;
             // 
+            // checkBoxNMSSHIP3
+            // 
+            checkBoxNMSSHIP3.Location = new Point(116, 480);
+            checkBoxNMSSHIP3.Name = "checkBox1";
+            checkBoxNMSSHIP3.Size = new Size(245, 24);
+            checkBoxNMSSHIP3.TabIndex = 11;
+            checkBoxNMSSHIP3.Text = "启用完整包";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -602,5 +632,8 @@ namespace NMSShipIOTool
         private CheckBox checkBoxSH0;
         private Label seedShipIOText;
         private CheckBox checkBoxNewShip;
+        private CheckBox checkBoxNMSSHIP1;
+        private CheckBox checkBoxNMSSHIP2;
+        private CheckBox checkBoxNMSSHIP3;
     }
 }

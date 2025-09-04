@@ -76,6 +76,22 @@ namespace NMSShipIOTool
             }
         }
 
+        public static Dictionary<int, int> SlotTrack = new Dictionary<int, int>
+        {
+            {0,3},
+            {1,4},
+            {2,5},
+            {3,6},
+            {4,7},
+            {5,8},
+            {6,17},
+            {7,18},
+            {8,19},
+            {9,20},
+            {10,21},
+            {11,22}
+        };
+
         private static Dictionary<string, string> Key = new Dictionary<string, string>
         {
             {"XJ>","Y"},
