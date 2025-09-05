@@ -188,7 +188,6 @@ namespace NMSShipIOTool
             ShipBaseTokens = shipTokenIndexes;
 
             updateTabEnabled(savePath, AllJTokens);
-            progressBar.Visible = false;
 
             List<string> shipOptons = new List<string>();
             List<string> shipSeedOptions = new List<string>();
@@ -203,7 +202,7 @@ namespace NMSShipIOTool
                     "所有飞船 " + ShipOwnerTokens.Children().Count() + " 艘，其中自定义飞船 " +
                     ShipBaseTokens.Count() + " 艘。");
 
-                var shipBaseDetected = "包含自定义飞船：" + Environment.NewLine + Environment.NewLine;
+                var shipBaseDetected = "自定义飞船：" + Environment.NewLine + Environment.NewLine;
                 foreach (int t in ShipBaseTokens)
                 {
                     int shipID = int.Parse(BaseTokens.Children().ElementAt(t)["CVX"].ToString());
@@ -213,7 +212,7 @@ namespace NMSShipIOTool
                     shipBaseDetected = shipBaseDetected + option + Environment.NewLine;
                 }
 
-                var allShipDetected = "所有已识别飞船：" + Environment.NewLine + Environment.NewLine;
+                var allShipDetected = "常规飞船：" + Environment.NewLine + Environment.NewLine;
                 foreach (var t in ShipOwnerTokens.Children().ToList())
                 {
                     string fileName = t["NTx"]["93M"].ToString();
@@ -222,7 +221,8 @@ namespace NMSShipIOTool
                     string shipName = t["NKm"].ToString();
                     string shipSeed = t["NTx"]["@EL"].Children().ElementAt(1).ToString();
                     string shipType = checkType(fileName);
-                    if (shipType == "自定义" || shipType == "特殊船") { shipSeed += " 种子无效"; }
+                    if (shipType == "特殊船") { shipSeed += " 种子无效"; }
+                    if (shipType == "自定义") { continue; }
                     string option = "飞船 ID：" + shipID + "，类型：" + shipType + "，飞船名：" + shipName + "，种子：" + shipSeed;
                     shipSeedOptions.Add(option);
                     allShipDetected = allShipDetected + option + Environment.NewLine;
@@ -283,8 +283,6 @@ namespace NMSShipIOTool
         private void hideAllProgressBar()
         {
             progressBar.Visible = false;
-            progressBar.Visible = false;
-            progressBar.Visible = false;
         }
 
         public void AddRadioButtons(List<string> options1, List<string> options2)
@@ -310,7 +308,7 @@ namespace NMSShipIOTool
                     Text = options2[i].Split("，种子：")[0],
                     Name = options2[i].Split("，种子：")[1],
                     AutoSize = true,
-                    Tag = i
+                    Tag = int.Parse(options2[i].Split("飞船 ID：")[1].Split("，类型：")[0])
                 };
                 radio.CheckedChanged += (s, e) =>
                 {
@@ -848,7 +846,6 @@ namespace NMSShipIOTool
                 importShip(ShipBaseTokens[index], tempPath);
                 if (File.Exists(tempPath)) { File.Delete(tempPath); }
             }
-            progressBar.Visible = false;
         }
 
         private void buttonSetSeed_Click(object sender, EventArgs e)
@@ -900,7 +897,6 @@ namespace NMSShipIOTool
                 return;
             }
             setSeed(indexInt, shipSeedString);
-            progressBar.Visible = false;
         }
 
         private void buttonSeedShipImport_Click(object sender, EventArgs e)
@@ -965,7 +961,6 @@ namespace NMSShipIOTool
                     MessageClass.InfoMessageBox("导入取消！");
                 }
             }
-            progressBar.Visible = false;
         }
 
         private void buttonSeedShipExport_Click(object sender, EventArgs e)
