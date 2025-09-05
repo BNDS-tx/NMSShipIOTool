@@ -16,14 +16,16 @@ namespace NMSShipIOTool
         private String savePath = "";
         private String importPathString = "";
         private String exportPathString = "";
-        private String exportNameString = "导出自定义飞船";
+        private String defaultExportNameString = "导出飞船";
         private String baseJSONPath = "$.vLc.6f=.F?0";
         private String shipJSONPath = "$.vLc.6f=.@Cs";
+        private String ccdJSONPath = "$.vLc.6f=.@C9";
         private IPlatform platform = null;
         private int saveSlot = -1;
         private IEnumerable<JToken> AllJTokens = null;
         private IEnumerable<JToken> BaseTokens = null;
         private IEnumerable<JToken> ShipOwnerTokens = null;
+        private IEnumerable<JToken> CCBTokens = null;
         private List<int> ShipBaseTokens = new List<int>();
         public Form1()
         {
@@ -37,7 +39,6 @@ namespace NMSShipIOTool
             {
                 tabControl1.TabPages[1].Enabled = false;
                 tabControl1.TabPages[2].Enabled = false;
-                tabControl1.TabPages[3].Enabled = false;
                 buttonLoad.Enabled = false;
             }
             else
@@ -46,7 +47,6 @@ namespace NMSShipIOTool
                 {
                     tabControl1.TabPages[1].Enabled = true;
                     tabControl1.TabPages[2].Enabled = true;
-                    tabControl1.TabPages[3].Enabled = true;
                 }
                 buttonLoad.Enabled = true;
             }
@@ -106,7 +106,7 @@ namespace NMSShipIOTool
 
         async void loadSave(String filePath)
         {
-            progressBar1.Visible = true;
+            progressBar.Visible = true;
 
             var path = filePath;
             var settings = new PlatformSettings { LoadingStrategy = LoadingStrategyEnum.Current };
@@ -133,7 +133,7 @@ namespace NMSShipIOTool
             {
                 MessageClass.ErrorMessageBox("没有找到有效的存档");
                 updateTabEnabled(savePath, AllJTokens);
-                progressBar1.Visible = false;
+                progressBar.Visible = false;
                 return;
             }
             else if (saves.Count() == 1)
@@ -173,6 +173,8 @@ namespace NMSShipIOTool
             BaseTokens = baseTokens;
             IEnumerable<JToken> shipOwnerTokens = saves[choose].GetJsonTokens(shipJSONPath);
             ShipOwnerTokens = shipOwnerTokens;
+            IEnumerable<JToken> ccbTokens = saves[choose].GetJsonTokens(ccdJSONPath);
+            CCBTokens = ccbTokens;
 
             List<int> shipTokenIndexes = new List<int>();
             var baseTokenIndexes = baseTokens.Children().ToList();
@@ -186,7 +188,7 @@ namespace NMSShipIOTool
             ShipBaseTokens = shipTokenIndexes;
 
             updateTabEnabled(savePath, AllJTokens);
-            progressBar1.Visible = false;
+            progressBar.Visible = false;
 
             List<string> shipOptons = new List<string>();
             List<string> shipSeedOptions = new List<string>();
@@ -275,18 +277,14 @@ namespace NMSShipIOTool
 
         private void showAllProgressBar()
         {
-            progressBar1.Visible = true;
-            progressBar2.Visible = true;
-            progressBar3.Visible = true;
-            progressBar4.Visible = true;
+            progressBar.Visible = true;
         }
 
         private void hideAllProgressBar()
         {
-            progressBar1.Visible = false;
-            progressBar2.Visible = false;
-            progressBar3.Visible = false;
-            progressBar4.Visible = false;
+            progressBar.Visible = false;
+            progressBar.Visible = false;
+            progressBar.Visible = false;
         }
 
         public void AddRadioButtons(List<string> options1, List<string> options2)
@@ -304,26 +302,13 @@ namespace NMSShipIOTool
                 radioPanelI.Controls.Add(radio);
             }
 
-            radioPanelE.Controls.Clear();
-            for (int i = 0; i < options1.Count; i++)
-            {
-                var radio = new RadioButton
-                {
-                    Text = options1[i],
-                    Name = "radioE_" + i,
-                    AutoSize = true,
-                    Tag = i
-                };
-                radioPanelE.Controls.Add(radio);
-            }
-
             radioPanelS.Controls.Clear();
             for (int i = 0; i < options2.Count; i++)
             {
                 var radio = new RadioButton
                 {
-                    Text = options2[i],
-                    Name = "radioS_" + i,
+                    Text = options2[i].Split("，种子：")[0],
+                    Name = options2[i].Split("，种子：")[1],
                     AutoSize = true,
                     Tag = i
                 };
@@ -331,24 +316,15 @@ namespace NMSShipIOTool
                 {
                     if (((RadioButton)s).Checked)
                     {
-                        string seed = ((RadioButton)s).Text.Split("，种子：")[1];
+                        string seed = ((RadioButton)s).Name;
+                        if (seed.Contains("种子无效"))
+                        { seed = ""; buttonSetSeed.Enabled = false; }
+                        else { buttonSetSeed.Enabled = true; }
                         shipSeed.Text = seed;
                     }
                 };
                 radioPanelS.Controls.Add(radio);
             }
-        }
-
-        public int GetSelectedRadioE()
-        {
-            foreach (Control ctrl in radioPanelE.Controls)
-            {
-                if (ctrl is RadioButton rb && rb.Checked)
-                {
-                    return (int)rb.Tag; // 或者返回索引、其他参数
-                }
-            }
-            return 0;
         }
 
         public int GetSelectedRadioI()
@@ -381,7 +357,7 @@ namespace NMSShipIOTool
             {
                 if (ctrl is RadioButton rb && rb.Checked)
                 {
-                    return (string)rb.Text.Split("种子：")[1];
+                    return (string)rb.Name;
                 }
             }
             return null;
@@ -405,10 +381,148 @@ namespace NMSShipIOTool
             {
                 if (ctrl is RadioButton rb && rb.Checked)
                 {
-                    return (string)rb.Text.Split("飞船名：")[1].Split("，种子：")[0];
+                    return (string)rb.Text.Split("飞船名：")[1];
                 }
             }
             return null;
+        }
+
+        //
+        // 数据读写
+        //
+
+        // 写入基地/货船基地/自定义飞船数据
+        void writeBaseObject(string filePath, int index, IContainer save, bool isO)
+        {
+            string jsonString = File.ReadAllText(filePath); // 读取文件内容
+            var newShip = JsonConvert.DeserializeObject<JToken>(jsonString);
+            if (newShip == null || jsonString == "") { return; }
+            // 复制自定义飞船数据
+            var shipCopy = isO == true ? Obfuscation.Obfuscate(newShip.DeepClone()) : newShip.DeepClone();
+            // 获取自定义飞船
+            string targetPath = $"{baseJSONPath}[{index}].@ZJ";
+            // 替换自定义飞船的数据
+            save.SetJsonValue(shipCopy, targetPath);
+        }
+
+        // 写入拼接飞船自定义部件数据
+        void writeCCD(string filePath, int index, IContainer save, bool isO)
+        {
+            string jsonString = File.ReadAllText(filePath); // 读取文件内容
+            var newShip = JsonConvert.DeserializeObject<JToken>(jsonString);
+            if (newShip == null || jsonString == "") { return; }
+            // 复制飞船数据
+            var shipCopy = isO == true ? Obfuscation.Obfuscate(newShip.DeepClone()) : newShip.DeepClone();
+            // 获取路径
+            int slot = -1;
+            foreach (var item in Obfuscation.SlotTrack)
+            { if (item.Key == index) { slot = item.Value; break; } }
+            string targetPath = $"{ccdJSONPath}[{slot}]";
+            // 替换飞船的数据
+            save.SetJsonValue(shipCopy, targetPath);
+        }
+
+        // 写入飞船所有权数据
+        void writeSO(string filePath, int index, IContainer save, bool isO)
+        {
+            string jsonString = File.ReadAllText(filePath); // 读取文件内容
+            var newShip = JsonConvert.DeserializeObject<JToken>(jsonString);
+            if (newShip == null || jsonString == "") { return; }
+            // 复制飞船数据
+            var shipCopy = isO == true ? Obfuscation.Obfuscate(newShip.DeepClone()) : newShip.DeepClone();
+            // 获取飞船
+            string targetPath = $"{shipJSONPath}[{index}]";
+            // 替换飞船的数据
+            save.SetJsonValue(shipCopy, targetPath);
+        }
+
+        // 读取基地/货船基地/自定义飞船数据
+        string readBaseObject(int baseIndex, bool isO)
+        {
+            var baseToken = BaseTokens.Children().ElementAt(baseIndex);
+            string jsonString;
+            if (baseToken["@ZJ"] == null) { jsonString = ""; }
+            else
+            {
+                jsonString = isO == true
+                    ? JsonConvert.SerializeObject(Obfuscation.Deobfuscate(baseToken["@ZJ"]), Formatting.Indented)
+                    : JsonConvert.SerializeObject(baseToken["@ZJ"], Formatting.Indented);
+            }
+            return jsonString;
+        }
+
+        // 读取拼接飞船自定义部件数据
+        string readCCD(int shipIndex, bool isO)
+        {
+            int slot = -1;
+            foreach (var item in Obfuscation.SlotTrack)
+            { if (item.Key == shipIndex) { slot = item.Value; break; } }
+            var ccdToken = CCBTokens.Children().ElementAt(slot);
+            string jsonString;
+            if (ccdToken == null) { jsonString = ""; }
+            else
+            {
+                jsonString = isO == true
+                    ? JsonConvert.SerializeObject(Obfuscation.Deobfuscate(ccdToken), Formatting.Indented)
+                    : JsonConvert.SerializeObject(ccdToken, Formatting.Indented);
+            }
+            return jsonString;
+        }
+
+        // 读取飞船所有权数据
+        string readSO(int shipIndex, bool isO)
+        {
+            var shipToken = ShipOwnerTokens.Children().ElementAt(shipIndex);
+            string jsonString;
+            if (shipToken == null) { jsonString = ""; }
+            else
+            {
+                jsonString = isO == true
+                    ? JsonConvert.SerializeObject(Obfuscation.Deobfuscate(shipToken), Formatting.Indented)
+                    : JsonConvert.SerializeObject(shipToken, Formatting.Indented);
+            }
+            return jsonString;
+        }
+
+        // 解包并解析飞船完整包
+        void unpackNWriteShip(string filePath, int baseIndex, int shipIndex, IContainer save, bool isO)
+        {
+            var tempDir = Path.Combine(System.IO.Path.GetTempPath(), "NMSMIOT_Temp");
+            ShipPackage.Unpack(filePath, tempDir);
+            var objectsPath = System.IO.Path.Combine(tempDir, "objects.json");
+            var ccdPath = System.IO.Path.Combine(tempDir, "ccd.json");
+            var soPath = System.IO.Path.Combine(tempDir, "so.json");
+            writeBaseObject(objectsPath, baseIndex, save, isO);
+            writeCCD(ccdPath, shipIndex, save, isO);
+            writeSO(soPath, shipIndex, save, isO);
+        }
+
+        // 读取并打包飞船完整包
+        string readNPackShip(int baseIndex, int shipIndex, bool isO, string filePath, string fileName)
+        {
+            string jsonString1 = baseIndex == -1 ? "" : readBaseObject(baseIndex, isO);
+            string jsonString2 = readCCD(shipIndex, isO);
+            string jsonString3 = readSO(shipIndex, isO);
+
+            JToken thisShip = ShipOwnerTokens.Children().ElementAt(shipIndex);
+            var saveFileName = fileName;
+            if (saveFileName == "")
+            {
+                if (thisShip["NKm"].ToString() != "")
+                    saveFileName = thisShip["NKm"].ToString();
+                else saveFileName = defaultExportNameString;
+            }
+            var tempDir = Path.Combine(System.IO.Path.GetTempPath(), "NMSMIOT_Temp");
+            if (Directory.Exists(tempDir)) { Directory.Delete(tempDir, true); }
+            Directory.CreateDirectory(tempDir);
+            var objectsPath = System.IO.Path.Combine(tempDir, "objects.json");
+            var ccdPath = System.IO.Path.Combine(tempDir, "ccd.json");
+            var soPath = System.IO.Path.Combine(tempDir, "so.json");
+            File.WriteAllText(objectsPath, jsonString1);
+            File.WriteAllText(ccdPath, jsonString2);
+            File.WriteAllText(soPath, jsonString3);
+            ShipPackage.Pack(new[] { objectsPath, ccdPath, soPath }, System.IO.Path.Combine(filePath, saveFileName + ".nmsship"));
+            return System.IO.Path.Combine(filePath, saveFileName + ".nmsship");
         }
 
         async void importShip(int index, String filePath)
@@ -421,15 +535,32 @@ namespace NMSShipIOTool
             if (ShipBaseTokens.Count() == 0) { MessageClass.ErrorMessageBox("当前存档没有自定义飞船，无法导入自定义飞船"); return; }
 
             var save = platform.GetSaveContainer(saveSlot);
-            string jsonString = File.ReadAllText(filePath); // 读取文件内容
-            var newShip = JsonConvert.DeserializeObject<JToken>(jsonString);
-            if (newShip == null) { MessageClass.ErrorMessageBox("无效的自定义飞船数据"); return; }
-            // 复制自定义飞船数据
-            var shipCopy = checkBoxI.Checked ? Obfuscation.Obfuscate(newShip.DeepClone()) : newShip.DeepClone();
-            // 获取自定义飞船
-            string targetPath = $"{baseJSONPath}[{index}].@ZJ";
-            // 替换自定义飞船的数据
-            save.SetJsonValue(shipCopy, targetPath);
+            if (filePath.Split(".").Last() == "json")
+            {
+                string jsonString = File.ReadAllText(filePath); // 读取文件内容
+                var newShip = JsonConvert.DeserializeObject<JToken>(jsonString);
+                if (newShip == null) { MessageClass.ErrorMessageBox("无效的自定义飞船数据"); return; }
+                // 复制自定义飞船数据
+                var shipCopy = checkBoxI.Checked ? Obfuscation.Obfuscate(newShip.DeepClone()) : newShip.DeepClone();
+                // 获取自定义飞船
+                string targetPath = $"{baseJSONPath}[{index}].@ZJ";
+                // 替换自定义飞船的数据
+                save.SetJsonValue(shipCopy, targetPath);
+            } else if (filePath.Split(".").Last() == "nmsship")
+            {
+                var firstShipBaseIndex = index;
+                var firstShipBase = BaseTokens.Children().ElementAt(firstShipBaseIndex);
+                if (firstShipBase["peI"] == null || firstShipBase["peI"]["DPp"] == null ||
+                    firstShipBase["peI"]["DPp"].ToString() != "PlayerShipBase")
+                { MessageClass.ErrorMessageBox("所选索引处不是自定义飞船，无法导入自定义飞船"); return; }
+                int shipID = int.Parse(firstShipBase["CVX"].ToString());
+                unpackNWriteShip(filePath, firstShipBaseIndex, shipID, save, checkBoxI.Checked);
+            }
+            else
+            {
+                MessageClass.ErrorMessageBox("无效的导入文件，仅支持 .json 和 .nmsship 格式");
+                return;
+            }
             // 保存修改后的存档
             showAllProgressBar();
             setAllButtonDisabled();
@@ -450,18 +581,32 @@ namespace NMSShipIOTool
             if (filePath == "" || filePath == null) { MessageClass.ErrorMessageBox("请选择导出路径"); return; }
             if (ShipBaseTokens.Count() == 0) { MessageClass.ErrorMessageBox("当前存档没有自定义飞船，无法导出自定义飞船"); return; }
             var firstShipBaseIndex = index;
-            var firstShipBase = BaseTokens.Children().ElementAt(firstShipBaseIndex);
-            string jsonString;
-            if (firstShipBase["@ZJ"] == null) { jsonString = ""; }
+            if (checkBoxNMSSHIP1.Checked)
+            {
+                var firstShipBase = BaseTokens.Children().ElementAt(firstShipBaseIndex);
+                if (firstShipBase["peI"] == null || firstShipBase["peI"]["DPp"] == null ||
+                    firstShipBase["peI"]["DPp"].ToString() != "PlayerShipBase")
+                { MessageClass.ErrorMessageBox("所选索引处不是自定义飞船，无法导出自定义飞船"); return; }
+                int shipID = int.Parse(firstShipBase["CVX"].ToString());
+                var saveFilePath = readNPackShip(firstShipBaseIndex, shipID, checkBoxI.Checked, filePath, fileName);
+                MessageClass.InfoMessageBox("自定义飞船已导出到：" + saveFilePath);
+                return;
+            }
             else
             {
-                jsonString = checkBoxE.Checked
-                    ? JsonConvert.SerializeObject(Obfuscation.Deobfuscate(firstShipBase["@ZJ"]), Formatting.Indented)
-                    : JsonConvert.SerializeObject(firstShipBase["@ZJ"], Formatting.Indented);
+                var firstShipBase = BaseTokens.Children().ElementAt(firstShipBaseIndex);
+                string jsonString;
+                if (firstShipBase["@ZJ"] == null) { jsonString = ""; }
+                else
+                {
+                    jsonString = checkBoxI.Checked
+                        ? JsonConvert.SerializeObject(Obfuscation.Deobfuscate(firstShipBase["@ZJ"]), Formatting.Indented)
+                        : JsonConvert.SerializeObject(firstShipBase["@ZJ"], Formatting.Indented);
+                }
+                var saveFilePath = System.IO.Path.Combine(filePath, fileName + ".json");
+                File.WriteAllText(saveFilePath, jsonString);
+                MessageClass.InfoMessageBox("自定义飞船已导出到：" + saveFilePath);
             }
-            var saveFilePath = System.IO.Path.Combine(filePath, fileName + ".json");
-            File.WriteAllText(saveFilePath, jsonString);
-            MessageClass.InfoMessageBox("自定义飞船已导出到：" + saveFilePath);
         }
 
         async void setSeed(int index, String seed)
@@ -486,7 +631,7 @@ namespace NMSShipIOTool
             MessageClass.InfoMessageBox("飞船种子导入成功！请重新加载存档再查看导入数据或执行其他操作！");
         }
 
-        async void importSeedShip(int index, String filrPath)
+        async void importSeedShip(int index, String filePath)
         {
             if (platform == null) { MessageClass.ErrorMessageBox("请先加载存档"); return; }
             if (index < -1 || index >= ShipOwnerTokens.Children().Count())
@@ -505,26 +650,42 @@ namespace NMSShipIOTool
                     }
                 }
             }
-            if (filrPath == "" || filrPath == null) { MessageClass.ErrorMessageBox("导入文件无效"); return; }
+            if (filePath == "" || filePath == null) { MessageClass.ErrorMessageBox("导入文件无效"); return; }
             if (BaseTokens == null || ShipOwnerTokens == null) { MessageClass.ErrorMessageBox("存档数据有误，请重新加载存档"); return; }
             if (ShipOwnerTokens.Count() == 0) { MessageClass.ErrorMessageBox("当前存档没有飞船，无法导入飞船"); return; }
-            var save = platform.GetSaveContainer(saveSlot);
-            string jsonString = File.ReadAllText(filrPath); // 读取文件内容
-            var newShip = JsonConvert.DeserializeObject<JToken>(jsonString);
-            if (newShip == null) { MessageClass.ErrorMessageBox("无效的飞船数据"); return; }
-            // 复制飞船数据
-            var shipCopy = checkBoxS.Checked ? Obfuscation.Obfuscate(newShip.DeepClone()) : newShip.DeepClone();
-            // 获取飞船
-            if (shipCopy == null)
-            {
-                MessageClass.ErrorMessageBox("无效的飞船数据"); return;
-            }
-            string targetPath = $"{shipJSONPath}[{index}]";
-            // 替换飞船的数据
-            if (!string.IsNullOrEmpty(targetPath))
-            {
-                save.SetJsonValue(shipCopy, targetPath);
 
+            var save = platform.GetSaveContainer(saveSlot);
+            if (filePath.Split(".").Last() == "json")
+            {
+                string jsonString = File.ReadAllText(filePath); // 读取文件内容
+                var newShip = JsonConvert.DeserializeObject<JToken>(jsonString);
+                if (newShip == null) { MessageClass.ErrorMessageBox("无效的飞船数据"); return; }
+                // 复制飞船数据
+                var shipCopy = checkBoxS.Checked ? Obfuscation.Obfuscate(newShip.DeepClone()) : newShip.DeepClone();
+                // 获取飞船
+                if (shipCopy == null)
+                { MessageClass.ErrorMessageBox("无效的飞船数据"); return; }
+                string targetPath = $"{shipJSONPath}[{index}]";
+                // 替换飞船的数据
+                if (!string.IsNullOrEmpty(targetPath))
+                { save.SetJsonValue(shipCopy, targetPath); }
+                else
+                { MessageClass.ErrorMessageBox("无效的飞船数据路径"); return; }
+                // 保存修改后的存档
+                showAllProgressBar();
+                setAllButtonDisabled();
+                await Task.Run(() =>
+                {
+                    platform.Write(save);
+                });
+                setAllButtonEnabled();
+                hideAllProgressBar();
+                MessageClass.InfoMessageBox("飞船导入成功！请重新加载存档再查看导入数据或执行其他操作！");
+            }
+            else if (filePath.Split(".").Last() == "nmsship")
+            {
+                var firstShipIndex = index;
+                unpackNWriteShip(filePath, -1, firstShipIndex, save, checkBoxS.Checked);
                 // 保存修改后的存档
                 showAllProgressBar();
                 setAllButtonDisabled();
@@ -538,10 +699,10 @@ namespace NMSShipIOTool
             }
             else
             {
-                MessageClass.ErrorMessageBox("无效的飞船数据路径"); return;
+                MessageClass.ErrorMessageBox("无效的导入文件，仅支持 .json 和 .nmsship 格式");
+                return;
             }
         }
-
         void exportSeedShip(int index, String filePath, String fileName)
         {
             if (ShipOwnerTokens == null) { MessageClass.ErrorMessageBox("存档数据有误，请重新加载存档"); return; }
@@ -549,20 +710,28 @@ namespace NMSShipIOTool
             { MessageClass.ErrorMessageBox("无效的飞船索引"); return; }
             if (filePath == "" || filePath == null) { MessageClass.ErrorMessageBox("请选择导出路径"); return; }
             if (ShipOwnerTokens.Count() == 0) { MessageClass.ErrorMessageBox("当前存档没有飞船，无法导出飞船"); return; }
+            
             var firstShipIndex = index;
-            var firstShip = ShipOwnerTokens.Children().ElementAt(firstShipIndex);
-            string jsonString;
-            if (firstShip == null) { jsonString = ""; }
-            else
+            if (checkBoxNMSSHIP3.Checked)
             {
-                jsonString = checkBoxS.Checked
-                    ? JsonConvert.SerializeObject(Obfuscation.Deobfuscate(firstShip.DeepClone()), Formatting.Indented)
-                    : JsonConvert.SerializeObject(firstShip, Formatting.Indented);
+                var saveFilePath = readNPackShip(-1, firstShipIndex, checkBoxS.Checked, filePath, fileName);
+                MessageClass.InfoMessageBox("飞船已导出到：" + saveFilePath);
+                return;
+            } else {
+                var firstShip = ShipOwnerTokens.Children().ElementAt(firstShipIndex);
+                string jsonString;
+                if (firstShip == null) { jsonString = ""; }
+                else
+                {
+                    jsonString = checkBoxS.Checked
+                        ? JsonConvert.SerializeObject(Obfuscation.Deobfuscate(firstShip.DeepClone()), Formatting.Indented)
+                        : JsonConvert.SerializeObject(firstShip, Formatting.Indented);
+                }
+                string extension = checkBoxSH0.Checked ? ".sh0" : ".json";
+                var saveFilePath = System.IO.Path.Combine(filePath, fileName + extension);
+                File.WriteAllText(saveFilePath, jsonString);
+                MessageClass.InfoMessageBox("飞船已导出到：" + saveFilePath);
             }
-            string extension = checkBoxSH0.Checked ? ".sh0" : ".json";
-            var saveFilePath = System.IO.Path.Combine(filePath, fileName + extension);
-            File.WriteAllText(saveFilePath, jsonString);
-            MessageClass.InfoMessageBox("飞船已导出到：" + saveFilePath);
         }
 
         private void inputImportText_TextChanged(object sender, EventArgs e)
@@ -576,7 +745,7 @@ namespace NMSShipIOTool
             inputImportText.Text = "";
             using (OpenFileDialog dialog = new OpenFileDialog())
             {
-                dialog.Filter = "JSON 文件 (*.json)|*.json";
+                dialog.Filter = "JSON 文件 (*.json); 飞船完整包(*.nmsship)|*.json; *nmsship|所有文件 (*.*)|*.*";
                 dialog.Title = "请选择文件";
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
@@ -590,17 +759,17 @@ namespace NMSShipIOTool
 
         private void buttonExport_Click(object sender, EventArgs e)
         {
-            progressBar3.Visible = true;
-            var index = GetSelectedRadioE();
-            if (exportName.Text != "") { exportNameString = exportName.Text; }
+            progressBar.Visible = true;
+            var index = GetSelectedRadioI();
+            if (exportName.Text != "") { defaultExportNameString = exportName.Text; }
             if (ShipBaseTokens.Count < 1)
             {
                 MessageClass.ErrorMessageBox("存档内没有自定义飞船，请更换存档或建立自定义飞船之后再尝试！");
-                progressBar3.Visible = false;
+                progressBar.Visible = false;
                 return;
             }
-            exportShip(ShipBaseTokens[index], exportPathString, exportNameString);
-            progressBar3.Visible = false;
+            exportShip(ShipBaseTokens[index], exportPathString, defaultExportNameString);
+            progressBar.Visible = false;
         }
 
         private void exportSelect_Click(object sender, EventArgs e)
@@ -619,7 +788,7 @@ namespace NMSShipIOTool
 
         private void buttonImport_Click(object sender, EventArgs e)
         {
-            progressBar2.Visible = true;
+            progressBar.Visible = true;
 
             var result = MessageClass.WarningMessageBox(
                 "导入自定义飞船会覆盖当前自定义飞船的数据，操作不可逆且可能损坏存档，建议先备份存档！\n\n" +
@@ -627,7 +796,7 @@ namespace NMSShipIOTool
                 );
             if (result == DialogResult.Cancel)
             {
-                progressBar2.Visible = false;
+                progressBar.Visible = false;
                 return;
             }
 
@@ -635,19 +804,19 @@ namespace NMSShipIOTool
             if (importPathString == "" && inputImportText.Text == "")
             {
                 MessageClass.ErrorMessageBox("还未设置导入来源，请选择导入文件或者手动输入导入内容！");
-                progressBar2.Visible = false;
+                progressBar.Visible = false;
                 return;
             }
             else if (importPathString != "" && inputImportText.Text != "")
             {
                 MessageClass.ErrorMessageBox("你设置了两个导入来源，请重新选择导入文件或者手动输入导入内容！");
-                progressBar2.Visible = false;
+                progressBar.Visible = false;
                 return;
             }
             if (ShipBaseTokens.Count < 1)
             {
                 MessageClass.ErrorMessageBox("存档内没有自定义飞船，请更换存档或建立自定义飞船之后再尝试！");
-                progressBar2.Visible = false;
+                progressBar.Visible = false;
                 return;
             }
             if (importPathString != "")
@@ -669,7 +838,7 @@ namespace NMSShipIOTool
                 catch
                 {
                     MessageClass.ErrorMessageBox("输入内容不是合法的 JSON 格式！");
-                    progressBar2.Visible = false;
+                    progressBar.Visible = false;
                     return;
                 }
 
@@ -679,12 +848,12 @@ namespace NMSShipIOTool
                 importShip(ShipBaseTokens[index], tempPath);
                 if (File.Exists(tempPath)) { File.Delete(tempPath); }
             }
-            progressBar2.Visible = false;
+            progressBar.Visible = false;
         }
 
         private void buttonSetSeed_Click(object sender, EventArgs e)
         {
-            progressBar4.Visible = true;
+            progressBar.Visible = true;
             var result = MessageClass.WarningMessageBox(
                 "导入飞船种子会覆盖当前飞船的数据，操作不可逆且可能损坏存档，建议先备份存档！\n" +
                 "请确保导入种子的来源飞船类型与你要覆盖的飞船类型一致，且种子完整不包含空格。\n\n" +
@@ -692,20 +861,20 @@ namespace NMSShipIOTool
                 );
             if (result == DialogResult.Cancel)
             {
-                progressBar4.Visible = false;
+                progressBar.Visible = false;
                 return;
             }
 
             if (AllJTokens == null || ShipBaseTokens == null)
             {
                 MessageClass.ErrorMessageBox("还未加载存档或存档无效，请重新加载存档！");
-                progressBar4.Visible = false;
+                progressBar.Visible = false;
                 return;
             }
             if (ShipBaseTokens.Count < 1)
             {
                 MessageClass.ErrorMessageBox("存档内没有飞船，请更换存档或获取飞船之后再尝试！");
-                progressBar4.Visible = false;
+                progressBar.Visible = false;
                 return;
             }
             var index = GetSelectedRadioSIndex();
@@ -713,13 +882,13 @@ namespace NMSShipIOTool
             if (index == null || originalSeed == null)
             {
                 MessageClass.ErrorMessageBox("还未选择飞船，请选择一个飞船再导入种子！");
-                progressBar4.Visible = false;
+                progressBar.Visible = false;
                 return;
             }
             if (originalSeed.Contains("种子无效"))
             {
                 MessageClass.ErrorMessageBox("当前选择的飞船不支持导入种子，也不支持使用该飞船的种子，请选择其他飞船！");
-                progressBar4.Visible = false;
+                progressBar.Visible = false;
                 return;
             }
             int indexInt = (int)index;
@@ -727,16 +896,16 @@ namespace NMSShipIOTool
             if (shipSeedString == "")
             {
                 MessageClass.ErrorMessageBox("还未设置种子，请输入一个种子再导入！");
-                progressBar4.Visible = false;
+                progressBar.Visible = false;
                 return;
             }
             setSeed(indexInt, shipSeedString);
-            progressBar4.Visible = false;
+            progressBar.Visible = false;
         }
 
         private void buttonSeedShipImport_Click(object sender, EventArgs e)
         {
-            progressBar4.Visible = true;
+            progressBar.Visible = true;
             var result = MessageClass.WarningMessageBox(
                 "导入飞船文件会覆盖当前飞船的数据，操作不可逆且可能损坏存档，建议先备份存档！\n" +
                 "若你的飞船未满 12 艘，在未选定飞船的情况下我们会默认你在作为新飞船导入。\n\n" +
@@ -747,13 +916,13 @@ namespace NMSShipIOTool
                 );
             if (result == DialogResult.Cancel)
             {
-                progressBar4.Visible = false;
+                progressBar.Visible = false;
                 return;
             }
 
             using (OpenFileDialog dialog = new OpenFileDialog())
             {
-                dialog.Filter = "JSON 文件 (*.json)|*.json|SH0 文件 (*.sh0)|*.sh0|所有文件 (*.*)|*.*";
+                dialog.Filter = "飞船完整包文件 (*nmsship); JSON 文件 (*.json); SH0 文件 (*.sh0)|*.nmsship; *.json; *.sh0|所有文件 (*.*)|*.*";
                 dialog.Title = "请选择文件";
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
@@ -763,7 +932,7 @@ namespace NMSShipIOTool
                     if (GetSelectedRadioSType() == "自定义")
                     {
                         MessageClass.ErrorMessageBox("自定义飞船请使用自定义飞船导入导出功能，请选择其他飞船！");
-                        progressBar4.Visible = false;
+                        progressBar.Visible = false;
                         return;
                     }
                     var index = GetSelectedRadioSIndex();
@@ -781,7 +950,7 @@ namespace NMSShipIOTool
                             { MessageClass.ErrorMessageBox("还未选择飞船，请选择一个飞船再导入！"); }
                             else
                             { MessageClass.ErrorMessageBox("当前存档飞船数量已满 12 艘，无法导入新飞船！"); }
-                            progressBar4.Visible = false;
+                            progressBar.Visible = false;
                             return;
                         }
                     }
@@ -796,12 +965,12 @@ namespace NMSShipIOTool
                     MessageClass.InfoMessageBox("导入取消！");
                 }
             }
-            progressBar4.Visible = false;
+            progressBar.Visible = false;
         }
 
         private void buttonSeedShipExport_Click(object sender, EventArgs e)
         {
-            progressBar4.Visible = true;
+            progressBar.Visible = true;
             using (FolderBrowserDialog dialog = new FolderBrowserDialog())
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
@@ -812,20 +981,21 @@ namespace NMSShipIOTool
                     if (GetSelectedRadioSType() == "自定义")
                     {
                         MessageClass.ErrorMessageBox("自定义飞船请使用自定义飞船导入导出功能，请选择其他飞船！");
-                        progressBar4.Visible = false;
+                        progressBar.Visible = false;
                         return;
                     }
                     var index = GetSelectedRadioSIndex();
                     if (index == null)
                     {
                         MessageClass.ErrorMessageBox("还未选择飞船，请选择一个飞船再导出！");
-                        progressBar4.Visible = false;
+                        progressBar.Visible = false;
                         return;
                     }
                     else
                     {
                         int indexInt = (int)index;
-                        var fileName = GetSelectedRadioSName();
+                        var fileName = textBoxExportName.Text;
+                        if (fileName == "") fileName = GetSelectedRadioSName();
                         if (fileName == null || fileName == "") fileName = "导出飞船";
                         exportSeedShip(indexInt, exportPathString, fileName);
                     }
@@ -835,7 +1005,7 @@ namespace NMSShipIOTool
                     MessageClass.InfoMessageBox("导出取消！");
                 }
             }
-            progressBar4.Visible = false;
+            progressBar.Visible = false;
         }
 
         private void checkBoxI_CheckedChanged(object sender, EventArgs e)
@@ -843,35 +1013,15 @@ namespace NMSShipIOTool
             if (!checkBoxI.Checked)
             {
                 var result = MessageClass.WarningMessageBox(
-                    "你正在关闭导入的混淆功能。\n" +
-                    "由于游戏存档经过混淆加密，在导入明文内容时需要经过混淆。" +
+                    "你正在关闭混淆功能。\n" +
+                    "由于游戏存档经过混淆加密，在导入明文内容和导出明文内容时需要经过混淆与反混淆" +
                     "如果你的设备能流畅地运行无人深空，那么混淆对你的设备性能的影响可以忽略不计。\n" +
-                    "即使你导入的内容未经反混淆仍然是密文，我们也推荐你保持混淆开启。" +
-                    "混淆算法不会影响已经经过混淆的内容，开启混淆可以尽可能的降低意外导入明文且未经混淆而导致存档损坏的风险。\n" +
-                    "你确定你想要关闭混淆，直接导入 JSON 内容吗？\n" +
-                    "若确定继续，请确保你导入的内容完全经过混淆。" +
-                    "任何不当使用造成的个人损失与本工具无关，请在执行危险操作之前备份您的存档文件。"
+                    "即使你导入或导入的内容未经反混淆仍然是密文，我们也推荐你保持混淆开启。" +
+                    "混淆算法不会影响已经经过混淆的内容，开启混淆可以尽可能的降低意外导出入明文且未经混淆而导致存档损坏的风险。\n" +
+                    "你确定你想要关闭混淆，直接导入或导出内容吗？\n" +
+                    "若确定继续，请确保你导入或导出的内容可以被安全地直接写入存档。"
                     );
                 if (result == DialogResult.Cancel) { checkBoxI.Checked = true; }
-            }
-        }
-
-        private void checkBoxE_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!checkBoxE.Checked)
-            {
-                var result = MessageClass.WarningMessageBox(
-                    "你正在关闭导出的反混淆功能。\n" +
-                    "由于游戏存档经过混淆加密，在导出明文内容时需要经过反混淆。" +
-                    "如果你的设备能流畅地运行无人深空，那么反混淆对你的设备性能的影响可以忽略不计。\n" +
-                    "开启反混淆可以方便你将飞船的建模分享至其他平台，对其他三方工具的兼容性也更好。" +
-                    "若关闭反混淆，导出的内容则为混淆密文，可能仅支持用于本工具之间的导入导出。" +
-                    "请自行斟酌牺牲兼容性换来微乎其微的性能优化是否值得。\n" +
-                    "你确定你想要关闭反混淆，直接导出混淆加密内容吗？\n" +
-                    "若确定继续，请确保经你在分享至其他平台或使用其他三方工具前有能力自行对分享内容进过反混淆。" +
-                    "任何不当使用造成的个人损失与本工具无关，请在执行危险操作之前备份您的存档文件。"
-                    );
-                if (result == DialogResult.Cancel) { checkBoxE.Checked = true; }
             }
         }
 
@@ -883,12 +1033,9 @@ namespace NMSShipIOTool
                     "你正在关闭混淆功能。\n" +
                     "由于游戏存档经过混淆加密，在导入明文内容和导出明文内容时需要经过混淆与反混淆。" +
                     "如果你的设备能流畅地运行无人深空，那么混淆对你的设备性能的影响可以忽略不计。\n" +
-                    "我们强烈推荐你保持混淆开启，因为绝大多数需要导出入常规飞船整体文件的情况下都是用于第三方分享与导出入。" +
-                    "在这种情况下，兼容性是第一要务，否则不仅其他人可能无法使用你的导出文件，还可能会损坏你自己的存档文件。" +
-                    "同时，混淆算法不会影响已经经过混淆的内容，开启混淆可以尽可能的降低意外导出入明文且未经混淆而导致存档损坏的风险。\n" +
-                    "你确定你想要关闭混淆，直接导出/入 JSON 内容吗？\n" +
-                    "若确定继续，请再次确保你导入时的内容已经经过混淆。" +
-                    "任何不当使用造成的个人损失与本工具无关，请在执行危险操作之前备份您的存档文件。"
+                    "混淆算法不会影响已经经过混淆的内容，开启混淆可以尽可能的降低意外导出入明文且未经混淆而导致存档损坏的风险。\n" +
+                    "你确定你想要关闭混淆，直接导出/入内容吗？\n" +
+                    "若确定继续，请确保你导入或导出的内容可以被安全地直接写入存档。"
                     );
                 if (result == DialogResult.Cancel) { checkBoxS.Checked = true; }
             }
@@ -901,24 +1048,25 @@ namespace NMSShipIOTool
 
         private void shipSeed_TextChanged(object sender, EventArgs e)
         {
-            if (shipSeed.Text == GetSelectedRadioSSeed()) { buttonSetSeed.Enabled = false; }
-            else { buttonSetSeed.Enabled = true; }
             if (GetSelectedRadioSSeed().Contains("种子无效"))
-            { MessageClass.ErrorMessageBox("当前选择的飞船不支持导入种子，也不支持使用该飞船的种子，请选择其他飞船！"); }
+            { buttonSetSeed.Enabled = false; }
+            else if (shipSeed.Text == GetSelectedRadioSSeed()) { buttonSetSeed.Enabled = false; }
+            else { buttonSetSeed.Enabled = true; }
         }
 
-        private void checkBoxIncludeSH0_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxSH0_CheckedChanged(object sender, EventArgs e)
         {
-            if (((CheckBox)sender).Checked)
+            if (checkBoxSH0.Checked)
             {
-                var result = MessageClass.WarningMessageBox(
-                    "你正在开启包含飞船所有权（ShipOwnership）数据的功能。\n" +
-                    "如果你不知道这个数据是什么东西，请保持该功能关闭。\n\n" +
-                    "请不要在未经了解、无人指导的情况下开启这个功能！！\n\n" +
-                    "你确定你想要开启包含飞船所有权数据的功能吗？\n" +
-                    "任何不当使用造成的个人损失与本工具无关，请在执行危险操作之前备份您的存档文件。"
-                    );
-                if (result == DialogResult.Cancel) { checkBoxS.Checked = true; }
+                checkBoxNMSSHIP3.Checked = false;
+            }
+        }
+
+        private void checkBoxNMSSHIP3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxNMSSHIP3.Checked)
+            {
+                checkBoxSH0.Checked = false;
             }
         }
     }

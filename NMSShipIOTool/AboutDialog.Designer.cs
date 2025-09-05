@@ -50,7 +50,7 @@
             info.Name = "info";
             info.Size = new Size(600, 200);
             info.TabIndex = 1;
-            info.Text = "版本 0.1.3a\n作者：蓝夜深空（BNDS-tx）\n\n\n\n本工具仅供学习和交流使用。";
+            info.Text = "版本 0.1.4\n作者：蓝夜深空（BNDS-tx）\n\n\n\n本工具仅供学习和交流使用。";
             info.Font = new Font("Microsoft YaHei", 10);
             info.TextAlign = ContentAlignment.TopCenter;
             // 

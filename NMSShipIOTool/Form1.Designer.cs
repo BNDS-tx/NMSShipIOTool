@@ -12,8 +12,6 @@ namespace NMSShipIOTool
         private System.Windows.Forms.TabControl tabControl1;
 
         private System.Windows.Forms.TextBox textBoxPath;
-        private System.Windows.Forms.TextBox exportPath;
-        private System.Windows.Forms.TextBox exportName;
         private System.Windows.Forms.TextBox importPath;
         private System.Windows.Forms.TextBox inputImportText;
         private System.Windows.Forms.TextBox shipSeed;
@@ -21,10 +19,7 @@ namespace NMSShipIOTool
 
         private System.Windows.Forms.Label labelPath;
         private System.Windows.Forms.Label labelDescription;
-        private System.Windows.Forms.Label shipSelectE;
         private System.Windows.Forms.Label shipSelectI;
-        private System.Windows.Forms.Label pathTextE;
-        private System.Windows.Forms.Label nameTextE;
         private System.Windows.Forms.Label pathTextI;
         private System.Windows.Forms.Label inputTextI;
         private System.Windows.Forms.Label inputTextIExplanation;
@@ -33,23 +28,16 @@ namespace NMSShipIOTool
 
         private System.Windows.Forms.Button buttonSelect;
         private System.Windows.Forms.Button buttonLoad;
-        private System.Windows.Forms.Button exportSelect;
-        private System.Windows.Forms.Button buttonExport;
         private System.Windows.Forms.Button importSelect;
         private System.Windows.Forms.Button buttonImport;
         private System.Windows.Forms.Button aboutButton;
         private System.Windows.Forms.Button buttonSetSeed;
 
         private System.Windows.Forms.CheckBox checkBoxI;
-        private System.Windows.Forms.CheckBox checkBoxE;
 
-        private System.Windows.Forms.Label progressBar1;
-        private System.Windows.Forms.Label progressBar2;
-        private System.Windows.Forms.Label progressBar3;
-        private System.Windows.Forms.Label progressBar4;
+        private System.Windows.Forms.ProgressBar progressBar;
 
         private System.Windows.Forms.FlowLayoutPanel radioPanelI;
-        private System.Windows.Forms.FlowLayoutPanel radioPanelE;
         private System.Windows.Forms.FlowLayoutPanel radioPanelS;
 
         /// <summary>
@@ -81,8 +69,13 @@ namespace NMSShipIOTool
             textBoxPath = new TextBox();
             buttonSelect = new Button();
             buttonLoad = new Button();
-            progressBar1 = new Label();
             tabPage2 = new TabPage();
+            exportPath = new TextBox();
+            exportName = new TextBox();
+            pathTextE = new Label();
+            nameTextE = new Label();
+            exportSelect = new Button();
+            buttonExport = new Button();
             checkBoxNMSSHIP1 = new CheckBox();
             importPath = new TextBox();
             inputImportText = new TextBox();
@@ -92,22 +85,10 @@ namespace NMSShipIOTool
             inputTextI = new Label();
             inputTextIExplanation = new Label();
             buttonImport = new Button();
-            progressBar2 = new Label();
             radioPanelI = new FlowLayoutPanel();
             checkBoxI = new CheckBox();
             tabPage3 = new TabPage();
-            checkBoxNMSSHIP2 = new CheckBox();
-            exportPath = new TextBox();
-            exportName = new TextBox();
-            shipSelectE = new Label();
-            pathTextE = new Label();
-            nameTextE = new Label();
-            exportSelect = new Button();
-            buttonExport = new Button();
-            progressBar3 = new Label();
-            radioPanelE = new FlowLayoutPanel();
-            checkBoxE = new CheckBox();
-            tabPage4 = new TabPage();
+            checkBoxNMSSHIP3 = new CheckBox();
             checkBoxNewShip = new CheckBox();
             seedShipIOText = new Label();
             checkBoxSH0 = new CheckBox();
@@ -118,15 +99,15 @@ namespace NMSShipIOTool
             seedSelectText = new Label();
             seedText = new Label();
             buttonSetSeed = new Button();
-            progressBar4 = new Label();
             radioPanelS = new FlowLayoutPanel();
+            progressBar = new ProgressBar();
             aboutButton = new Button();
-            checkBoxNMSSHIP3 = new CheckBox();
+            textBoxExportName = new TextBox();
+            label1 = new Label();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
             tabPage3.SuspendLayout();
-            tabPage4.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -134,7 +115,6 @@ namespace NMSShipIOTool
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
-            tabControl1.Controls.Add(tabPage4);
             tabControl1.Location = new Point(12, 12);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -149,7 +129,6 @@ namespace NMSShipIOTool
             tabPage1.Controls.Add(textBoxPath);
             tabPage1.Controls.Add(buttonSelect);
             tabPage1.Controls.Add(buttonLoad);
-            tabPage1.Controls.Add(progressBar1);
             tabPage1.Location = new Point(4, 26);
             tabPage1.Name = "tabPage1";
             tabPage1.Size = new Size(937, 580);
@@ -207,17 +186,14 @@ namespace NMSShipIOTool
             buttonLoad.Text = "加载存档";
             buttonLoad.Click += buttonLoad_Click;
             // 
-            // progressBar1
-            // 
-            progressBar1.Location = new Point(350, 438);
-            progressBar1.Name = "progressBar1";
-            progressBar1.Size = new Size(279, 23);
-            progressBar1.TabIndex = 5;
-            progressBar1.Text = "正在加载，请稍候...";
-            progressBar1.Visible = false;
-            // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(exportPath);
+            tabPage2.Controls.Add(exportName);
+            tabPage2.Controls.Add(pathTextE);
+            tabPage2.Controls.Add(nameTextE);
+            tabPage2.Controls.Add(exportSelect);
+            tabPage2.Controls.Add(buttonExport);
             tabPage2.Controls.Add(checkBoxNMSSHIP1);
             tabPage2.Controls.Add(importPath);
             tabPage2.Controls.Add(inputImportText);
@@ -227,45 +203,94 @@ namespace NMSShipIOTool
             tabPage2.Controls.Add(inputTextI);
             tabPage2.Controls.Add(inputTextIExplanation);
             tabPage2.Controls.Add(buttonImport);
-            tabPage2.Controls.Add(progressBar2);
             tabPage2.Controls.Add(radioPanelI);
             tabPage2.Controls.Add(checkBoxI);
             tabPage2.Location = new Point(4, 26);
             tabPage2.Name = "tabPage2";
             tabPage2.Size = new Size(937, 580);
             tabPage2.TabIndex = 1;
-            tabPage2.Text = "自定义飞船导入";
+            tabPage2.Text = "自定义飞船";
+            // 
+            // exportPath
+            // 
+            exportPath.Location = new Point(118, 351);
+            exportPath.Name = "exportPath";
+            exportPath.ReadOnly = true;
+            exportPath.Size = new Size(358, 23);
+            exportPath.TabIndex = 11;
+            // 
+            // exportName
+            // 
+            exportName.Location = new Point(118, 388);
+            exportName.Name = "exportName";
+            exportName.Size = new Size(358, 23);
+            exportName.TabIndex = 12;
+            // 
+            // pathTextE
+            // 
+            pathTextE.Location = new Point(12, 354);
+            pathTextE.Name = "pathTextE";
+            pathTextE.Size = new Size(100, 23);
+            pathTextE.TabIndex = 13;
+            pathTextE.Text = "导出文件地址：";
+            // 
+            // nameTextE
+            // 
+            nameTextE.Location = new Point(12, 391);
+            nameTextE.Name = "nameTextE";
+            nameTextE.Size = new Size(100, 23);
+            nameTextE.TabIndex = 14;
+            nameTextE.Text = "导出文件名：";
+            // 
+            // exportSelect
+            // 
+            exportSelect.Location = new Point(116, 430);
+            exportSelect.Name = "exportSelect";
+            exportSelect.Size = new Size(100, 33);
+            exportSelect.TabIndex = 15;
+            exportSelect.Text = "选择保存地址";
+            exportSelect.Click += exportSelect_Click;
+            // 
+            // buttonExport
+            // 
+            buttonExport.Location = new Point(231, 430);
+            buttonExport.Name = "buttonExport";
+            buttonExport.Size = new Size(100, 33);
+            buttonExport.TabIndex = 16;
+            buttonExport.Text = "导出飞船";
+            buttonExport.Click += buttonExport_Click;
             // 
             // checkBoxNMSSHIP1
             // 
+            checkBoxNMSSHIP1.Checked = true;
+            checkBoxNMSSHIP1.CheckState = CheckState.Checked;
             checkBoxNMSSHIP1.Location = new Point(231, 480);
-            checkBoxNMSSHIP1.Name = "checkBoxIIncludeSH0";
+            checkBoxNMSSHIP1.Name = "checkBoxNMSSHIP1";
             checkBoxNMSSHIP1.Size = new Size(245, 24);
             checkBoxNMSSHIP1.TabIndex = 10;
             checkBoxNMSSHIP1.Text = "启用完整包";
-            checkBoxNMSSHIP1.CheckedChanged += checkBoxIncludeSH0_CheckedChanged;
             // 
             // importPath
             // 
-            importPath.Location = new Point(116, 388);
+            importPath.Location = new Point(506, 388);
             importPath.Name = "importPath";
             importPath.ReadOnly = true;
-            importPath.Size = new Size(360, 23);
+            importPath.Size = new Size(390, 23);
             importPath.TabIndex = 0;
             // 
             // inputImportText
             // 
-            inputImportText.Location = new Point(506, 78);
+            inputImportText.Location = new Point(506, 61);
             inputImportText.Multiline = true;
             inputImportText.Name = "inputImportText";
             inputImportText.ScrollBars = ScrollBars.Both;
-            inputImportText.Size = new Size(390, 333);
+            inputImportText.Size = new Size(390, 271);
             inputImportText.TabIndex = 1;
             inputImportText.TextChanged += inputImportText_TextChanged;
             // 
             // importSelect
             // 
-            importSelect.Location = new Point(116, 430);
+            importSelect.Location = new Point(506, 430);
             importSelect.Name = "importSelect";
             importSelect.Size = new Size(100, 33);
             importSelect.TabIndex = 2;
@@ -282,7 +307,7 @@ namespace NMSShipIOTool
             // 
             // pathTextI
             // 
-            pathTextI.Location = new Point(12, 391);
+            pathTextI.Location = new Point(506, 354);
             pathTextI.Name = "pathTextI";
             pathTextI.Size = new Size(98, 23);
             pathTextI.TabIndex = 3;
@@ -298,7 +323,7 @@ namespace NMSShipIOTool
             // 
             // inputTextIExplanation
             // 
-            inputTextIExplanation.Location = new Point(506, 435);
+            inputTextIExplanation.Location = new Point(506, 480);
             inputTextIExplanation.Name = "inputTextIExplanation";
             inputTextIExplanation.Size = new Size(390, 23);
             inputTextIExplanation.TabIndex = 4;
@@ -307,28 +332,19 @@ namespace NMSShipIOTool
             // 
             // buttonImport
             // 
-            buttonImport.Location = new Point(231, 430);
+            buttonImport.Location = new Point(621, 430);
             buttonImport.Name = "buttonImport";
             buttonImport.Size = new Size(100, 33);
             buttonImport.TabIndex = 6;
             buttonImport.Text = "导入飞船";
             buttonImport.Click += buttonImport_Click;
             // 
-            // progressBar2
-            // 
-            progressBar2.Location = new Point(350, 438);
-            progressBar2.Name = "progressBar2";
-            progressBar2.Size = new Size(279, 23);
-            progressBar2.TabIndex = 7;
-            progressBar2.Text = "正在处理，请稍候...";
-            progressBar2.Visible = false;
-            // 
             // radioPanelI
             // 
             radioPanelI.AutoScroll = true;
-            radioPanelI.Location = new Point(50, 78);
+            radioPanelI.Location = new Point(50, 61);
             radioPanelI.Name = "radioPanelI";
-            radioPanelI.Size = new Size(426, 286);
+            radioPanelI.Size = new Size(426, 271);
             radioPanelI.TabIndex = 8;
             // 
             // checkBoxI
@@ -344,141 +360,40 @@ namespace NMSShipIOTool
             // 
             // tabPage3
             // 
-            tabPage3.Controls.Add(checkBoxNMSSHIP2);
-            tabPage3.Controls.Add(exportPath);
-            tabPage3.Controls.Add(exportName);
-            tabPage3.Controls.Add(shipSelectE);
-            tabPage3.Controls.Add(pathTextE);
-            tabPage3.Controls.Add(nameTextE);
-            tabPage3.Controls.Add(exportSelect);
-            tabPage3.Controls.Add(buttonExport);
-            tabPage3.Controls.Add(progressBar3);
-            tabPage3.Controls.Add(radioPanelE);
-            tabPage3.Controls.Add(checkBoxE);
+            tabPage3.Controls.Add(label1);
+            tabPage3.Controls.Add(textBoxExportName);
+            tabPage3.Controls.Add(checkBoxNMSSHIP3);
+            tabPage3.Controls.Add(checkBoxNewShip);
+            tabPage3.Controls.Add(seedShipIOText);
+            tabPage3.Controls.Add(checkBoxSH0);
+            tabPage3.Controls.Add(checkBoxS);
+            tabPage3.Controls.Add(buttonSeedShipExport);
+            tabPage3.Controls.Add(buttonSeedShipImport);
+            tabPage3.Controls.Add(shipSeed);
+            tabPage3.Controls.Add(seedSelectText);
+            tabPage3.Controls.Add(seedText);
+            tabPage3.Controls.Add(buttonSetSeed);
+            tabPage3.Controls.Add(radioPanelS);
             tabPage3.Location = new Point(4, 26);
             tabPage3.Name = "tabPage3";
             tabPage3.Size = new Size(937, 580);
-            tabPage3.TabIndex = 2;
-            tabPage3.Text = "自定义飞船导出";
+            tabPage3.TabIndex = 3;
+            tabPage3.Text = "常规飞船";
             // 
-            // checkBoxNMSSHIP2
+            // checkBoxNMSSHIP3
             // 
-            checkBoxNMSSHIP2.Location = new Point(231, 480);
-            checkBoxNMSSHIP2.Name = "checkBoxEIncludeSH0";
-            checkBoxNMSSHIP2.Size = new Size(245, 24);
-            checkBoxNMSSHIP2.TabIndex = 11;
-            checkBoxNMSSHIP2.Text = "启用完整包";
-            checkBoxNMSSHIP2.CheckedChanged += checkBoxIncludeSH0_CheckedChanged;
-            // 
-            // exportPath
-            // 
-            exportPath.Location = new Point(118, 351);
-            exportPath.Name = "exportPath";
-            exportPath.ReadOnly = true;
-            exportPath.Size = new Size(511, 23);
-            exportPath.TabIndex = 0;
-            // 
-            // exportName
-            // 
-            exportName.Location = new Point(118, 388);
-            exportName.Name = "exportName";
-            exportName.Size = new Size(511, 23);
-            exportName.TabIndex = 0;
-            // 
-            // shipSelectE
-            // 
-            shipSelectE.Location = new Point(12, 35);
-            shipSelectE.Name = "shipSelectE";
-            shipSelectE.Size = new Size(133, 23);
-            shipSelectE.TabIndex = 0;
-            shipSelectE.Text = "选择你要导出的飞船：";
-            // 
-            // pathTextE
-            // 
-            pathTextE.Location = new Point(12, 354);
-            pathTextE.Name = "pathTextE";
-            pathTextE.Size = new Size(100, 23);
-            pathTextE.TabIndex = 0;
-            pathTextE.Text = "导出文件地址：";
-            // 
-            // nameTextE
-            // 
-            nameTextE.Location = new Point(12, 391);
-            nameTextE.Name = "nameTextE";
-            nameTextE.Size = new Size(100, 23);
-            nameTextE.TabIndex = 0;
-            nameTextE.Text = "导出文件名：";
-            // 
-            // exportSelect
-            // 
-            exportSelect.Location = new Point(116, 430);
-            exportSelect.Name = "exportSelect";
-            exportSelect.Size = new Size(100, 33);
-            exportSelect.TabIndex = 0;
-            exportSelect.Text = "选择保存地址";
-            exportSelect.Click += exportSelect_Click;
-            // 
-            // buttonExport
-            // 
-            buttonExport.Location = new Point(231, 430);
-            buttonExport.Name = "buttonExport";
-            buttonExport.Size = new Size(100, 33);
-            buttonExport.TabIndex = 0;
-            buttonExport.Text = "导出飞船";
-            buttonExport.Click += buttonExport_Click;
-            // 
-            // progressBar3
-            // 
-            progressBar3.Location = new Point(350, 438);
-            progressBar3.Name = "progressBar3";
-            progressBar3.Size = new Size(279, 23);
-            progressBar3.TabIndex = 1;
-            progressBar3.Text = "正在处理，请稍候...";
-            progressBar3.Visible = false;
-            // 
-            // radioPanelE
-            // 
-            radioPanelE.AutoScroll = true;
-            radioPanelE.Location = new Point(50, 78);
-            radioPanelE.Name = "radioPanelE";
-            radioPanelE.Size = new Size(426, 248);
-            radioPanelE.TabIndex = 2;
-            // 
-            // checkBoxE
-            // 
-            checkBoxE.Checked = true;
-            checkBoxE.CheckState = CheckState.Checked;
-            checkBoxE.Location = new Point(118, 480);
-            checkBoxE.Name = "checkBoxE";
-            checkBoxE.Size = new Size(98, 24);
-            checkBoxE.TabIndex = 3;
-            checkBoxE.Text = "启用反混淆";
-            checkBoxE.CheckedChanged += checkBoxE_CheckedChanged;
-            // 
-            // tabPage4
-            // 
-            tabPage4.Controls.Add(checkBoxNMSSHIP3);
-            tabPage4.Controls.Add(checkBoxNewShip);
-            tabPage4.Controls.Add(seedShipIOText);
-            tabPage4.Controls.Add(checkBoxSH0);
-            tabPage4.Controls.Add(checkBoxS);
-            tabPage4.Controls.Add(buttonSeedShipExport);
-            tabPage4.Controls.Add(buttonSeedShipImport);
-            tabPage4.Controls.Add(shipSeed);
-            tabPage4.Controls.Add(seedSelectText);
-            tabPage4.Controls.Add(seedText);
-            tabPage4.Controls.Add(buttonSetSeed);
-            tabPage4.Controls.Add(progressBar4);
-            tabPage4.Controls.Add(radioPanelS);
-            tabPage4.Location = new Point(4, 26);
-            tabPage4.Name = "tabPage4";
-            tabPage4.Size = new Size(937, 580);
-            tabPage4.TabIndex = 3;
-            tabPage4.Text = "常规飞船";
+            checkBoxNMSSHIP3.Checked = true;
+            checkBoxNMSSHIP3.CheckState = CheckState.Checked;
+            checkBoxNMSSHIP3.Location = new Point(633, 337);
+            checkBoxNMSSHIP3.Name = "checkBoxNMSSHIP3";
+            checkBoxNMSSHIP3.Size = new Size(100, 24);
+            checkBoxNMSSHIP3.TabIndex = 11;
+            checkBoxNMSSHIP3.Text = "启用完整包";
+            checkBoxNMSSHIP3.CheckedChanged += checkBoxNMSSHIP3_CheckedChanged;
             // 
             // checkBoxNewShip
             // 
-            checkBoxNewShip.Location = new Point(670, 350);
+            checkBoxNewShip.Location = new Point(506, 177);
             checkBoxNewShip.Name = "checkBoxNewShip";
             checkBoxNewShip.Size = new Size(112, 24);
             checkBoxNewShip.TabIndex = 13;
@@ -486,7 +401,7 @@ namespace NMSShipIOTool
             // 
             // seedShipIOText
             // 
-            seedShipIOText.Location = new Point(670, 391);
+            seedShipIOText.Location = new Point(506, 151);
             seedShipIOText.Name = "seedShipIOText";
             seedShipIOText.Size = new Size(190, 23);
             seedShipIOText.TabIndex = 12;
@@ -494,19 +409,18 @@ namespace NMSShipIOTool
             // 
             // checkBoxSH0
             // 
-            checkBoxSH0.Checked = true;
-            checkBoxSH0.CheckState = CheckState.Checked;
-            checkBoxSH0.Location = new Point(786, 480);
+            checkBoxSH0.Location = new Point(739, 337);
             checkBoxSH0.Name = "checkBoxSH0";
             checkBoxSH0.Size = new Size(100, 24);
             checkBoxSH0.TabIndex = 11;
             checkBoxSH0.Text = "保存为 .sh0";
+            checkBoxSH0.CheckedChanged += checkBoxSH0_CheckedChanged;
             // 
             // checkBoxS
             // 
             checkBoxS.Checked = true;
             checkBoxS.CheckState = CheckState.Checked;
-            checkBoxS.Location = new Point(670, 480);
+            checkBoxS.Location = new Point(506, 390);
             checkBoxS.Name = "checkBoxS";
             checkBoxS.Size = new Size(100, 24);
             checkBoxS.TabIndex = 4;
@@ -515,7 +429,7 @@ namespace NMSShipIOTool
             // 
             // buttonSeedShipExport
             // 
-            buttonSeedShipExport.Location = new Point(786, 430);
+            buttonSeedShipExport.Location = new Point(506, 332);
             buttonSeedShipExport.Name = "buttonSeedShipExport";
             buttonSeedShipExport.Size = new Size(100, 33);
             buttonSeedShipExport.TabIndex = 1;
@@ -524,7 +438,7 @@ namespace NMSShipIOTool
             // 
             // buttonSeedShipImport
             // 
-            buttonSeedShipImport.Location = new Point(670, 430);
+            buttonSeedShipImport.Location = new Point(506, 207);
             buttonSeedShipImport.Name = "buttonSeedShipImport";
             buttonSeedShipImport.Size = new Size(100, 33);
             buttonSeedShipImport.TabIndex = 10;
@@ -533,9 +447,9 @@ namespace NMSShipIOTool
             // 
             // shipSeed
             // 
-            shipSeed.Location = new Point(118, 388);
+            shipSeed.Location = new Point(506, 61);
             shipSeed.Name = "shipSeed";
-            shipSeed.Size = new Size(511, 23);
+            shipSeed.Size = new Size(358, 23);
             shipSeed.TabIndex = 0;
             shipSeed.TextChanged += shipSeed_TextChanged;
             // 
@@ -549,7 +463,7 @@ namespace NMSShipIOTool
             // 
             // seedText
             // 
-            seedText.Location = new Point(12, 391);
+            seedText.Location = new Point(506, 35);
             seedText.Name = "seedText";
             seedText.Size = new Size(100, 23);
             seedText.TabIndex = 0;
@@ -557,29 +471,30 @@ namespace NMSShipIOTool
             // 
             // buttonSetSeed
             // 
-            buttonSetSeed.Location = new Point(116, 430);
+            buttonSetSeed.Location = new Point(506, 102);
             buttonSetSeed.Name = "buttonSetSeed";
             buttonSetSeed.Size = new Size(100, 33);
             buttonSetSeed.TabIndex = 0;
             buttonSetSeed.Text = "导入种子";
             buttonSetSeed.Click += buttonSetSeed_Click;
             // 
-            // progressBar4
-            // 
-            progressBar4.Location = new Point(350, 438);
-            progressBar4.Name = "progressBar4";
-            progressBar4.Size = new Size(279, 23);
-            progressBar4.TabIndex = 1;
-            progressBar4.Text = "正在处理，请稍候...";
-            progressBar4.Visible = false;
-            // 
             // radioPanelS
             // 
             radioPanelS.AutoScroll = true;
-            radioPanelS.Location = new Point(50, 78);
+            radioPanelS.Location = new Point(50, 61);
             radioPanelS.Name = "radioPanelS";
-            radioPanelS.Size = new Size(579, 286);
+            radioPanelS.Size = new Size(426, 353);
             radioPanelS.TabIndex = 2;
+            // 
+            // progressBar
+            // 
+            progressBar.Location = new Point(670, 560);
+            progressBar.MarqueeAnimationSpeed = 30;
+            progressBar.Name = "progressBar";
+            progressBar.Size = new Size(145, 40);
+            progressBar.Style = ProgressBarStyle.Marquee;
+            progressBar.TabIndex = 1;
+            progressBar.Visible = false;
             // 
             // aboutButton
             // 
@@ -591,13 +506,20 @@ namespace NMSShipIOTool
             aboutButton.Text = "关于";
             aboutButton.Click += aboutButton_Click;
             // 
-            // checkBoxNMSSHIP3
+            // textBoxExportName
             // 
-            checkBoxNMSSHIP3.Location = new Point(116, 480);
-            checkBoxNMSSHIP3.Name = "checkBox1";
-            checkBoxNMSSHIP3.Size = new Size(245, 24);
-            checkBoxNMSSHIP3.TabIndex = 11;
-            checkBoxNMSSHIP3.Text = "启用完整包";
+            textBoxExportName.Location = new Point(506, 290);
+            textBoxExportName.Name = "textBox1";
+            textBoxExportName.Size = new Size(358, 23);
+            textBoxExportName.TabIndex = 14;
+            // 
+            // label1
+            // 
+            label1.Location = new Point(506, 264);
+            label1.Name = "label1";
+            label1.Size = new Size(100, 23);
+            label1.TabIndex = 15;
+            label1.Text = "保存文件名：";
             // 
             // Form1
             // 
@@ -605,6 +527,7 @@ namespace NMSShipIOTool
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(968, 633);
             Controls.Add(aboutButton);
+            Controls.Add(progressBar);
             Controls.Add(tabControl1);
             Name = "Form1";
             Text = "无人深空飞船导入与导出工具";
@@ -615,8 +538,6 @@ namespace NMSShipIOTool
             tabPage2.PerformLayout();
             tabPage3.ResumeLayout(false);
             tabPage3.PerformLayout();
-            tabPage4.ResumeLayout(false);
-            tabPage4.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -625,7 +546,6 @@ namespace NMSShipIOTool
         private TabPage tabPage1;
         private TabPage tabPage2;
         private TabPage tabPage3;
-        private TabPage tabPage4;
         private Button buttonSeedShipImport;
         private Button buttonSeedShipExport;
         private CheckBox checkBoxS;
@@ -633,7 +553,14 @@ namespace NMSShipIOTool
         private Label seedShipIOText;
         private CheckBox checkBoxNewShip;
         private CheckBox checkBoxNMSSHIP1;
-        private CheckBox checkBoxNMSSHIP2;
         private CheckBox checkBoxNMSSHIP3;
+        private TextBox exportPath;
+        private TextBox exportName;
+        private Label pathTextE;
+        private Label nameTextE;
+        private Button exportSelect;
+        private Button buttonExport;
+        private Label label1;
+        private TextBox textBoxExportName;
     }
 }
