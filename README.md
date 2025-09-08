@@ -10,7 +10,7 @@
 并兼容以下飞船文件格式：  
 
 - `.sh0` —— [NMS Save Editor](https://github.com/goatfungus/NMSSaveEditor) 使用的飞船文件格式  
-- `.nmsship` —— [OOGC 游戏论坛无人深空建模导出入工具 NMS Model IO Tool]([https://oogc.com/](https://oogc.cc/plugin.php?id=one_market&action=item&sid=82)) 使用的飞船完整包格式  
+- `.nmsship` —— [OOGC 游戏论坛无人深空建模导出入工具 NMS Model IO Tool](https://oogc.cc/plugin.php?id=one_market&action=item&sid=82) 使用的飞船完整包格式  
 
 本项目基于 [libNOM.io](https://github.com/zencq/libNOM.io) 及其依赖项目开发。
 
