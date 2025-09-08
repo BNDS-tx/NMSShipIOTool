@@ -24,6 +24,8 @@ namespace NMSShipIOTool
             updateTabEnabled(false);
         }
 
+        #region Page Scripts
+
         private void updateTabEnabled(bool enable)
         {
             tabControl1.TabPages[1].Enabled = enable;
@@ -244,29 +246,7 @@ namespace NMSShipIOTool
             return null;
         }
 
-        public string? GetSelectedRadioSType()
-        {
-            foreach (Control ctrl in radioPanelS.Controls)
-            {
-                if (ctrl is RadioButton rb && rb.Checked)
-                {
-                    return (string)rb.Text.Split("类型：")[1].Split("，飞船名：")[0];
-                }
-            }
-            return null;
-        }
-
-        public string? GetSelectedRadioSName()
-        {
-            foreach (Control ctrl in radioPanelS.Controls)
-            {
-                if (ctrl is RadioButton rb && rb.Checked)
-                {
-                    return (string)rb.Text.Split("飞船名：")[1];
-                }
-            }
-            return null;
-        }
+        #endregion
 
         #region UI Events
 
