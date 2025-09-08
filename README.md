@@ -1,4 +1,4 @@
-# NMSShipIOTool
+# NMSShipIOTool 无人深空飞船导入导出工具
 
 **NMSShipIOTool** 是一个基于 **.NET 9** 框架的 **WinForm 应用**，用于管理《无人深空 (No Man's Sky)》游戏存档中的玩家飞船数据。  
 本工具支持 **查看、导出、导入** 各类玩家可控飞船，包括：  
@@ -10,7 +10,7 @@
 并兼容以下飞船文件格式：  
 
 - `.sh0` —— [NMS Save Editor](https://github.com/goatfungus/NMSSaveEditor) 使用的飞船文件格式  
-- `.nmsship` —— [OOGC 游戏论坛无人深空建模导出入工具 NMS Model IO Tool]([https://oogc.com/](https://oogc.cc/plugin.php?id=one_market&action=item&sid=82)) 使用的飞船完整包格式  
+- `.nmsship` —— [OOGC 游戏论坛 | 无人深空建模导出入工具 NMS Model IO Tool](https://oogc.cc/plugin.php?id=one_market&action=item&sid=82) 使用的飞船完整包格式  
 
 本项目基于 [libNOM.io](https://github.com/zencq/libNOM.io) 及其依赖项目开发。
 
@@ -57,8 +57,10 @@
 
 ## 📜 许可证
 
-本项目的许可证见 [LICENSE](./LICENSE)。  
+本项目采用 GNU GPLv3 许可证，详情见 [LICENSE](./LICENSE)。  
 在使用或分发本项目时，请遵守相关依赖项目的许可证要求。  
+对于商业许可证，请联系作者以获取更多许可。  
+For commercial licensing options, please contact the author.
 
 ---
 
