@@ -59,6 +59,8 @@
 
 本项目的许可证见 [LICENSE](./LICENSE)。  
 在使用或分发本项目时，请遵守相关依赖项目的许可证要求。  
+对于商业许可证，请联系作者以获取更多许可。
+For commercial licensing options, please contact the author.
 
 ---
 
