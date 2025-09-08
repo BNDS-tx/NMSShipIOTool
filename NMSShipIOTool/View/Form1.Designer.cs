@@ -451,7 +451,6 @@ namespace NMSShipIOTool
             shipSeed.Name = "shipSeed";
             shipSeed.Size = new Size(358, 23);
             shipSeed.TabIndex = 0;
-            shipSeed.TextChanged += shipSeed_TextChanged;
             // 
             // seedSelectText
             // 
