@@ -183,7 +183,7 @@ namespace NMSShipIOTool
                     Text = options1[i],
                     Name = "radioI_" + i,
                     AutoSize = true,
-                    Tag = i
+                    Tag = int.Parse(options1[i].Split("飞船 ID：")[1].Split("，基地")[0])
                 };
                 radioPanelI.Controls.Add(radio);
             }
@@ -333,7 +333,7 @@ namespace NMSShipIOTool
             var index = GetSelectedRadioI();
             if (importPathString == "" && inputImportText.Text == "")
             {
-                MessageClass.ErrorMessageBox("请先选择或输入要导入的文件路径！");
+                MessageClass.ErrorMessageBox("请先选择或输入要导入的内容！");
                 finishLoading();
                 return;
             }
@@ -348,7 +348,7 @@ namespace NMSShipIOTool
                 await saveLoader.importShip(
                     index,
                     (importPathString != ""
-                        ? importPathString
+                        ? (!File.Exists(importPathString) ? throw new Exception("文件不存在！") : importPathString)
                         : FileOperations.setTempFile(inputImportText.Text)
                     ),
                     checkBoxI.Checked,
@@ -576,6 +576,60 @@ namespace NMSShipIOTool
                 finishLoading();
                 return;
             }
+            finishLoading();
+        }
+
+        private async void buttonExportShipTechI_Click(object sender, EventArgs e)
+        {
+            startLoading();
+            try
+            {
+                var Index = GetSelectedRadioI();
+                await saveLoader.exportShipTech(
+                    Index,
+                    exportPathString,
+                    exportName.Text,
+                    checkBoxS.Checked,
+                    checkBoxTechI.Checked);
+            }
+            catch (Exception ex)
+            {
+                MessageClass.ErrorMessageBox($"{ex.Message}");
+                finishLoading();
+                return;
+            }
+            finishLoading();
+        }
+
+        private async void buttonImportShipTechI_Click(object sender, EventArgs e)
+        {
+            startLoading();
+            try
+            {
+                if (importPathString == "" && inputImportText.Text == "")
+                {
+                    MessageClass.ErrorMessageBox("请先选择要导入的文件路径！");
+                    finishLoading();
+                    return;
+                }
+                if (!File.Exists(importPathString))
+                {
+                    throw new Exception("文件不存在！");
+                }
+                var Index = GetSelectedRadioI();
+                await saveLoader.importShipTech(
+                    Index,
+                    importPathString,
+                    checkBoxI.Checked
+                    );
+            }
+            catch (System.Exception ex)
+            {
+                MessageClass.ErrorMessageBox(ex.Message);
+                finishLoading();
+                return;
+            }
+            updateUI();
             finishLoading();
         }
     }

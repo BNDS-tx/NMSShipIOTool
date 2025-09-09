@@ -433,7 +433,7 @@ namespace NMSModelIOTool.Model
             )
         {
             if (index < 0 && index > 11) throw new Exception("传入的飞船 ID 异常！");
-            if (importPath.Split('.').Last() != "json" || importPath.Split('.').Last() != "tech")
+            if (importPath.Split('.').Last() != "json" && importPath.Split('.').Last() != "tech")
                 throw new Exception("未选择文件或不受支持的文件格式！");
             var jsonString = File.ReadAllText(importPath);
             JsonNode? json = JsonNode.Parse(jsonString);
@@ -536,8 +536,8 @@ namespace NMSModelIOTool.Model
             {
                 if (!string.IsNullOrEmpty(ShipOwnership?.AsArray()?.ElementAt(index)?["NKm"]?.ToString()))
                     fileName = ShipOwnership?.AsArray()?.ElementAt(index)?["NKm"]?.ToString()
-                    ?? defaultExportNameString;
-                else fileName = defaultExportNameString;
+                    ?? defaultExportNameString + "_技术、模块与库存";
+                else fileName = defaultExportNameString + "_技术、模块与库存";
             }
             var saveFilePath = Path.Combine(exportPath, fileName + (isTech ? ".tech" : ".json"));
             File.WriteAllText(saveFilePath, stringJN);
