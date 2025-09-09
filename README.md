@@ -1,16 +1,17 @@
 # NMSShipIOTool 无人深空飞船导入导出工具
 
 **NMSShipIOTool** 是一个基于 **.NET 9** 框架的 **WinForm 应用**，用于管理《无人深空 (No Man's Sky)》游戏存档中的玩家飞船数据。  
-本工具支持 **查看、导出、导入** 各类玩家可控飞船，包括：  
+本工具支持 **查看、导出、导入** 各类玩家可控飞船及其 **技术、模块与库存** 数据，包括：  
 
-- 普通种子飞船  
-- 普通拼装飞船  
-- 自定义护卫舰  
+- 普通种子飞船  | 及其技术、模块与库存数据  
+- 普通拼装飞船  | 及其技术、模块与库存数据  
+- 自定义护卫舰  | 及其技术、模块与库存数据  
 
 并兼容以下飞船文件格式：  
 
 - `.sh0` —— [NMS Save Editor](https://github.com/goatfungus/NMSSaveEditor) 使用的飞船文件格式  
-- `.nmsship` —— [OOGC 游戏论坛 | 无人深空建模导出入工具 NMS Model IO Tool](https://oogc.cc/plugin.php?id=one_market&action=item&sid=82) 使用的飞船完整包格式  
+- `.nmsship` —— [OOGC 游戏论坛 | 无人深空建模导出入工具 NMS Model IO Tool](https://oogc.cc/plugin.php?id=one_market&action=item&sid=82) 使用的飞船完整包格式
+- `.tech` —— 工具首创转门保存飞船 **技术、模块与库存** 信息的文件格式
 
 本项目基于 [libNOM.io](https://github.com/zencq/libNOM.io) 及其依赖项目开发。
 
@@ -20,7 +21,9 @@
 
 - 读取并展示存档中所有玩家可控飞船  
 - 导出飞船为 `.json`，`.sh0` 或 `.nmsship` 文件  
-- 从 `.json`，`.sh0` 或 `.nmsship` 文件导入飞船数据  
+- 从 `.json`，`.sh0` 或 `.nmsship` 文件导入飞船数据
+- 导出飞船技术、模块与库存数据为 `.json`，`.tech` 文件
+- 从 `.json`，`.tech` 文件导入飞船技术、模块与库存数据
 - 提供完整飞船包与建模文件操作支持  
 - 与常见存档修改器工具保持兼容  
 
