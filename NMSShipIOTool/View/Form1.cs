@@ -58,8 +58,9 @@ namespace NMSShipIOTool
             var saves = Enumerable.Empty<IContainer>();
             try
             {
-                await Task.Run(() => { 
-                    saves = saveLoader.LoadPath(filePath); 
+                await Task.Run(() =>
+                {
+                    saves = saveLoader.LoadPath(filePath);
                 });
             }
             catch (Exception ex)
@@ -95,14 +96,16 @@ namespace NMSShipIOTool
                 }
             }
 
-            try {
+            try
+            {
                 await Task.Run(() =>
-                {saveLoader.LoadSave(saves.ToList()[saveList[choose]]);
+                {
+                    saveLoader.LoadSave(saves.ToList()[saveList[choose]]);
 
                     this.Invoke((MethodInvoker)delegate
                     {
                         updateUI();
-                        MessageClass.InfoMessageBox("存档加载完成。      "); 
+                        MessageClass.InfoMessageBox("存档加载完成。      ");
                     });
                 });
             }
@@ -440,7 +443,7 @@ namespace NMSShipIOTool
                 await saveLoader.exportShip(
                     Index,
                     tempPath,
-                    "",
+                    textBoxExportName.Text,
                     checkBoxS.Checked,
                     false,
                     !checkBoxNMSSHIP3.Checked,
@@ -510,5 +513,70 @@ namespace NMSShipIOTool
         }
 
         #endregion
+
+        private async void buttonImportShipTech_Click(object sender, EventArgs e)
+        {
+            startLoading();
+            var tempPath = "";
+            try
+            {
+                tempPath = FileOperations.fileSelect();
+                if (tempPath == "")
+                {
+                    MessageClass.InfoMessageBox("操作取消！");
+                    finishLoading();
+                    return;
+                }
+
+                if (!File.Exists(tempPath))
+                {
+                    throw new Exception("文件不存在！");
+                }
+                var Index = GetSelectedRadioSIndex() ?? -1;
+                await saveLoader.importShipTech(
+                    Index,
+                    tempPath,
+                    checkBoxS.Checked
+                    );
+            }
+            catch (System.Exception ex)
+            {
+                MessageClass.ErrorMessageBox(ex.Message);
+                finishLoading();
+                return;
+            }
+            updateUI();
+            finishLoading();
+        }
+
+        private async void buttonExportShipTech_Click(object sender, EventArgs e)
+        {
+            startLoading();
+            var tempPath = "";
+            try
+            {
+                tempPath = FileOperations.folderSelect();
+                if (tempPath == "")
+                {
+                    MessageClass.InfoMessageBox("操作取消！");
+                    finishLoading();
+                    return;
+                }
+                var Index = GetSelectedRadioSIndex() ?? -1;
+                await saveLoader.exportShipTech(
+                    Index,
+                    tempPath,
+                    textBoxExportName.Text,
+                    checkBoxS.Checked,
+                    checkBoxTech.Checked);
+            }
+            catch (Exception ex)
+            {
+                MessageClass.ErrorMessageBox($"{ex.Message}");
+                finishLoading();
+                return;
+            }
+            finishLoading();
+        }
     }
 }

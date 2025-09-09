@@ -51,7 +51,7 @@ namespace NMSShipIOTool.Model
         {
             using (OpenFileDialog dialog = new OpenFileDialog())
             {
-                dialog.Filter = "JSON 文件 (*.json); 飞船完整包(*.nmsship)|*.json; *nmsship|所有文件 (*.*)|*.*";
+                dialog.Filter = "JSON 文件 (*.json); SH0 文件(*.tech); 飞船完整包(*.nmsship); 技术、模块与库存文件(*.tech)|*.json; *.sh0; *nmsship; *.tech|所有文件 (*.*)|*.*";
                 dialog.Title = "请选择文件";
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {

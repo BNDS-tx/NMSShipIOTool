@@ -1,10 +1,11 @@
 ﻿using libNOM.io;
 using libNOM.io.Enums;
 using libNOM.io.Settings;
-using NMSShipIOTool.Model;
-using System.Text.Json.Nodes;
 using Newtonsoft.Json.Linq;
+using NMSShipIOTool.Model;
 using NMSShipIOTool.View;
+using Octokit;
+using System.Text.Json.Nodes;
 
 namespace NMSModelIOTool.Model
 {
@@ -116,7 +117,7 @@ namespace NMSModelIOTool.Model
 
         #region SaveContent
 
-        public int findAvailableShipID()
+        private int findAvailableShipID()
         {
             int shipID = -1;
             foreach (var ship in ShipOwnership?.AsArray()?.ToList() ?? new List<JsonNode?>())
@@ -128,7 +129,7 @@ namespace NMSModelIOTool.Model
         }
 
         // 写入基地/货船基地/自定义飞船数据
-        public void writeBaseObject(JsonNode Base, int baseID, int shipID, bool isO)
+        private void writeBaseObject(JsonNode Base, int baseID, int shipID, bool isO)
         {
             var save = currentSave!;
             var newBase = Base.DeepClone();
@@ -141,7 +142,7 @@ namespace NMSModelIOTool.Model
             if (baseID != -1 && shipID == -1)
             {
                 JToken objectsJToken;
-                if (isO) objectsJToken = Obfuscation.Obfuscate(JToken.Parse(newBase.ToJsonString())); 
+                if (isO) objectsJToken = Obfuscation.JTObfuscate(JToken.Parse(newBase.ToJsonString())); 
                 else objectsJToken = JToken.Parse(newBase.ToJsonString());
 
                 string jsonPath = $"$.{path1}.{path2}.{path3}[{baseID}].{path4}";
@@ -150,7 +151,7 @@ namespace NMSModelIOTool.Model
             else if (baseID == -1 && shipID != -1)
             {
                 JToken objectsJToken;
-                if (isO) objectsJToken = Obfuscation.Obfuscate(JToken.Parse(newBase.ToJsonString())); 
+                if (isO) objectsJToken = Obfuscation.JTObfuscate(JToken.Parse(newBase.ToJsonString())); 
                 else objectsJToken = JToken.Parse(newBase.ToJsonString());
                 var index = -1;
                 foreach (int i in BaseShipIndex)
@@ -181,7 +182,7 @@ namespace NMSModelIOTool.Model
             var save = currentSave!;
             var newCCD = CCD.DeepClone();
             JToken ccdJToken;
-            if (isO) { ccdJToken = Obfuscation.Obfuscate(JToken.Parse(newCCD.ToJsonString())); }
+            if (isO) { ccdJToken = Obfuscation.JTObfuscate(JToken.Parse(newCCD.ToJsonString())); }
             ccdJToken = JToken.Parse(newCCD.ToJsonString());
             int slot = -1;
             foreach (var item in Obfuscation.SlotTrack)
@@ -198,13 +199,13 @@ namespace NMSModelIOTool.Model
         }
 
         // 写入飞船所有权数据
-        public void writeSO(JsonNode SO, int shipID, bool isO)
+        private void writeSO(JsonNode SO, int shipID, bool isO)
         {
             var save = currentSave!;
             var newSO = SO.DeepClone();
             if (shipID == -1) { throw new Exception("写入飞船所有权时 ShipID 不能为 -1！"); }
             JToken soJToken;
-            if (isO)  soJToken = Obfuscation.Obfuscate(JToken.Parse(newSO.ToJsonString())); 
+            if (isO)  soJToken = Obfuscation.JTObfuscate(JToken.Parse(newSO.ToJsonString())); 
             else soJToken = JToken.Parse(newSO.ToJsonString());
             
             string path1 = JsonPathLayer1;
@@ -233,8 +234,37 @@ namespace NMSModelIOTool.Model
             currentSave = save;
         }
 
+        // 写入飞船技术、模块与库存数据
+        private void writeTech(JsonNode Tech, int shipID, bool isO)
+        {
+            var save = currentSave!;
+            var newTech = Tech.DeepClone();
+            if (shipID == -1) { throw new Exception("写入飞船技术、模块与库存时 ShipID 不能为 -1！"); }
+            string path1 = JsonPathLayer1;
+            string path2 = JsonPathLayer2;
+            string path3 = shipPath;
+            string path4_1 = Obfuscation.StrObfuscate("Inventory");
+            string path4_2 = Obfuscation.StrObfuscate("Inventory_Cargo");
+            string path4_3 = Obfuscation.StrObfuscate("Inventory_TechOnly");
+            string path4_4 = Obfuscation.StrObfuscate("InventoryLayout");
+            JToken techJToken;
+            if (isO) techJToken = Obfuscation.JTObfuscate(JToken.Parse(newTech.ToJsonString())); 
+            else techJToken = JToken.Parse(newTech.ToJsonString());
+            var techArray = techJToken as JArray;
+            if (techArray == null || techArray.Count != 4) { throw new Exception("飞船技术、模块与库存数据异常！"); }
+            string jsonPath1 = $"$.{path1}.{path2}.{path3}[{shipID}].{path4_1}";
+            string jsonPath2 = $"$.{path1}.{path2}.{path3}[{shipID}].{path4_2}";
+            string jsonPath3 = $"$.{path1}.{path2}.{path3}[{shipID}].{path4_3}";
+            string jsonPath4 = $"$.{path1}.{path2}.{path3}[{shipID}].{path4_4}";
+            save.SetJsonValue(techArray[0], jsonPath1);
+            save.SetJsonValue(techArray[1], jsonPath2);
+            save.SetJsonValue(techArray[2], jsonPath3);
+            save.SetJsonValue(techArray[3], jsonPath4);
+            currentSave = save;
+        }
+
         // 读取基地/货船基地/自定义飞船数据
-        public string readBaseObject(int baseID, int shipID, bool isO)
+        private string readBaseObject(int baseID, int shipID, bool isO)
         {
             if (baseID == -1 && (!PersistentPlayerBases?.AsArray()?.Any(s => s?["CVX"]?.ToString() == shipID.ToString()) ?? true))
                 return "";
@@ -250,7 +280,7 @@ namespace NMSModelIOTool.Model
             else
             {
                 jsonString = isO == true
-                    ? Obfuscation.Deobfuscate(JToken.Parse(baseJN["@ZJ"]!.ToJsonString())).ToString()
+                    ? Obfuscation.JTDeobfuscate(JToken.Parse(baseJN["@ZJ"]!.ToJsonString())).ToString()
                     : baseJN["@ZJ"]?.ToJsonString() ?? "";
             }
             return jsonString;
@@ -269,14 +299,14 @@ namespace NMSModelIOTool.Model
             else
             {
                 jsonString = isO == true
-                    ? Obfuscation.Deobfuscate(JToken.Parse(ccdJN.ToJsonString())).ToString()
+                    ? Obfuscation.JTDeobfuscate(JToken.Parse(ccdJN.ToJsonString())).ToString()
                     : ccdJN.ToJsonString();
             }
             return jsonString;
         }
 
         // 读取飞船所有权数据
-        public string readSO(int shipID, bool isO)
+        private string readSO(int shipID, bool isO)
         {
             if (shipID == -1) throw new Exception("读取飞船所有权时 ShipID 不能为 -1！");
             var shipJN = JsonNode.Parse(ShipOwnership?.AsArray()?.ElementAt(shipID)?.ToString() ?? "");
@@ -285,8 +315,36 @@ namespace NMSModelIOTool.Model
             else
             {
                 jsonString = isO == true
-                    ? Obfuscation.Deobfuscate(JToken.Parse(shipJN.ToJsonString())).ToString()
+                    ? Obfuscation.JTDeobfuscate(JToken.Parse(shipJN.ToJsonString())).ToString()
                     : shipJN.ToJsonString();
+            }
+            return jsonString;
+        }
+
+        // 读取飞船技术、模块与库存数据
+        private string readTech(int shipID, bool isO)
+        {
+            if (shipID == -1) throw new Exception("读取飞船技术、模块与库存时 ShipID 不能为 -1！");
+            var shipJN = JsonNode.Parse(ShipOwnership?.AsArray()?.ElementAt(shipID)?.ToString() ?? "");
+
+            var shipInventory = shipJN?[Obfuscation.StrObfuscate("Inventory")]?.DeepClone() ?? new JsonObject();
+            var shipInventory_Cargo = shipJN?[Obfuscation.StrObfuscate("Inventory_Cargo")]?.DeepClone() ?? new JsonObject();
+            var shipInventory_TechOnly = shipJN?[Obfuscation.StrObfuscate("Inventory_TechOnly")]?.DeepClone() ?? new JsonObject();
+            var shipInventoryLayout = shipJN?[Obfuscation.StrObfuscate("InventoryLayout")]?.DeepClone() ?? new JsonObject();
+
+            var shipTech = new JsonArray();
+            shipTech.Add(shipInventory);
+            shipTech.Add(shipInventory_Cargo);
+            shipTech.Add(shipInventory_TechOnly);
+            shipTech.Add(shipInventoryLayout);
+
+            string jsonString;
+            if (shipTech == null) { jsonString = ""; }
+            else
+            {
+                jsonString = isO == true
+                    ? Obfuscation.JTDeobfuscate(JToken.Parse(shipTech.ToJsonString())).ToString()
+                    : shipTech.ToJsonString();
             }
             return jsonString;
         }
@@ -368,6 +426,36 @@ namespace NMSModelIOTool.Model
             MessageClass.InfoMessageBox("导入成功！");
         }
 
+        public async Task importShipTech(
+            int index,
+            string importPath,
+            bool isOb
+            )
+        {
+            if (index < 0 && index > 11) throw new Exception("传入的飞船 ID 异常！");
+            if (importPath.Split('.').Last() != "json" || importPath.Split('.').Last() != "tech")
+                throw new Exception("未选择文件或不受支持的文件格式！");
+            var jsonString = File.ReadAllText(importPath);
+            JsonNode? json = JsonNode.Parse(jsonString);
+            if (json == null) { throw new Exception("文件内容无法解析！"); }
+            await Task.Run(() => { writeTech(json, index, isOb); });
+            await Task.Run(() => { SaveSave(currentSave!); });
+            MessageClass.InfoMessageBox("导入成功！");
+        }
+
+        public async Task setShipSeed(
+            int shipID,
+            string seed
+            )
+        {
+            if (shipID == -1) throw new Exception("尚未选择飞船！请先选择你要设置的飞船。");
+            if (seed == null) throw new Exception("尚未输入种子！请输入种子以设置飞船。");
+
+            await Task.Run(() => { writeSeed(seed, shipID); });
+            await Task.Run(() => { SaveSave(currentSave!); });
+            MessageClass.InfoMessageBox("设置种子成功：" + seed);
+        }
+
         public async Task exportShip(
             int index,
             string exportPath,
@@ -432,17 +520,28 @@ namespace NMSModelIOTool.Model
             MessageClass.InfoMessageBox("导出文件成功：" + saveFilePath);
         }
 
-        public async Task setShipSeed(
-            int shipID,
-            string seed
+        public async Task exportShipTech(
+            int index,
+            string exportPath,
+            string fileName,
+            bool isO,
+            bool isTech
             )
         {
-            if (shipID == -1) throw new Exception("尚未选择飞船！请先选择你要设置的飞船。");
-            if (seed == null) throw new Exception("尚未输入种子！请输入种子以设置飞船。");
+            if (index == -1) throw new Exception("尚未选择要导出的飞船！");
+            var stringJN = readTech(index, isO);
+            if (stringJN == "" || stringJN.Count() < 4) throw new Exception("飞船技术、模块与库存数据异常，无法导出！");
 
-            await Task.Run(() => { writeSeed(seed, shipID); });
-            await Task.Run(() => { SaveSave(currentSave!); });
-            MessageClass.InfoMessageBox("设置种子成功：" + seed);
+            if (fileName == "")
+            {
+                if (!string.IsNullOrEmpty(ShipOwnership?.AsArray()?.ElementAt(index)?["NKm"]?.ToString()))
+                    fileName = ShipOwnership?.AsArray()?.ElementAt(index)?["NKm"]?.ToString()
+                    ?? defaultExportNameString;
+                else fileName = defaultExportNameString;
+            }
+            var saveFilePath = Path.Combine(exportPath, fileName + (isTech ? ".tech" : ".json"));
+            File.WriteAllText(saveFilePath, stringJN);
+            MessageClass.InfoMessageBox("导出文件成功：" + saveFilePath);
         }
 
         #endregion
