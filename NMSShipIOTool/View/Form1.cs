@@ -39,7 +39,7 @@ namespace NMSShipIOTool
             {
                 savePath = path;
                 textBoxPath.Text = savePath;
-                updateSaveDescription(savePath, "´ı¼ÓÔØ");
+                updateSaveDescription(savePath, "å¾…åŠ è½½");
             }
         }
 
@@ -48,7 +48,7 @@ namespace NMSShipIOTool
             var lastFile = Directory.GetFiles(filePath).OrderByDescending(f => File.GetLastWriteTime(f)).First();
             DateTime fileLastWriteTime = File.GetLastWriteTime(lastFile);
 
-            labelDescription.Text = "´æµµÆ½Ì¨£º" + platform + "\n×îºó±£´æÊ±¼ä£º" + fileLastWriteTime;
+            labelDescription.Text = "å­˜æ¡£å¹³å°ï¼š" + platform + "\næœ€åä¿å­˜æ—¶é—´ï¼š" + fileLastWriteTime;
         }
 
         public async void loadSave(String filePath)
@@ -65,7 +65,7 @@ namespace NMSShipIOTool
             }
             catch (Exception ex)
             {
-                MessageClass.ErrorMessageBox("Ñ°ÕÒ´æµµÊ§°Ü£¬´íÎóĞÅÏ¢£º" + ex.Message + "\n");
+                MessageClass.ErrorMessageBox("å¯»æ‰¾å­˜æ¡£å¤±è´¥ï¼Œé”™è¯¯ä¿¡æ¯ï¼š" + ex.Message + "\n");
                 finishLoading();
                 return;
             }
@@ -77,22 +77,22 @@ namespace NMSShipIOTool
                 .ToList();
             if (saveList == null || saveList.Count() == 0)
             {
-                MessageClass.ErrorMessageBox("Ã»ÓĞÕÒµ½ÓĞĞ§µÄ´æµµ");
+                MessageClass.ErrorMessageBox("æ²¡æœ‰æ‰¾åˆ°æœ‰æ•ˆçš„å­˜æ¡£");
                 finishLoading();
                 return;
             }
             else if (saveList.Count() == 1)
             {
-                MessageClass.InfoMessageBox("½öÕÒµ½Ò»¸ö´æµµ£¬×Ô¶¯Ñ¡Ôñ " + saveList.ToList()[0].ToString());
+                MessageClass.InfoMessageBox("ä»…æ‰¾åˆ°ä¸€ä¸ªå­˜æ¡£ï¼Œè‡ªåŠ¨é€‰æ‹© " + saveList.ToList()[0].ToString());
             }
             else
             {
-                using var dialog = new ChoiceDialog("Ñ¡ÔñÒ»¸ö´æµµ", saves.ToList().Where(s => saveList.Contains(saves.ToList().IndexOf(s))).ToList());
+                using var dialog = new ChoiceDialog("é€‰æ‹©ä¸€ä¸ªå­˜æ¡£", saves.ToList().Where(s => saveList.Contains(saves.ToList().IndexOf(s))).ToList());
                 {
                     dialog.ShowDialog();
                     if (dialog.DialogResult == DialogResult.OK)
                     { choose = dialog.SelectedOption; }
-                    else { MessageClass.InfoMessageBox("Ñ¡ÔñÈ¡Ïû£¬Ä¬ÈÏ " + saves.ToList()[saveList[choose]].ToString()); }
+                    else { MessageClass.InfoMessageBox("é€‰æ‹©å–æ¶ˆï¼Œé»˜è®¤ " + saves.ToList()[saveList[choose]].ToString()); }
                 }
             }
 
@@ -105,7 +105,7 @@ namespace NMSShipIOTool
                     this.Invoke((MethodInvoker)delegate
                     {
                         updateUI();
-                        MessageClass.InfoMessageBox("´æµµ¼ÓÔØÍê³É¡£      ");
+                        MessageClass.InfoMessageBox("å­˜æ¡£åŠ è½½å®Œæˆã€‚      ");
                     });
                 });
             }
@@ -143,7 +143,7 @@ namespace NMSShipIOTool
             buttonSeedShipExport.Enabled = true;
             buttonSeedShipImport.Enabled = true;
             if (GetSelectedRadioSSeed() != null &&
-                GetSelectedRadioSSeed()!.Contains("ÖÖ×ÓÎŞĞ§"))
+                GetSelectedRadioSSeed()!.Contains("ç§å­æ— æ•ˆ"))
                 buttonSetSeed.Enabled = true;
         }
 
@@ -183,7 +183,7 @@ namespace NMSShipIOTool
                     Text = options1[i],
                     Name = "radioI_" + i,
                     AutoSize = true,
-                    Tag = int.Parse(options1[i].Split("·É´¬ ID£º")[1].Split("£¬»ùµØ")[0])
+                    Tag = int.Parse(options1[i].Split("é£èˆ¹ IDï¼š")[1].Split("ï¼ŒåŸºåœ°")[0])
                 };
                 radioPanelI.Controls.Add(radio);
             }
@@ -193,17 +193,17 @@ namespace NMSShipIOTool
             {
                 var radio = new RadioButton
                 {
-                    Text = options2[i].Split("£¬ÖÖ×Ó£º")[0],
-                    Name = options2[i].Split("£¬ÖÖ×Ó£º")[1],
+                    Text = options2[i].Split("ï¼Œç§å­ï¼š")[0],
+                    Name = options2[i].Split("ï¼Œç§å­ï¼š")[1],
                     AutoSize = true,
-                    Tag = int.Parse(options2[i].Split("·É´¬ ID£º")[1].Split("£¬ÀàĞÍ£º")[0])
+                    Tag = int.Parse(options2[i].Split("é£èˆ¹ IDï¼š")[1].Split("ï¼Œç±»å‹ï¼š")[0])
                 };
                 radio.CheckedChanged += (s, e) =>
                 {
                     if (((RadioButton)s!).Checked)
                     {
                         string seed = ((RadioButton)s).Name;
-                        if (seed.Contains("ÖÖ×ÓÎŞĞ§"))
+                        if (seed.Contains("ç§å­æ— æ•ˆ"))
                         { seed = ""; buttonSetSeed.Enabled = false; }
                         else { buttonSetSeed.Enabled = true; }
                         shipSeed.Text = seed;
@@ -219,7 +219,7 @@ namespace NMSShipIOTool
             {
                 if (ctrl is RadioButton rb && rb.Checked)
                 {
-                    return (int)(rb.Tag ?? -1); // »òÕß·µ»ØË÷Òı¡¢ÆäËû²ÎÊı
+                    return (int)(rb.Tag ?? -1); // æˆ–è€…è¿”å›ç´¢å¼•ã€å…¶ä»–å‚æ•°
                 }
             }
             return -1;
@@ -231,7 +231,7 @@ namespace NMSShipIOTool
             {
                 if (ctrl is RadioButton rb && rb.Checked)
                 {
-                    return (int)(rb.Tag ?? -1); // »òÕß·µ»ØË÷Òı¡¢ÆäËû²ÎÊı
+                    return (int)(rb.Tag ?? -1); // æˆ–è€…è¿”å›ç´¢å¼•ã€å…¶ä»–å‚æ•°
                 }
             }
             return null;
@@ -255,13 +255,13 @@ namespace NMSShipIOTool
 
         private void buttonSelect_Click(object sender, EventArgs e)
         {
-            // ÔÚÕâÀï±àĞ´°´Å¥µã»÷ºóµÄÂß¼­
+            // åœ¨è¿™é‡Œç¼–å†™æŒ‰é’®ç‚¹å‡»åçš„é€»è¾‘
             selectFile();
         }
 
         private void buttonLoad_Click(object sender, EventArgs e)
         {
-            // ÔÚÕâÀï±àĞ´°´Å¥µã»÷ºóµÄÂß¼­
+            // åœ¨è¿™é‡Œç¼–å†™æŒ‰é’®ç‚¹å‡»åçš„é€»è¾‘
             loadSave(savePath);
         }
 
@@ -276,12 +276,12 @@ namespace NMSShipIOTool
             inputImportText.Text = "";
             using (OpenFileDialog dialog = new OpenFileDialog())
             {
-                dialog.Filter = "JSON ÎÄ¼ş (*.json); ·É´¬ÍêÕû°ü(*.nmsship)|*.json; *nmsship|ËùÓĞÎÄ¼ş (*.*)|*.*";
-                dialog.Title = "ÇëÑ¡ÔñÎÄ¼ş";
+                dialog.Filter = "JSON æ–‡ä»¶ (*.json); é£èˆ¹å®Œæ•´åŒ…(*.nmsship)|*.json; *nmsship|æ‰€æœ‰æ–‡ä»¶ (*.*)|*.*";
+                dialog.Title = "è¯·é€‰æ‹©æ–‡ä»¶";
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     string selectedFile = dialog.FileName;
-                    // ÕâÀï¿ÉÒÔ´¦ÀíÑ¡ÖĞµÄÎÄ¼şÂ·¾¶£¬ÀıÈçÏÔÊ¾µ½ÎÄ±¾¿ò
+                    // è¿™é‡Œå¯ä»¥å¤„ç†é€‰ä¸­çš„æ–‡ä»¶è·¯å¾„ï¼Œä¾‹å¦‚æ˜¾ç¤ºåˆ°æ–‡æœ¬æ¡†
                     importPath.Text = selectedFile;
                     importPathString = selectedFile;
                 }
@@ -320,7 +320,7 @@ namespace NMSShipIOTool
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     string selectedFile = dialog.SelectedPath;
-                    // ÕâÀï¿ÉÒÔ´¦ÀíÑ¡ÖĞµÄÎÄ¼şÂ·¾¶£¬ÀıÈçÏÔÊ¾µ½ÎÄ±¾¿ò
+                    // è¿™é‡Œå¯ä»¥å¤„ç†é€‰ä¸­çš„æ–‡ä»¶è·¯å¾„ï¼Œä¾‹å¦‚æ˜¾ç¤ºåˆ°æ–‡æœ¬æ¡†
                     exportPath.Text = selectedFile;
                     exportPathString = selectedFile;
                 }
@@ -333,13 +333,13 @@ namespace NMSShipIOTool
             var index = GetSelectedRadioI();
             if (importPathString == "" && inputImportText.Text == "")
             {
-                MessageClass.ErrorMessageBox("ÇëÏÈÑ¡Ôñ»òÊäÈëÒªµ¼ÈëµÄÄÚÈİ£¡");
+                MessageClass.ErrorMessageBox("è¯·å…ˆé€‰æ‹©æˆ–è¾“å…¥è¦å¯¼å…¥çš„å†…å®¹ï¼");
                 finishLoading();
                 return;
             }
             if (importPathString != "" && inputImportText.Text != "")
             {
-                MessageClass.ErrorMessageBox("ÄãÉèÖÃÁËÁ½¸öµ¼ÈëÀ´Ô´£¬ÇëÑ¡ÔñÒ»¸öµ¼Èë£¡£¡");
+                MessageClass.ErrorMessageBox("ä½ è®¾ç½®äº†ä¸¤ä¸ªå¯¼å…¥æ¥æºï¼Œè¯·é€‰æ‹©ä¸€ä¸ªå¯¼å…¥ï¼ï¼");
                 finishLoading();
                 return;
             }
@@ -348,7 +348,7 @@ namespace NMSShipIOTool
                 await saveLoader.importShip(
                     index,
                     (importPathString != ""
-                        ? (!File.Exists(importPathString) ? throw new Exception("ÎÄ¼ş²»´æÔÚ£¡") : importPathString)
+                        ? (!File.Exists(importPathString) ? throw new Exception("æ–‡ä»¶ä¸å­˜åœ¨ï¼") : importPathString)
                         : FileOperations.setTempFile(inputImportText.Text)
                     ),
                     checkBoxI.Checked,
@@ -373,7 +373,7 @@ namespace NMSShipIOTool
             {
                 if (seedText.Text == "")
                 {
-                    throw new Exception("ÇëÊäÈëÓĞĞ§µÄÖÖ×Ó£¡");
+                    throw new Exception("è¯·è¾“å…¥æœ‰æ•ˆçš„ç§å­ï¼");
                 }
                 await saveLoader.setShipSeed(
                     index,
@@ -399,14 +399,14 @@ namespace NMSShipIOTool
                 tempPath = FileOperations.fileSelect();
                 if (tempPath == "")
                 {
-                    MessageClass.InfoMessageBox("²Ù×÷È¡Ïû£¡");
+                    MessageClass.InfoMessageBox("æ“ä½œå–æ¶ˆï¼");
                     finishLoading();
                     return;
                 }
 
                 if (!File.Exists(tempPath))
                 {
-                    throw new Exception("ÎÄ¼ş²»´æÔÚ£¡");
+                    throw new Exception("æ–‡ä»¶ä¸å­˜åœ¨ï¼");
                 }
                 var Index = GetSelectedRadioSIndex() ?? -1;
                 await saveLoader.importShip(
@@ -435,7 +435,7 @@ namespace NMSShipIOTool
                 tempPath = FileOperations.folderSelect();
                 if (tempPath == "")
                 {
-                    MessageClass.InfoMessageBox("²Ù×÷È¡Ïû£¡");
+                    MessageClass.InfoMessageBox("æ“ä½œå–æ¶ˆï¼");
                     finishLoading();
                     return;
                 }
@@ -463,13 +463,13 @@ namespace NMSShipIOTool
             if (!checkBoxI.Checked)
             {
                 var result = MessageClass.WarningMessageBox(
-                    "ÄãÕıÔÚ¹Ø±Õ»ìÏı¹¦ÄÜ¡£\n" +
-                    "ÓÉÓÚÓÎÏ·´æµµ¾­¹ı»ìÏı¼ÓÃÜ£¬ÔÚµ¼ÈëÃ÷ÎÄÄÚÈİºÍµ¼³öÃ÷ÎÄÄÚÈİÊ±ĞèÒª¾­¹ı»ìÏıÓë·´»ìÏı" +
-                    "Èç¹ûÄãµÄÉè±¸ÄÜÁ÷³©µØÔËĞĞÎŞÈËÉî¿Õ£¬ÄÇÃ´»ìÏı¶ÔÄãµÄÉè±¸ĞÔÄÜµÄÓ°Ïì¿ÉÒÔºöÂÔ²»¼Æ¡£\n" +
-                    "¼´Ê¹Äãµ¼Èë»òµ¼ÈëµÄÄÚÈİÎ´¾­·´»ìÏıÈÔÈ»ÊÇÃÜÎÄ£¬ÎÒÃÇÒ²ÍÆ¼öÄã±£³Ö»ìÏı¿ªÆô¡£" +
-                    "»ìÏıËã·¨²»»áÓ°ÏìÒÑ¾­¾­¹ı»ìÏıµÄÄÚÈİ£¬¿ªÆô»ìÏı¿ÉÒÔ¾¡¿ÉÄÜµÄ½µµÍÒâÍâµ¼³öÈëÃ÷ÎÄÇÒÎ´¾­»ìÏı¶øµ¼ÖÂ´æµµËğ»µµÄ·çÏÕ¡£\n" +
-                    "ÄãÈ·¶¨ÄãÏëÒª¹Ø±Õ»ìÏı£¬Ö±½Óµ¼Èë»òµ¼³öÄÚÈİÂğ£¿\n" +
-                    "ÈôÈ·¶¨¼ÌĞø£¬ÇëÈ·±£Äãµ¼Èë»òµ¼³öµÄÄÚÈİ¿ÉÒÔ±»°²È«µØÖ±½ÓĞ´Èë´æµµ¡£"
+                    "ä½ æ­£åœ¨å…³é—­æ··æ·†åŠŸèƒ½ã€‚\n" +
+                    "ç”±äºæ¸¸æˆå­˜æ¡£ç»è¿‡æ··æ·†åŠ å¯†ï¼Œåœ¨å¯¼å…¥æ˜æ–‡å†…å®¹å’Œå¯¼å‡ºæ˜æ–‡å†…å®¹æ—¶éœ€è¦ç»è¿‡æ··æ·†ä¸åæ··æ·†" +
+                    "å¦‚æœä½ çš„è®¾å¤‡èƒ½æµç•…åœ°è¿è¡Œæ— äººæ·±ç©ºï¼Œé‚£ä¹ˆæ··æ·†å¯¹ä½ çš„è®¾å¤‡æ€§èƒ½çš„å½±å“å¯ä»¥å¿½ç•¥ä¸è®¡ã€‚\n" +
+                    "å³ä½¿ä½ å¯¼å…¥æˆ–å¯¼å…¥çš„å†…å®¹æœªç»åæ··æ·†ä»ç„¶æ˜¯å¯†æ–‡ï¼Œæˆ‘ä»¬ä¹Ÿæ¨èä½ ä¿æŒæ··æ·†å¼€å¯ã€‚" +
+                    "æ··æ·†ç®—æ³•ä¸ä¼šå½±å“å·²ç»ç»è¿‡æ··æ·†çš„å†…å®¹ï¼Œå¼€å¯æ··æ·†å¯ä»¥å°½å¯èƒ½çš„é™ä½æ„å¤–å¯¼å‡ºå…¥æ˜æ–‡ä¸”æœªç»æ··æ·†è€Œå¯¼è‡´å­˜æ¡£æŸåçš„é£é™©ã€‚\n" +
+                    "ä½ ç¡®å®šä½ æƒ³è¦å…³é—­æ··æ·†ï¼Œç›´æ¥å¯¼å…¥æˆ–å¯¼å‡ºå†…å®¹å—ï¼Ÿ\n" +
+                    "è‹¥ç¡®å®šç»§ç»­ï¼Œè¯·ç¡®ä¿ä½ å¯¼å…¥æˆ–å¯¼å‡ºçš„å†…å®¹å¯ä»¥è¢«å®‰å…¨åœ°ç›´æ¥å†™å…¥å­˜æ¡£ã€‚"
                     );
                 if (result == DialogResult.Cancel) { checkBoxI.Checked = true; }
             }
@@ -480,12 +480,12 @@ namespace NMSShipIOTool
             if (!checkBoxS.Checked)
             {
                 var result = MessageClass.WarningMessageBox(
-                    "ÄãÕıÔÚ¹Ø±Õ»ìÏı¹¦ÄÜ¡£\n" +
-                    "ÓÉÓÚÓÎÏ·´æµµ¾­¹ı»ìÏı¼ÓÃÜ£¬ÔÚµ¼ÈëÃ÷ÎÄÄÚÈİºÍµ¼³öÃ÷ÎÄÄÚÈİÊ±ĞèÒª¾­¹ı»ìÏıÓë·´»ìÏı¡£" +
-                    "Èç¹ûÄãµÄÉè±¸ÄÜÁ÷³©µØÔËĞĞÎŞÈËÉî¿Õ£¬ÄÇÃ´»ìÏı¶ÔÄãµÄÉè±¸ĞÔÄÜµÄÓ°Ïì¿ÉÒÔºöÂÔ²»¼Æ¡£\n" +
-                    "»ìÏıËã·¨²»»áÓ°ÏìÒÑ¾­¾­¹ı»ìÏıµÄÄÚÈİ£¬¿ªÆô»ìÏı¿ÉÒÔ¾¡¿ÉÄÜµÄ½µµÍÒâÍâµ¼³öÈëÃ÷ÎÄÇÒÎ´¾­»ìÏı¶øµ¼ÖÂ´æµµËğ»µµÄ·çÏÕ¡£\n" +
-                    "ÄãÈ·¶¨ÄãÏëÒª¹Ø±Õ»ìÏı£¬Ö±½Óµ¼³ö/ÈëÄÚÈİÂğ£¿\n" +
-                    "ÈôÈ·¶¨¼ÌĞø£¬ÇëÈ·±£Äãµ¼Èë»òµ¼³öµÄÄÚÈİ¿ÉÒÔ±»°²È«µØÖ±½ÓĞ´Èë´æµµ¡£"
+                    "ä½ æ­£åœ¨å…³é—­æ··æ·†åŠŸèƒ½ã€‚\n" +
+                    "ç”±äºæ¸¸æˆå­˜æ¡£ç»è¿‡æ··æ·†åŠ å¯†ï¼Œåœ¨å¯¼å…¥æ˜æ–‡å†…å®¹å’Œå¯¼å‡ºæ˜æ–‡å†…å®¹æ—¶éœ€è¦ç»è¿‡æ··æ·†ä¸åæ··æ·†ã€‚" +
+                    "å¦‚æœä½ çš„è®¾å¤‡èƒ½æµç•…åœ°è¿è¡Œæ— äººæ·±ç©ºï¼Œé‚£ä¹ˆæ··æ·†å¯¹ä½ çš„è®¾å¤‡æ€§èƒ½çš„å½±å“å¯ä»¥å¿½ç•¥ä¸è®¡ã€‚\n" +
+                    "æ··æ·†ç®—æ³•ä¸ä¼šå½±å“å·²ç»ç»è¿‡æ··æ·†çš„å†…å®¹ï¼Œå¼€å¯æ··æ·†å¯ä»¥å°½å¯èƒ½çš„é™ä½æ„å¤–å¯¼å‡ºå…¥æ˜æ–‡ä¸”æœªç»æ··æ·†è€Œå¯¼è‡´å­˜æ¡£æŸåçš„é£é™©ã€‚\n" +
+                    "ä½ ç¡®å®šä½ æƒ³è¦å…³é—­æ··æ·†ï¼Œç›´æ¥å¯¼å‡º/å…¥å†…å®¹å—ï¼Ÿ\n" +
+                    "è‹¥ç¡®å®šç»§ç»­ï¼Œè¯·ç¡®ä¿ä½ å¯¼å…¥æˆ–å¯¼å‡ºçš„å†…å®¹å¯ä»¥è¢«å®‰å…¨åœ°ç›´æ¥å†™å…¥å­˜æ¡£ã€‚"
                     );
                 if (result == DialogResult.Cancel) { checkBoxS.Checked = true; }
             }
@@ -523,14 +523,14 @@ namespace NMSShipIOTool
                 tempPath = FileOperations.fileSelect();
                 if (tempPath == "")
                 {
-                    MessageClass.InfoMessageBox("²Ù×÷È¡Ïû£¡");
+                    MessageClass.InfoMessageBox("æ“ä½œå–æ¶ˆï¼");
                     finishLoading();
                     return;
                 }
 
                 if (!File.Exists(tempPath))
                 {
-                    throw new Exception("ÎÄ¼ş²»´æÔÚ£¡");
+                    throw new Exception("æ–‡ä»¶ä¸å­˜åœ¨ï¼");
                 }
                 var Index = GetSelectedRadioSIndex() ?? -1;
                 await saveLoader.importShipTech(
@@ -558,7 +558,7 @@ namespace NMSShipIOTool
                 tempPath = FileOperations.folderSelect();
                 if (tempPath == "")
                 {
-                    MessageClass.InfoMessageBox("²Ù×÷È¡Ïû£¡");
+                    MessageClass.InfoMessageBox("æ“ä½œå–æ¶ˆï¼");
                     finishLoading();
                     return;
                 }
@@ -608,13 +608,13 @@ namespace NMSShipIOTool
             {
                 if (importPathString == "" && inputImportText.Text == "")
                 {
-                    MessageClass.ErrorMessageBox("ÇëÏÈÑ¡ÔñÒªµ¼ÈëµÄÎÄ¼şÂ·¾¶£¡");
+                    MessageClass.ErrorMessageBox("è¯·å…ˆé€‰æ‹©è¦å¯¼å…¥çš„æ–‡ä»¶è·¯å¾„ï¼");
                     finishLoading();
                     return;
                 }
                 if (!File.Exists(importPathString))
                 {
-                    throw new Exception("ÎÄ¼ş²»´æÔÚ£¡");
+                    throw new Exception("æ–‡ä»¶ä¸å­˜åœ¨ï¼");
                 }
                 var Index = GetSelectedRadioI();
                 await saveLoader.importShipTech(

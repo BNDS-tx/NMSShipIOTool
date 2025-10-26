@@ -1,4 +1,4 @@
-﻿namespace NMSShipIOTool
+namespace NMSShipIOTool
 {
     partial class AboutDialog
     {
@@ -30,39 +30,28 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutDialog));
             title = new Label();
             info = new Label();
             SuspendLayout();
             // 
             // title
             // 
-            title.Location = new Point(0, 0);
+            resources.ApplyResources(title, "title");
             title.Name = "title";
-            title.Size = new Size(600, 200);
-            title.TabIndex = 0;
-            title.Text = "NMS Ship IO Tool\n无人深空飞船导入导出工具";
-            title.TextAlign = ContentAlignment.MiddleCenter;
-            title.Font = new Font("Microsoft YaHei", 20, FontStyle.Bold);
             // 
             // info
             // 
-            info.Location = new Point(0, 200);
+            resources.ApplyResources(info, "info");
             info.Name = "info";
-            info.Size = new Size(600, 200);
-            info.TabIndex = 1;
-            info.Text = "版本 1.1.0\n作者：蓝夜深空（BNDS-tx）\n\n\n\n本工具仅供学习和交流使用。\nNMS Ship IO Tool  Copyright (C) 2025  徐腾（蓝夜深空）";
-            info.Font = new Font("Microsoft YaHei", 10);
-            info.TextAlign = ContentAlignment.TopCenter;
             // 
             // AboutDialog
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(600, 400);
             Controls.Add(title);
             Controls.Add(info);
             Name = "AboutDialog";
-            Text = "关于";
             ResumeLayout(false);
 
         }

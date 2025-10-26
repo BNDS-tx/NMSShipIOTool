@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.Resources;
 
 namespace NMSShipIOTool
@@ -61,6 +61,7 @@ namespace NMSShipIOTool
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             labelPath = new Label();
@@ -121,11 +122,9 @@ namespace NMSShipIOTool
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
-            tabControl1.Location = new Point(12, 12);
+            resources.ApplyResources(tabControl1, "tabControl1");
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(976, 610);
-            tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -135,61 +134,41 @@ namespace NMSShipIOTool
             tabPage1.Controls.Add(textBoxPath);
             tabPage1.Controls.Add(buttonSelect);
             tabPage1.Controls.Add(buttonLoad);
-            tabPage1.Location = new Point(4, 26);
+            resources.ApplyResources(tabPage1, "tabPage1");
             tabPage1.Name = "tabPage1";
-            tabPage1.Size = new Size(968, 580);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "游戏存档";
             // 
             // labelPath
             // 
-            labelPath.Location = new Point(12, 391);
+            resources.ApplyResources(labelPath, "labelPath");
             labelPath.Name = "labelPath";
-            labelPath.Size = new Size(60, 23);
-            labelPath.TabIndex = 0;
-            labelPath.Text = "存档路径:";
             // 
             // labelDescription
             // 
-            labelDescription.Location = new Point(12, 41);
+            resources.ApplyResources(labelDescription, "labelDescription");
             labelDescription.Name = "labelDescription";
-            labelDescription.Size = new Size(286, 249);
-            labelDescription.TabIndex = 1;
             // 
             // labelShipDetected
             // 
-            labelShipDetected.Location = new Point(319, 38);
-            labelShipDetected.Multiline = true;
+            resources.ApplyResources(labelShipDetected, "labelShipDetected");
             labelShipDetected.Name = "labelShipDetected";
             labelShipDetected.ReadOnly = true;
-            labelShipDetected.ScrollBars = ScrollBars.Both;
-            labelShipDetected.Size = new Size(612, 319);
-            labelShipDetected.TabIndex = 2;
             // 
             // textBoxPath
             // 
-            textBoxPath.Location = new Point(116, 388);
+            resources.ApplyResources(textBoxPath, "textBoxPath");
             textBoxPath.Name = "textBoxPath";
             textBoxPath.ReadOnly = true;
-            textBoxPath.Size = new Size(511, 23);
-            textBoxPath.TabIndex = 2;
             // 
             // buttonSelect
             // 
-            buttonSelect.Location = new Point(116, 430);
+            resources.ApplyResources(buttonSelect, "buttonSelect");
             buttonSelect.Name = "buttonSelect";
-            buttonSelect.Size = new Size(100, 33);
-            buttonSelect.TabIndex = 3;
-            buttonSelect.Text = "选择路径";
             buttonSelect.Click += buttonSelect_Click;
             // 
             // buttonLoad
             // 
-            buttonLoad.Location = new Point(231, 430);
+            resources.ApplyResources(buttonLoad, "buttonLoad");
             buttonLoad.Name = "buttonLoad";
-            buttonLoad.Size = new Size(100, 33);
-            buttonLoad.TabIndex = 4;
-            buttonLoad.Text = "加载存档";
             buttonLoad.Click += buttonLoad_Click;
             // 
             // tabPage2
@@ -214,183 +193,121 @@ namespace NMSShipIOTool
             tabPage2.Controls.Add(buttonImport);
             tabPage2.Controls.Add(radioPanelI);
             tabPage2.Controls.Add(checkBoxI);
-            tabPage2.Location = new Point(4, 26);
+            resources.ApplyResources(tabPage2, "tabPage2");
             tabPage2.Name = "tabPage2";
-            tabPage2.Size = new Size(968, 580);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "自定义飞船";
             // 
             // checkBoxTechI
             // 
-            checkBoxTechI.Location = new Point(287, 480);
+            resources.ApplyResources(checkBoxTechI, "checkBoxTechI");
             checkBoxTechI.Name = "checkBoxTechI";
-            checkBoxTechI.Size = new Size(211, 24);
-            checkBoxTechI.TabIndex = 21;
-            checkBoxTechI.Text = "导出技术、模块与库存为 .tech";
             // 
             // buttonImportShipTechI
             // 
-            buttonImportShipTechI.Location = new Point(736, 430);
+            resources.ApplyResources(buttonImportShipTechI, "buttonImportShipTechI");
             buttonImportShipTechI.Name = "buttonImportShipTechI";
-            buttonImportShipTechI.Size = new Size(189, 33);
-            buttonImportShipTechI.TabIndex = 20;
-            buttonImportShipTechI.Text = "导入飞船技术、模块与库存";
             buttonImportShipTechI.Click += buttonImportShipTechI_Click;
             // 
             // buttonExportShipTechI
             // 
-            buttonExportShipTechI.Location = new Point(287, 430);
+            resources.ApplyResources(buttonExportShipTechI, "buttonExportShipTechI");
             buttonExportShipTechI.Name = "buttonExportShipTechI";
-            buttonExportShipTechI.Size = new Size(189, 33);
-            buttonExportShipTechI.TabIndex = 19;
-            buttonExportShipTechI.Text = "导出飞船技术、模块与库存";
             buttonExportShipTechI.Click += buttonExportShipTechI_Click;
             // 
             // exportPath
             // 
-            exportPath.Location = new Point(118, 351);
+            resources.ApplyResources(exportPath, "exportPath");
             exportPath.Name = "exportPath";
             exportPath.ReadOnly = true;
-            exportPath.Size = new Size(358, 23);
-            exportPath.TabIndex = 11;
             // 
             // exportName
             // 
-            exportName.Location = new Point(118, 388);
+            resources.ApplyResources(exportName, "exportName");
             exportName.Name = "exportName";
-            exportName.Size = new Size(358, 23);
-            exportName.TabIndex = 12;
             // 
             // pathTextE
             // 
-            pathTextE.Location = new Point(12, 354);
+            resources.ApplyResources(pathTextE, "pathTextE");
             pathTextE.Name = "pathTextE";
-            pathTextE.Size = new Size(100, 23);
-            pathTextE.TabIndex = 13;
-            pathTextE.Text = "导出文件地址：";
             // 
             // nameTextE
             // 
-            nameTextE.Location = new Point(12, 391);
+            resources.ApplyResources(nameTextE, "nameTextE");
             nameTextE.Name = "nameTextE";
-            nameTextE.Size = new Size(100, 23);
-            nameTextE.TabIndex = 14;
-            nameTextE.Text = "导出文件名：";
             // 
             // exportSelect
             // 
-            exportSelect.Location = new Point(58, 430);
+            resources.ApplyResources(exportSelect, "exportSelect");
             exportSelect.Name = "exportSelect";
-            exportSelect.Size = new Size(100, 33);
-            exportSelect.TabIndex = 15;
-            exportSelect.Text = "选择保存地址";
             exportSelect.Click += exportSelect_Click;
             // 
             // buttonExport
             // 
-            buttonExport.Location = new Point(173, 430);
+            resources.ApplyResources(buttonExport, "buttonExport");
             buttonExport.Name = "buttonExport";
-            buttonExport.Size = new Size(100, 33);
-            buttonExport.TabIndex = 16;
-            buttonExport.Text = "导出飞船";
             buttonExport.Click += buttonExport_Click;
             // 
             // checkBoxNMSSHIP1
             // 
             checkBoxNMSSHIP1.Checked = true;
             checkBoxNMSSHIP1.CheckState = CheckState.Checked;
-            checkBoxNMSSHIP1.Location = new Point(173, 480);
+            resources.ApplyResources(checkBoxNMSSHIP1, "checkBoxNMSSHIP1");
             checkBoxNMSSHIP1.Name = "checkBoxNMSSHIP1";
-            checkBoxNMSSHIP1.Size = new Size(100, 24);
-            checkBoxNMSSHIP1.TabIndex = 10;
-            checkBoxNMSSHIP1.Text = "启用完整包";
             // 
             // importPath
             // 
-            importPath.Location = new Point(506, 388);
+            resources.ApplyResources(importPath, "importPath");
             importPath.Name = "importPath";
             importPath.ReadOnly = true;
-            importPath.Size = new Size(419, 23);
-            importPath.TabIndex = 0;
             // 
             // inputImportText
             // 
-            inputImportText.Location = new Point(506, 61);
-            inputImportText.Multiline = true;
+            resources.ApplyResources(inputImportText, "inputImportText");
             inputImportText.Name = "inputImportText";
-            inputImportText.ScrollBars = ScrollBars.Both;
-            inputImportText.Size = new Size(419, 271);
-            inputImportText.TabIndex = 1;
             inputImportText.TextChanged += inputImportText_TextChanged;
             // 
             // importSelect
             // 
-            importSelect.Location = new Point(506, 430);
+            resources.ApplyResources(importSelect, "importSelect");
             importSelect.Name = "importSelect";
-            importSelect.Size = new Size(100, 33);
-            importSelect.TabIndex = 2;
-            importSelect.Text = "选择导入文件";
             importSelect.Click += impoerSelect_Click;
             // 
             // shipSelectI
             // 
-            shipSelectI.Location = new Point(12, 35);
+            resources.ApplyResources(shipSelectI, "shipSelectI");
             shipSelectI.Name = "shipSelectI";
-            shipSelectI.Size = new Size(128, 23);
-            shipSelectI.TabIndex = 5;
-            shipSelectI.Text = "选择你要覆盖的飞船:";
             // 
             // pathTextI
             // 
-            pathTextI.Location = new Point(506, 354);
+            resources.ApplyResources(pathTextI, "pathTextI");
             pathTextI.Name = "pathTextI";
-            pathTextI.Size = new Size(98, 23);
-            pathTextI.TabIndex = 3;
-            pathTextI.Text = "导入文件目录：";
             // 
             // inputTextI
             // 
-            inputTextI.Location = new Point(506, 35);
+            resources.ApplyResources(inputTextI, "inputTextI");
             inputTextI.Name = "inputTextI";
-            inputTextI.Size = new Size(419, 23);
-            inputTextI.TabIndex = 4;
-            inputTextI.Text = "或者你可以在此处手动输入导入内容（仅限 Objects 字段）：";
             // 
             // inputTextIExplanation
             // 
-            inputTextIExplanation.Location = new Point(506, 480);
+            resources.ApplyResources(inputTextIExplanation, "inputTextIExplanation");
             inputTextIExplanation.Name = "inputTextIExplanation";
-            inputTextIExplanation.Size = new Size(390, 23);
-            inputTextIExplanation.TabIndex = 4;
-            inputTextIExplanation.Text = "请遵守 JSON 格式，并确保在最外围包含中括号”[]“";
-            inputTextIExplanation.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // buttonImport
             // 
-            buttonImport.Location = new Point(621, 430);
+            resources.ApplyResources(buttonImport, "buttonImport");
             buttonImport.Name = "buttonImport";
-            buttonImport.Size = new Size(100, 33);
-            buttonImport.TabIndex = 6;
-            buttonImport.Text = "导入飞船";
             buttonImport.Click += buttonImport_Click;
             // 
             // radioPanelI
             // 
-            radioPanelI.AutoScroll = true;
-            radioPanelI.Location = new Point(50, 61);
+            resources.ApplyResources(radioPanelI, "radioPanelI");
             radioPanelI.Name = "radioPanelI";
-            radioPanelI.Size = new Size(426, 271);
-            radioPanelI.TabIndex = 8;
             // 
             // checkBoxI
             // 
             checkBoxI.Checked = true;
             checkBoxI.CheckState = CheckState.Checked;
-            checkBoxI.Location = new Point(58, 480);
+            resources.ApplyResources(checkBoxI, "checkBoxI");
             checkBoxI.Name = "checkBoxI";
-            checkBoxI.Size = new Size(98, 24);
-            checkBoxI.TabIndex = 9;
-            checkBoxI.Text = "启用混淆";
             checkBoxI.CheckedChanged += checkBoxI_CheckedChanged;
             // 
             // tabPage3
@@ -412,188 +329,127 @@ namespace NMSShipIOTool
             tabPage3.Controls.Add(seedText);
             tabPage3.Controls.Add(buttonSetSeed);
             tabPage3.Controls.Add(radioPanelS);
-            tabPage3.Location = new Point(4, 26);
+            resources.ApplyResources(tabPage3, "tabPage3");
             tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(968, 580);
-            tabPage3.TabIndex = 3;
-            tabPage3.Text = "常规飞船";
             // 
             // checkBoxTech
             // 
-            checkBoxTech.Location = new Point(620, 390);
+            resources.ApplyResources(checkBoxTech, "checkBoxTech");
             checkBoxTech.Name = "checkBoxTech";
-            checkBoxTech.Size = new Size(211, 24);
-            checkBoxTech.TabIndex = 18;
-            checkBoxTech.Text = "导出技术、模块与库存为 .tech";
             // 
             // buttonImportShipTech
             // 
-            buttonImportShipTech.Location = new Point(620, 207);
+            resources.ApplyResources(buttonImportShipTech, "buttonImportShipTech");
             buttonImportShipTech.Name = "buttonImportShipTech";
-            buttonImportShipTech.Size = new Size(211, 33);
-            buttonImportShipTech.TabIndex = 17;
-            buttonImportShipTech.Text = "导入飞船技术、模块与库存";
             buttonImportShipTech.Click += buttonImportShipTech_Click;
             // 
             // buttonExportShipTech
             // 
-            buttonExportShipTech.Location = new Point(620, 332);
+            resources.ApplyResources(buttonExportShipTech, "buttonExportShipTech");
             buttonExportShipTech.Name = "buttonExportShipTech";
-            buttonExportShipTech.Size = new Size(211, 33);
-            buttonExportShipTech.TabIndex = 16;
-            buttonExportShipTech.Text = "导出飞船技术、模块与库存";
             buttonExportShipTech.Click += buttonExportShipTech_Click;
             // 
             // label1
             // 
-            label1.Location = new Point(506, 264);
+            resources.ApplyResources(label1, "label1");
             label1.Name = "label1";
-            label1.Size = new Size(100, 23);
-            label1.TabIndex = 15;
-            label1.Text = "保存文件名：";
             // 
             // textBoxExportName
             // 
-            textBoxExportName.Location = new Point(506, 290);
+            resources.ApplyResources(textBoxExportName, "textBoxExportName");
             textBoxExportName.Name = "textBoxExportName";
-            textBoxExportName.Size = new Size(419, 23);
-            textBoxExportName.TabIndex = 14;
             // 
             // checkBoxNMSSHIP3
             // 
             checkBoxNMSSHIP3.Checked = true;
             checkBoxNMSSHIP3.CheckState = CheckState.Checked;
-            checkBoxNMSSHIP3.Location = new Point(506, 420);
+            resources.ApplyResources(checkBoxNMSSHIP3, "checkBoxNMSSHIP3");
             checkBoxNMSSHIP3.Name = "checkBoxNMSSHIP3";
-            checkBoxNMSSHIP3.Size = new Size(100, 24);
-            checkBoxNMSSHIP3.TabIndex = 11;
-            checkBoxNMSSHIP3.Text = "启用完整包";
             checkBoxNMSSHIP3.CheckedChanged += checkBoxNMSSHIP3_CheckedChanged;
             // 
             // checkBoxNewShip
             // 
-            checkBoxNewShip.Location = new Point(506, 177);
+            resources.ApplyResources(checkBoxNewShip, "checkBoxNewShip");
             checkBoxNewShip.Name = "checkBoxNewShip";
-            checkBoxNewShip.Size = new Size(112, 24);
-            checkBoxNewShip.TabIndex = 13;
-            checkBoxNewShip.Text = "作为新飞船导入";
             // 
             // seedShipIOText
             // 
-            seedShipIOText.Location = new Point(506, 151);
+            resources.ApplyResources(seedShipIOText, "seedShipIOText");
             seedShipIOText.Name = "seedShipIOText";
-            seedShipIOText.Size = new Size(190, 23);
-            seedShipIOText.TabIndex = 12;
-            seedShipIOText.Text = "你可在此处导出/入飞船文件：";
             // 
             // checkBoxSH0
             // 
-            checkBoxSH0.Location = new Point(506, 450);
+            resources.ApplyResources(checkBoxSH0, "checkBoxSH0");
             checkBoxSH0.Name = "checkBoxSH0";
-            checkBoxSH0.Size = new Size(100, 24);
-            checkBoxSH0.TabIndex = 11;
-            checkBoxSH0.Text = "保存为 .sh0";
             checkBoxSH0.CheckedChanged += checkBoxSH0_CheckedChanged;
             // 
             // checkBoxS
             // 
             checkBoxS.Checked = true;
             checkBoxS.CheckState = CheckState.Checked;
-            checkBoxS.Location = new Point(506, 390);
+            resources.ApplyResources(checkBoxS, "checkBoxS");
             checkBoxS.Name = "checkBoxS";
-            checkBoxS.Size = new Size(100, 24);
-            checkBoxS.TabIndex = 4;
-            checkBoxS.Text = "启用混淆";
             checkBoxS.CheckedChanged += checkBoxS_CheckedChanged;
             // 
             // buttonSeedShipExport
             // 
-            buttonSeedShipExport.Location = new Point(506, 332);
+            resources.ApplyResources(buttonSeedShipExport, "buttonSeedShipExport");
             buttonSeedShipExport.Name = "buttonSeedShipExport";
-            buttonSeedShipExport.Size = new Size(100, 33);
-            buttonSeedShipExport.TabIndex = 1;
-            buttonSeedShipExport.Text = "导出飞船";
             buttonSeedShipExport.Click += buttonSeedShipExport_Click;
             // 
             // buttonSeedShipImport
             // 
-            buttonSeedShipImport.Location = new Point(506, 207);
+            resources.ApplyResources(buttonSeedShipImport, "buttonSeedShipImport");
             buttonSeedShipImport.Name = "buttonSeedShipImport";
-            buttonSeedShipImport.Size = new Size(100, 33);
-            buttonSeedShipImport.TabIndex = 10;
-            buttonSeedShipImport.Text = "导入飞船";
             buttonSeedShipImport.Click += buttonSeedShipImport_Click;
             // 
             // shipSeed
             // 
-            shipSeed.Location = new Point(506, 61);
+            resources.ApplyResources(shipSeed, "shipSeed");
             shipSeed.Name = "shipSeed";
-            shipSeed.Size = new Size(419, 23);
-            shipSeed.TabIndex = 0;
             // 
             // seedSelectText
             // 
-            seedSelectText.Location = new Point(12, 35);
+            resources.ApplyResources(seedSelectText, "seedSelectText");
             seedSelectText.Name = "seedSelectText";
-            seedSelectText.Size = new Size(184, 23);
-            seedSelectText.TabIndex = 0;
-            seedSelectText.Text = "选择你要导入/导出的常规飞船：";
             // 
             // seedText
             // 
-            seedText.Location = new Point(506, 35);
+            resources.ApplyResources(seedText, "seedText");
             seedText.Name = "seedText";
-            seedText.Size = new Size(100, 23);
-            seedText.TabIndex = 0;
-            seedText.Text = "飞船种子：";
             // 
             // buttonSetSeed
             // 
-            buttonSetSeed.Location = new Point(506, 102);
+            resources.ApplyResources(buttonSetSeed, "buttonSetSeed");
             buttonSetSeed.Name = "buttonSetSeed";
-            buttonSetSeed.Size = new Size(100, 33);
-            buttonSetSeed.TabIndex = 0;
-            buttonSetSeed.Text = "导入种子";
             buttonSetSeed.Click += buttonSetSeed_Click;
             // 
             // radioPanelS
             // 
-            radioPanelS.AutoScroll = true;
-            radioPanelS.Location = new Point(50, 61);
+            resources.ApplyResources(radioPanelS, "radioPanelS");
             radioPanelS.Name = "radioPanelS";
-            radioPanelS.Size = new Size(426, 413);
-            radioPanelS.TabIndex = 2;
             // 
             // progressBar
             // 
-            progressBar.Location = new Point(670, 560);
+            resources.ApplyResources(progressBar, "progressBar");
             progressBar.MarqueeAnimationSpeed = 30;
             progressBar.Name = "progressBar";
-            progressBar.Size = new Size(145, 40);
             progressBar.Style = ProgressBarStyle.Marquee;
-            progressBar.TabIndex = 1;
-            progressBar.Visible = false;
             // 
             // aboutButton
             // 
-            aboutButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            aboutButton.Location = new Point(867, 560);
+            resources.ApplyResources(aboutButton, "aboutButton");
             aboutButton.Name = "aboutButton";
-            aboutButton.Size = new Size(100, 40);
-            aboutButton.TabIndex = 0;
-            aboutButton.Text = "关于";
             aboutButton.Click += aboutButton_Click;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1000, 633);
             Controls.Add(aboutButton);
             Controls.Add(progressBar);
             Controls.Add(tabControl1);
             Name = "Form1";
-            Text = "无人深空飞船导入与导出工具";
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();

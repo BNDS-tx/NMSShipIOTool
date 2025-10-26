@@ -1,4 +1,4 @@
-﻿using libNOM.io.Interfaces;
+using libNOM.io.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -12,6 +12,11 @@ public class ChoiceDialog : Form
     public int SelectedOption { get; private set; } = 0;
 
     private List<IContainer> saves;
+
+    private void InitializeComponent()
+    {
+
+    }
 
     public ChoiceDialog(string title, List<IContainer> saves)
     {
