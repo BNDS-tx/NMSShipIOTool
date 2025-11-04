@@ -61,7 +61,7 @@ namespace NMSShipIOTool.Resources {
         }
         
         /// <summary>
-        ///   查找类似 版本 1.1.0
+        ///   查找类似 版本 1.2.0
         ///作者：蓝夜深空（BNDS-tx）
         ///
         ///
