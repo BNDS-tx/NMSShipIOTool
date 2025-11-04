@@ -2,8 +2,8 @@ namespace NMSShipIOTool
 {
     using libNOM.io.Enums;
     using libNOM.io.Interfaces;
-    using NMSModelIOTool.Model;
     using NMSShipIOTool.Model;
+    using NMSShipIOTool.Resources;
     using NMSShipIOTool.View;
     using System;
     using System.Collections.Generic;
@@ -39,7 +39,7 @@ namespace NMSShipIOTool
             {
                 savePath = path;
                 textBoxPath.Text = savePath;
-                updateSaveDescription(savePath, "待加载");
+                updateSaveDescription(savePath, Language.待加载);
             }
         }
 
@@ -48,7 +48,7 @@ namespace NMSShipIOTool
             var lastFile = Directory.GetFiles(filePath).OrderByDescending(f => File.GetLastWriteTime(f)).First();
             DateTime fileLastWriteTime = File.GetLastWriteTime(lastFile);
 
-            labelDescription.Text = "存档平台：" + platform + "\n最后保存时间：" + fileLastWriteTime;
+            labelDescription.Text = $"{Language.存档平台}{platform}\n{Language.最后保存时间}{fileLastWriteTime}";
         }
 
         public async void loadSave(String filePath)
@@ -65,34 +65,43 @@ namespace NMSShipIOTool
             }
             catch (Exception ex)
             {
-                MessageClass.ErrorMessageBox("寻找存档失败，错误信息：" + ex.Message + "\n");
+                MessageClass.ErrorMessageBox(Language.寻找存档失败_错误信息 + ex.Message + "\n");
+                updateTabEnabled(saveLoader.AllJsonNode != null);
                 finishLoading();
                 return;
             }
 
             var choose = 0;
             var saveList = saves.Select((item, idx) => new { item, idx })
-                .Where(s => s.item.ActiveContext == SaveContextQueryEnum.Main)
+                .Where(s => s.item.ActiveContext == SaveContextQueryEnum.Main || s.item.ActiveContext == SaveContextQueryEnum.Season)
+                .Where(s => s.item.SaveType == SaveTypeEnum.Manual)
                 .Select(s => s.idx)
                 .ToList();
             if (saveList == null || saveList.Count() == 0)
             {
-                MessageClass.ErrorMessageBox("没有找到有效的存档");
+                MessageClass.ErrorMessageBox(Language.没有找到有效的存档);
+                updateTabEnabled(saveLoader.AllJsonNode != null);
                 finishLoading();
                 return;
             }
             else if (saveList.Count() == 1)
             {
-                MessageClass.InfoMessageBox("仅找到一个存档，自动选择 " + saveList.ToList()[0].ToString());
+                MessageClass.InfoMessageBox(Language.仅找到一个存档_自动选择 + saveList.ToList()[0].ToString());
             }
             else
             {
-                using var dialog = new ChoiceDialog("选择一个存档", saves.ToList().Where(s => saveList.Contains(saves.ToList().IndexOf(s))).ToList());
+                using var dialog = new ChoiceDialog(Language.选择一个存档, saves.ToList().Where(s => saveList.Contains(saves.ToList().IndexOf(s))).ToList());
                 {
                     dialog.ShowDialog();
                     if (dialog.DialogResult == DialogResult.OK)
                     { choose = dialog.SelectedOption; }
-                    else { MessageClass.InfoMessageBox("选择取消，默认 " + saves.ToList()[saveList[choose]].ToString()); }
+                    else
+                    {
+                        MessageClass.InfoMessageBox(Language.操作取消);
+                        updateTabEnabled(saveLoader.AllJsonNode != null);
+                        finishLoading();
+                        return;
+                    }
                 }
             }
 
@@ -105,7 +114,7 @@ namespace NMSShipIOTool
                     this.Invoke((MethodInvoker)delegate
                     {
                         updateUI();
-                        MessageClass.InfoMessageBox("存档加载完成。      ");
+                        MessageClass.InfoMessageBox(Language.存档加载完成);
                     });
                 });
             }
@@ -143,7 +152,7 @@ namespace NMSShipIOTool
             buttonSeedShipExport.Enabled = true;
             buttonSeedShipImport.Enabled = true;
             if (GetSelectedRadioSSeed() != null &&
-                GetSelectedRadioSSeed()!.Contains("种子无效"))
+                GetSelectedRadioSSeed()!.Contains(Language.种子无效))
                 buttonSetSeed.Enabled = true;
         }
 
@@ -274,18 +283,11 @@ namespace NMSShipIOTool
         private void impoerSelect_Click(object sender, EventArgs e)
         {
             inputImportText.Text = "";
-            using (OpenFileDialog dialog = new OpenFileDialog())
-            {
-                dialog.Filter = "JSON 文件 (*.json); 飞船完整包(*.nmsship)|*.json; *nmsship|所有文件 (*.*)|*.*";
-                dialog.Title = "请选择文件";
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    string selectedFile = dialog.FileName;
-                    // 这里可以处理选中的文件路径，例如显示到文本框
-                    importPath.Text = selectedFile;
-                    importPathString = selectedFile;
-                }
-            }
+            var selectedFile = FileOperations.fileSelect(1);
+
+            if (selectedFile == "" || selectedFile == null) { return; }
+            importPath.Text = selectedFile;
+            importPathString = selectedFile;
         }
 
         private async void buttonExport_Click(object sender, EventArgs e)
@@ -396,7 +398,7 @@ namespace NMSShipIOTool
             var tempPath = "";
             try
             {
-                tempPath = FileOperations.fileSelect();
+                tempPath = FileOperations.fileSelect(2);
                 if (tempPath == "")
                 {
                     MessageClass.InfoMessageBox("操作取消！");
@@ -520,7 +522,7 @@ namespace NMSShipIOTool
             var tempPath = "";
             try
             {
-                tempPath = FileOperations.fileSelect();
+                tempPath = FileOperations.fileSelect(3);
                 if (tempPath == "")
                 {
                     MessageClass.InfoMessageBox("操作取消！");

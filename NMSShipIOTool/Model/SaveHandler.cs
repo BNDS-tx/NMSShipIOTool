@@ -1,12 +1,11 @@
-﻿using NMSModelIOTool.Tools;
 using System.Text.Json.Nodes;
 
-namespace NMSModelIOTool.Model
+namespace NMSShipIOTool.Model
 {
     public static class SaveHandler
     {
         public static List<string> baseOptions = new List<string>();
-        public static List<string> shipBaseOptions =  new List<string>();
+        public static List<string> shipBaseOptions = new List<string>();
         public static List<string> shipOptons = new List<string>();
 
         public static String getSummary(

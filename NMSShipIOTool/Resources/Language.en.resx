@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Form1.this.Text" xml:space="preserve">
+    <value>NMS Ship IO Tool</value>
+  </data>
+  <data name="Form1.aboutButton.Text" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="AboutDialog.this.Text" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="AboutDialog.info.Text" xml:space="preserve">
+    <value>Version 1.1.0
+Author: 蓝夜深空 (BNDS-tx)
+
+
+This software is for communicate and study only.
+NMS Ship IO Tool  Copyright (C) 2025  徐腾（蓝夜深空）</value>
+  </data>
+  <data name="AboutDialog.title.Text" xml:space="preserve">
+    <value>NMS Ship IO Tool
+无人深空飞船导入导出工具</value>
+  </data>
+  <data name="Form1.buttonExport.Text" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="Form1.buttonExportShipTech.Text" xml:space="preserve">
+    <value>Export Tech., Module</value>
+  </data>
+  <data name="Form1.buttonExportShipTechI.Text" xml:space="preserve">
+    <value>Export Tech., Module</value>
+  </data>
+  <data name="Form1.buttonImportShipTech.Text" xml:space="preserve">
+    <value>Import Tech., Module</value>
+  </data>
+  <data name="Form1.buttonImportShipTechI.Text" xml:space="preserve">
+    <value>Import Tech., Module</value>
+  </data>
+  <data name="Form1.buttonLoad.Text" xml:space="preserve">
+    <value>Load</value>
+  </data>
+  <data name="Form1.buttonSeedShipExport.Text" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="Form1.buttonSeedShipImport.Text" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="Form1.buttonSelect.Text" xml:space="preserve">
+    <value>Choose Path</value>
+  </data>
+  <data name="Form1.buttonSetSeed.Text" xml:space="preserve">
+    <value>Set Seed</value>
+  </data>
+  <data name="Form1.checkBoxI.Text" xml:space="preserve">
+    <value>Use Obf.</value>
+  </data>
+  <data name="Form1.checkBoxNewShip.Text" xml:space="preserve">
+    <value>Import as new ship</value>
+  </data>
+  <data name="Form1.checkBoxNMSSHIP1.Text" xml:space="preserve">
+    <value>Use .nmsship</value>
+  </data>
+  <data name="Form1.checkBoxNMSSHIP3.Text" xml:space="preserve">
+    <value>Use .nmsship</value>
+  </data>
+  <data name="Form1.checkBoxS.Text" xml:space="preserve">
+    <value>Use Obf.</value>
+  </data>
+  <data name="Form1.checkBoxSH0.Text" xml:space="preserve">
+    <value>Save as .sh0</value>
+  </data>
+  <data name="Form1.checkBoxTech.Text" xml:space="preserve">
+    <value>Save Tech., Module as .tech</value>
+  </data>
+  <data name="Form1.checkBoxTechI.Text" xml:space="preserve">
+    <value>Save Tech., Module as .tech</value>
+  </data>
+  <data name="Form1.exportSelect.Text" xml:space="preserve">
+    <value>Choose Path</value>
+  </data>
+  <data name="Form1.importSelect.Text" xml:space="preserve">
+    <value>Choose File</value>
+  </data>
+  <data name="Form1.inputTextI.Text" xml:space="preserve">
+    <value>Or you can input Objects content mannually</value>
+  </data>
+  <data name="Form1.inputTextIExplanation.Text" xml:space="preserve">
+    <value>Please adhere to the JSON format</value>
+  </data>
+  <data name="Form1.label1.Text" xml:space="preserve">
+    <value>Save file name:</value>
+  </data>
+  <data name="Form1.labelPath.Text" xml:space="preserve">
+    <value>Save path:</value>
+  </data>
+  <data name="Form1.nameTextE.Text" xml:space="preserve">
+    <value>Export file path:</value>
+  </data>
+  <data name="Form1.pathTextE.Text" xml:space="preserve">
+    <value>Export file path:</value>
+  </data>
+  <data name="Form1.pathTextI.Text" xml:space="preserve">
+    <value>Import file path:</value>
+  </data>
+  <data name="Form1.seedSelectText.Text" xml:space="preserve">
+    <value>Please select your non-Corvette ship:</value>
+  </data>
+  <data name="Form1.seedShipIOText.Text" xml:space="preserve">
+    <value>Import/Export youe ship here:</value>
+  </data>
+  <data name="Form1.shipSelectI.Text" xml:space="preserve">
+    <value>Please select your Corvette:</value>
+  </data>
+  <data name="Form1.tabPage1.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Form1.tabPage2.Text" xml:space="preserve">
+    <value>Corvette</value>
+  </data>
+  <data name="Form1.tabPage3.Text" xml:space="preserve">
+    <value>Non-Corvette</value>
+  </data>
+  <data name="取消" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="存档平台" xml:space="preserve">
+    <value>Platform: </value>
+  </data>
+  <data name="待加载" xml:space="preserve">
+    <value>Waiting for loading</value>
+  </data>
+  <data name="提示" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="文件筛选内容A" xml:space="preserve">
+    <value>Supported File (*.json; *.sh0; *.nmsship; *.tech)|*.json; *.sh0; *.nmsship; *.tech|All (*.*)|*.*</value>
+  </data>
+  <data name="文件筛选内容BS" xml:space="preserve">
+    <value>Supported File (*.json; *.nmsship)|*.json; *.nmsship|All (*.*)|*.*</value>
+  </data>
+  <data name="文件筛选内容S" xml:space="preserve">
+    <value>Supported File (*.json; *.sh0; *.nmsship)|*.json; *.sh0; *.nmsship|All (*.*)|*.*</value>
+  </data>
+  <data name="文件筛选内容T" xml:space="preserve">
+    <value>Supported File (*.json; *.tech)|*.json; *.tech|All (*.*)|*.*</value>
+  </data>
+  <data name="无导入内容" xml:space="preserve">
+    <value>No content has been selected for import or entered yet! \nPlease select the file you wish to import or manually input the content to be imported!</value>
+  </data>
+  <data name="最后保存时间" xml:space="preserve">
+    <value>Last Saving Time: </value>
+  </data>
+  <data name="未命名" xml:space="preserve">
+    <value>Untitled</value>
+  </data>
+  <data name="玩家存档" xml:space="preserve">
+    <value>Save File</value>
+  </data>
+  <data name="确定" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="警告" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="请先选择一个选项" xml:space="preserve">
+    <value>Please select an option!</value>
+  </data>
+  <data name="请选择一个选项" xml:space="preserve">
+    <value>Please Select An Option</value>
+  </data>
+  <data name="错误" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="非法JSON格式" xml:space="preserve">
+    <value>The input is not in valid JSON format!</value>
+  </data>
+  <data name="Form1.buttonImport.Text" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="Form1.seedText.Text" xml:space="preserve">
+    <value>Ship Seed: </value>
+  </data>
+  <data name="寻找存档失败_错误信息" xml:space="preserve">
+    <value>Searching for saves failed, with error: </value>
+  </data>
+  <data name="没有找到有效的存档" xml:space="preserve">
+    <value>No valid save found</value>
+  </data>
+  <data name="仅找到一个存档_自动选择" xml:space="preserve">
+    <value>Only 1 valid save found: </value>
+  </data>
+  <data name="选择一个存档" xml:space="preserve">
+    <value>Select a Save File</value>
+  </data>
+  <data name="操作取消" xml:space="preserve">
+    <value>Operation canceled!</value>
+  </data>
+  <data name="存档加载完成" xml:space="preserve">
+    <value>Save loaded successfully.</value>
+  </data>
+  <data name="种子无效" xml:space="preserve">
+    <value>Seed Invalid</value>
+  </data>
+</root>

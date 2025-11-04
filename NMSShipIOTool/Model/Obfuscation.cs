@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using System.Reflection;
 using System.Text.Json.Nodes;
 
@@ -64,17 +64,17 @@ namespace NMSShipIOTool.Model
             }
         }
 
-        public static JToken JTObfuscate(JToken token) 
+        public static JToken JTObfuscate(JToken token)
         {
-			if (CommonKey == null || CommonKey.Count() == 0) Initialize();
+            if (CommonKey == null || CommonKey.Count() == 0) Initialize();
             if (CommonKey == null || CommonKey.Count() == 0) throw new Exception("初始化混淆密钥失败！");
-            return  ReplacePlainKeys(token, CommonKey.ToDictionary(kv => kv.Value, kv => kv.Key));
+            return ReplacePlainKeys(token, CommonKey.ToDictionary(kv => kv.Value, kv => kv.Key));
         }
 
         public static JToken JTDeobfuscate(JToken token)
         {
             if (CommonKey == null || CommonKey.Count() == 0) Initialize();
-			if (CommonKey == null || CommonKey.Count() == 0) throw new Exception("初始化混淆密钥失败！");
+            if (CommonKey == null || CommonKey.Count() == 0) throw new Exception("初始化混淆密钥失败！");
             return ReplaceObfuscatedKeys(token, CommonKey);
         }
 
@@ -132,19 +132,19 @@ namespace NMSShipIOTool.Model
             }
         }
 
-		public static String StrObfuscate(string plainWord)
+        public static String StrObfuscate(string plainWord)
         {
             if (CommonKey == null || CommonKey.Count() == 0) Initialize();
             if (CommonKey == null || CommonKey.Count() == 0) throw new Exception("初始化混淆密钥失败！");
             return CommonKey.ContainsValue(plainWord) ? CommonKey.FirstOrDefault(x => x.Value == plainWord).Key : plainWord;
         }
 
-		public static String StrDeobfuscate(string obfusWord)
+        public static String StrDeobfuscate(string obfusWord)
         {
             if (CommonKey == null || CommonKey.Count() == 0) Initialize();
             if (CommonKey == null || CommonKey.Count() == 0) throw new Exception("初始化混淆密钥失败！");
-            return CommonKey.ContainsKey(obfusWord) ? CommonKey.FirstOrDefault(x => x.Key ==  obfusWord).Key : obfusWord;
-		}
+            return CommonKey.ContainsKey(obfusWord) ? CommonKey.FirstOrDefault(x => x.Key == obfusWord).Key : obfusWord;
+        }
 
         public static Dictionary<int, int> SlotTrack = new Dictionary<int, int>
         {

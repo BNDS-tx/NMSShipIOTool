@@ -1,7 +1,6 @@
+using libNOM.io.Enums;
 using libNOM.io.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
+using NMSShipIOTool.Resources;
 
 public class ChoiceDialog : Form
 {
@@ -15,13 +14,20 @@ public class ChoiceDialog : Form
 
     private void InitializeComponent()
     {
+        SuspendLayout();
+        // 
+        // ChoiceDialog
+        // 
+        ClientSize = new Size(284, 261);
+        Name = "ChoiceDialog";
+        ResumeLayout(false);
 
     }
 
     public ChoiceDialog(string title, List<IContainer> saves)
     {
         this.saves = saves;
-        this.Text = title ?? "请选择一个选项";
+        this.Text = title ?? Language.请选择一个选项;
         this.Width = 400;
         this.Height = 360;
         this.StartPosition = FormStartPosition.CenterParent;
@@ -42,9 +48,25 @@ public class ChoiceDialog : Form
         // 动态添加 RadioButton
         for (int i = 0; i < saves.Count; i++)
         {
+            var content = "";
+            try
+            {
+                if (saves[i].SaveType != SaveTypeEnum.Manual) continue;
+                var identifier = saves[i].Identifier!;
+                identifier = identifier.Substring(0, identifier.IndexOf("Manual"));
+                var type = saves[i].ActiveContext.ToString() ?? "";
+                var difficulty = saves[i].Difficulty.ToString();
+                var name = (saves[i].SaveName == null || saves[i].SaveName == "") ? Language.未命名 : saves[i].SaveName;
+                content = $"{Language.玩家存档} {identifier} {type} {difficulty} {name}";
+            }
+            catch
+            {
+                content = saves[i].ToString();
+            }
+
             var radio = new RadioButton
             {
-                Text = saves[i].ToString(),
+                Text = content,
                 Tag = i, // 存储索引
                 AutoSize = true,
                 Padding = new Padding(10, 0, 10, 0),
@@ -60,8 +82,8 @@ public class ChoiceDialog : Form
             Height = 40
         };
 
-        okButton = new Button { Text = "确定", Margin = new Padding(5, 0, 10, 10), Height = 33, Width = 80 };
-        cancelButton = new Button { Text = "取消", Margin = new Padding(10, 0, 5, 10), Height = 33, Width = 80 };
+        okButton = new Button { Text = Language.确定, Margin = new Padding(10, 0, 5, 10), Height = 33, Width = 80 };
+        cancelButton = new Button { Text = Language.取消, Margin = new Padding(5, 0, 10, 10), Height = 33, Width = 80 };
 
         okButton.Click += (s, e) =>
         {
@@ -74,13 +96,13 @@ public class ChoiceDialog : Form
                     return;
                 }
             }
-            MessageBox.Show("请先选择一个选项！");
+            MessageBox.Show(Language.请先选择一个选项);
         };
 
         cancelButton.Click += (s, e) => { this.DialogResult = DialogResult.Cancel; };
 
-        panel.Controls.Add(okButton);
         panel.Controls.Add(cancelButton);
+        panel.Controls.Add(okButton);
 
         this.Controls.Add(panel);
     }

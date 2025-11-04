@@ -1,22 +1,22 @@
-﻿using libNOM.io;
+using libNOM.io;
 using libNOM.io.Enums;
 using libNOM.io.Settings;
 using Newtonsoft.Json.Linq;
-using NMSShipIOTool.Model;
 using NMSShipIOTool.View;
-using Octokit;
 using System.Text.Json.Nodes;
 
-namespace NMSModelIOTool.Model
+namespace NMSShipIOTool.Model
 {
 
     public class SaveLoader
     {
-        private String JsonPathLayer1 = "vLc";
-        private String JsonPathLayer2 = "6f=";
-        private String basePath = "F?0";
-        private String shipPath = "@Cs";
-        private String ccdPath = "l:j";
+        private String BaseContext = "vLc";
+        private String ExpeditionContext = "2YS";
+        private String JsonPathLayer1 = "";
+        private String PlayerStateData = "6f=";
+        private String PersistentPlayerBasesPath = "F?0";
+        private String ShipOwnershipPath = "@Cs";
+        private String CharacterCustomisationDataPath = "l:j";
         private String defaultExportNameString = "导出飞船";
 
         public libNOM.io.Interfaces.IPlatform? platform;
@@ -71,14 +71,17 @@ namespace NMSModelIOTool.Model
 
         public void UpdateSave(libNOM.io.Interfaces.IContainer save)
         {
+            if (save.ActiveContext == SaveContextQueryEnum.Season)
+            { JsonPathLayer1 = ExpeditionContext; }
+            else { JsonPathLayer1 = BaseContext; }
             var rawData = save.GetJsonObject();
 
             var jN = JsonNode.Parse(rawData.ToString());
 
             AllJsonNode = jN;
-            PersistentPlayerBases = jN?[JsonPathLayer1]?[JsonPathLayer2]?[basePath];
-            ShipOwnership = jN?[JsonPathLayer1]?[JsonPathLayer2]?[shipPath];
-            CharacterCustomisationData = jN?[JsonPathLayer1]?[JsonPathLayer2]?[ccdPath];
+            PersistentPlayerBases = jN?[JsonPathLayer1]?[PlayerStateData]?[PersistentPlayerBasesPath];
+            ShipOwnership = jN?[JsonPathLayer1]?[PlayerStateData]?[ShipOwnershipPath];
+            CharacterCustomisationData = jN?[JsonPathLayer1]?[PlayerStateData]?[CharacterCustomisationDataPath];
 
             BaseShipIndex.Clear();
             if (PersistentPlayerBases != null && PersistentPlayerBases.AsArray().Count > 0)
@@ -100,6 +103,7 @@ namespace NMSModelIOTool.Model
 
         public void uninstallSave()
         {
+            JsonPathLayer1 = "";
             PersistentPlayerBases = null;
             ShipOwnership = null;
             CharacterCustomisationData = null;
@@ -135,14 +139,14 @@ namespace NMSModelIOTool.Model
             var newBase = Base.DeepClone();
 
             string path1 = JsonPathLayer1;
-            string path2 = JsonPathLayer2;
-            string path3 = basePath;
+            string path2 = PlayerStateData;
+            string path3 = PersistentPlayerBasesPath;
             string path4 = "@ZJ";
 
             if (baseID != -1 && shipID == -1)
             {
                 JToken objectsJToken;
-                if (isO) objectsJToken = Obfuscation.JTObfuscate(JToken.Parse(newBase.ToJsonString())); 
+                if (isO) objectsJToken = Obfuscation.JTObfuscate(JToken.Parse(newBase.ToJsonString()));
                 else objectsJToken = JToken.Parse(newBase.ToJsonString());
 
                 string jsonPath = $"$.{path1}.{path2}.{path3}[{baseID}].{path4}";
@@ -151,7 +155,7 @@ namespace NMSModelIOTool.Model
             else if (baseID == -1 && shipID != -1)
             {
                 JToken objectsJToken;
-                if (isO) objectsJToken = Obfuscation.JTObfuscate(JToken.Parse(newBase.ToJsonString())); 
+                if (isO) objectsJToken = Obfuscation.JTObfuscate(JToken.Parse(newBase.ToJsonString()));
                 else objectsJToken = JToken.Parse(newBase.ToJsonString());
                 var index = -1;
                 foreach (int i in BaseShipIndex)
@@ -190,8 +194,8 @@ namespace NMSModelIOTool.Model
             if (slot == -1) { throw new Exception("找不到 ShipID 对应的部件参数！"); }
 
             string path1 = JsonPathLayer1;
-            string path2 = JsonPathLayer2;
-            string path3 = ccdPath;
+            string path2 = PlayerStateData;
+            string path3 = CharacterCustomisationDataPath;
             string jsonPath = $"$.{path1}.{path2}.{path3}[{slot}]";
 
             save.SetJsonValue(ccdJToken, jsonPath);
@@ -205,12 +209,12 @@ namespace NMSModelIOTool.Model
             var newSO = SO.DeepClone();
             if (shipID == -1) { throw new Exception("写入飞船所有权时 ShipID 不能为 -1！"); }
             JToken soJToken;
-            if (isO)  soJToken = Obfuscation.JTObfuscate(JToken.Parse(newSO.ToJsonString())); 
+            if (isO) soJToken = Obfuscation.JTObfuscate(JToken.Parse(newSO.ToJsonString()));
             else soJToken = JToken.Parse(newSO.ToJsonString());
-            
+
             string path1 = JsonPathLayer1;
-            string path2 = JsonPathLayer2;
-            string path3 = shipPath;
+            string path2 = PlayerStateData;
+            string path3 = ShipOwnershipPath;
 
             string jsonPath = $"$.{path1}.{path2}.{path3}[{shipID}]";
             save.SetJsonValue(soJToken, jsonPath);
@@ -224,8 +228,8 @@ namespace NMSModelIOTool.Model
             if (seed == null || seed == "") { throw new Exception("种子为空！"); }
 
             string path1 = JsonPathLayer1;
-            string path2 = JsonPathLayer2;
-            string path3 = shipPath;
+            string path2 = PlayerStateData;
+            string path3 = ShipOwnershipPath;
             string path4 = "NTx";
             string path5 = "@EL";
             string jsonPath = $"$.{path1}.{path2}.{path3}[{shipID}].{path4}.{path5}[1]";
@@ -241,14 +245,14 @@ namespace NMSModelIOTool.Model
             var newTech = Tech.DeepClone();
             if (shipID == -1) { throw new Exception("写入飞船技术、模块与库存时 ShipID 不能为 -1！"); }
             string path1 = JsonPathLayer1;
-            string path2 = JsonPathLayer2;
-            string path3 = shipPath;
+            string path2 = PlayerStateData;
+            string path3 = ShipOwnershipPath;
             string path4_1 = Obfuscation.StrObfuscate("Inventory");
             string path4_2 = Obfuscation.StrObfuscate("Inventory_Cargo");
             string path4_3 = Obfuscation.StrObfuscate("Inventory_TechOnly");
             string path4_4 = Obfuscation.StrObfuscate("InventoryLayout");
             JToken techJToken;
-            if (isO) techJToken = Obfuscation.JTObfuscate(JToken.Parse(newTech.ToJsonString())); 
+            if (isO) techJToken = Obfuscation.JTObfuscate(JToken.Parse(newTech.ToJsonString()));
             else techJToken = JToken.Parse(newTech.ToJsonString());
             var techArray = techJToken as JArray;
             if (techArray == null || techArray.Count != 4) { throw new Exception("飞船技术、模块与库存数据异常！"); }
@@ -269,9 +273,9 @@ namespace NMSModelIOTool.Model
             if (baseID == -1 && (!PersistentPlayerBases?.AsArray()?.Any(s => s?["CVX"]?.ToString() == shipID.ToString()) ?? true))
                 return "";
             var baseJN = JsonNode.Parse(PersistentPlayerBases?.AsArray()?.ElementAt(
-                (baseID != -1 && shipID == -1) ? baseID 
-                : (baseID == -1 && shipID != -1) 
-                    ? PersistentPlayerBases?.AsArray()?.ToList().Where(s => s?["CVX"]?.ToString() == shipID.ToString()).Select(s => PersistentPlayerBases.AsArray().ToList().IndexOf(s)).FirstOrDefault() 
+                (baseID != -1 && shipID == -1) ? baseID
+                : (baseID == -1 && shipID != -1)
+                    ? PersistentPlayerBases?.AsArray()?.ToList().Where(s => s?["CVX"]?.ToString() == shipID.ToString()).Select(s => PersistentPlayerBases.AsArray().ToList().IndexOf(s)).FirstOrDefault()
                     ?? throw new Exception("自定义飞船的 ShipID 未找到对应基地！")
                 : throw new Exception("读取 Objects 时传参混乱!")
                 )?.ToString() ?? "");
@@ -476,13 +480,13 @@ namespace NMSModelIOTool.Model
                 var objectsString = readBaseObject(-1, index, isOb);
                 var ccdString = readCCD(index, isOb);
                 var soString = readSO(index, isOb);
-                
+
                 if (objectsString == "" && (ccdString == "" || soString == "")) throw new Exception("飞船数据异常，无法导出！");
-                
+
                 var tempDir = Path.Combine(System.IO.Path.GetTempPath(), "NMSMIOT_Temp");
                 if (Directory.Exists(tempDir)) { Directory.Delete(tempDir, true); }
                 Directory.CreateDirectory(tempDir);
-                
+
                 var objectsPath = Path.Combine(tempDir, "objects.json");
                 File.WriteAllText(objectsPath, objectsString);
                 var ccdPath = Path.Combine(tempDir, "ccd.json");
@@ -501,10 +505,11 @@ namespace NMSModelIOTool.Model
                 ShipPackage.Pack([objectsPath, ccdPath, soPath], saveFilePath);
                 Directory.Delete(tempDir, true);
             }
-            else {
+            else
+            {
                 if (isSOOnly && isOOnly) throw new Exception("不得同时设置仅限 Object 和 SO 数据！");
                 if (index == -1) throw new Exception("尚未选择要导出的飞船！");
-                var stringJN = isOOnly ? readBaseObject(-1, index, isOb) :readSO(index, isOb);
+                var stringJN = isOOnly ? readBaseObject(-1, index, isOb) : readSO(index, isOb);
                 if (stringJN == "") throw new Exception("飞船数据为空，无法导出！");
 
                 if (fileName == "")

@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Nodes;
+using NMSShipIOTool.Resources;
+using System.Text.Json.Nodes;
 
 namespace NMSShipIOTool.Model
 {
@@ -47,12 +48,27 @@ namespace NMSShipIOTool.Model
         }
 
         // 选择文件
-        public static string fileSelect()
+        public static string fileSelect(int type)
         {
+            var filter = "";
+            switch (type)
+            {
+                case 1:
+                    filter = Language.文件筛选内容BS;
+                    break;
+                case 2:
+                    filter = Language.文件筛选内容S;
+                    break;
+                case 3:
+                    filter = Language.文件筛选内容T;
+                    break;
+                default:
+                    filter = Language.文件筛选内容A;
+                    break;
+            }
             using (OpenFileDialog dialog = new OpenFileDialog())
             {
-                dialog.Filter = "JSON 文件 (*.json); SH0 文件(*.tech); 飞船完整包(*.nmsship); 技术、模块与库存文件(*.tech)|*.json; *.sh0; *nmsship; *.tech|所有文件 (*.*)|*.*";
-                dialog.Title = "请选择文件";
+                dialog.Filter = filter;
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     string selectedFile = dialog.FileName;
@@ -65,7 +81,7 @@ namespace NMSShipIOTool.Model
 
         public static string setTempFile(string content)
         {
-            if (content == null || content == "") throw new Exception("还未选择导入内容或输入内容！请选择你要导入的文件或手动输入导入的内容！");
+            if (content == null || content == "") throw new Exception(Language.无导入内容);
 
             // 包装为 JSON 对象：
             string formattedJson;
@@ -76,7 +92,7 @@ namespace NMSShipIOTool.Model
             }
             catch
             {
-                throw new Exception("输入内容不是合法的 JSON 格式！");
+                throw new Exception(Language.非法JSON格式);
             }
 
             // 写入文件

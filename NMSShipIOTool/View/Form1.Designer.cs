@@ -1,3 +1,4 @@
+using NMSShipIOTool.Resources;
 using System.Globalization;
 using System.Resources;
 
@@ -61,7 +62,6 @@ namespace NMSShipIOTool
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             labelPath = new Label();
@@ -122,9 +122,11 @@ namespace NMSShipIOTool
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
-            resources.ApplyResources(tabControl1, "tabControl1");
+            tabControl1.Location = new Point(12, 12);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(976, 610);
+            tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -134,41 +136,61 @@ namespace NMSShipIOTool
             tabPage1.Controls.Add(textBoxPath);
             tabPage1.Controls.Add(buttonSelect);
             tabPage1.Controls.Add(buttonLoad);
-            resources.ApplyResources(tabPage1, "tabPage1");
+            tabPage1.Location = new Point(4, 26);
             tabPage1.Name = "tabPage1";
+            tabPage1.Size = new Size(968, 580);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = Language.Form1_tabPage1_Text;
             // 
             // labelPath
             // 
-            resources.ApplyResources(labelPath, "labelPath");
+            labelPath.Location = new Point(12, 391);
             labelPath.Name = "labelPath";
+            labelPath.Size = new Size(60, 23);
+            labelPath.TabIndex = 0;
+            labelPath.Text = Language.Form1_labelPath_Text;
             // 
             // labelDescription
             // 
-            resources.ApplyResources(labelDescription, "labelDescription");
+            labelDescription.Location = new Point(12, 41);
             labelDescription.Name = "labelDescription";
+            labelDescription.Size = new Size(286, 249);
+            labelDescription.TabIndex = 1;
             // 
             // labelShipDetected
             // 
-            resources.ApplyResources(labelShipDetected, "labelShipDetected");
+            labelShipDetected.Location = new Point(319, 38);
+            labelShipDetected.Multiline = true;
             labelShipDetected.Name = "labelShipDetected";
             labelShipDetected.ReadOnly = true;
+            labelShipDetected.ScrollBars = ScrollBars.Both;
+            labelShipDetected.Size = new Size(612, 319);
+            labelShipDetected.TabIndex = 2;
             // 
             // textBoxPath
             // 
-            resources.ApplyResources(textBoxPath, "textBoxPath");
+            textBoxPath.Location = new Point(116, 388);
             textBoxPath.Name = "textBoxPath";
             textBoxPath.ReadOnly = true;
+            textBoxPath.Size = new Size(511, 23);
+            textBoxPath.TabIndex = 2;
             // 
             // buttonSelect
             // 
-            resources.ApplyResources(buttonSelect, "buttonSelect");
+            buttonSelect.Location = new Point(116, 430);
             buttonSelect.Name = "buttonSelect";
+            buttonSelect.Size = new Size(100, 33);
+            buttonSelect.TabIndex = 3;
+            buttonSelect.Text = Language.Form1_buttonSelect_Text;
             buttonSelect.Click += buttonSelect_Click;
             // 
             // buttonLoad
             // 
-            resources.ApplyResources(buttonLoad, "buttonLoad");
+            buttonLoad.Location = new Point(231, 430);
             buttonLoad.Name = "buttonLoad";
+            buttonLoad.Size = new Size(100, 33);
+            buttonLoad.TabIndex = 4;
+            buttonLoad.Text = Language.Form1_buttonLoad_Text;
             buttonLoad.Click += buttonLoad_Click;
             // 
             // tabPage2
@@ -193,121 +215,183 @@ namespace NMSShipIOTool
             tabPage2.Controls.Add(buttonImport);
             tabPage2.Controls.Add(radioPanelI);
             tabPage2.Controls.Add(checkBoxI);
-            resources.ApplyResources(tabPage2, "tabPage2");
+            tabPage2.Location = new Point(4, 26);
             tabPage2.Name = "tabPage2";
+            tabPage2.Size = new Size(968, 580);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = Language.Form1_tabPage2_Text;
             // 
             // checkBoxTechI
             // 
-            resources.ApplyResources(checkBoxTechI, "checkBoxTechI");
+            checkBoxTechI.Location = new Point(287, 480);
             checkBoxTechI.Name = "checkBoxTechI";
+            checkBoxTechI.Size = new Size(211, 24);
+            checkBoxTechI.TabIndex = 21;
+            checkBoxTechI.Text = Language.Form1_checkBoxTechI_Text;
             // 
             // buttonImportShipTechI
             // 
-            resources.ApplyResources(buttonImportShipTechI, "buttonImportShipTechI");
+            buttonImportShipTechI.Location = new Point(736, 430);
             buttonImportShipTechI.Name = "buttonImportShipTechI";
+            buttonImportShipTechI.Size = new Size(189, 33);
+            buttonImportShipTechI.TabIndex = 20;
+            buttonImportShipTechI.Text = Language.Form1_buttonImportShipTechI_Text;
             buttonImportShipTechI.Click += buttonImportShipTechI_Click;
             // 
             // buttonExportShipTechI
             // 
-            resources.ApplyResources(buttonExportShipTechI, "buttonExportShipTechI");
+            buttonExportShipTechI.Location = new Point(287, 430);
             buttonExportShipTechI.Name = "buttonExportShipTechI";
+            buttonExportShipTechI.Size = new Size(189, 33);
+            buttonExportShipTechI.TabIndex = 19;
+            buttonExportShipTechI.Text = Language.Form1_buttonExportShipTechI_Text;
             buttonExportShipTechI.Click += buttonExportShipTechI_Click;
             // 
             // exportPath
             // 
-            resources.ApplyResources(exportPath, "exportPath");
+            exportPath.Location = new Point(118, 351);
             exportPath.Name = "exportPath";
             exportPath.ReadOnly = true;
+            exportPath.Size = new Size(358, 23);
+            exportPath.TabIndex = 11;
             // 
             // exportName
             // 
-            resources.ApplyResources(exportName, "exportName");
+            exportName.Location = new Point(118, 388);
             exportName.Name = "exportName";
+            exportName.Size = new Size(358, 23);
+            exportName.TabIndex = 12;
             // 
             // pathTextE
             // 
-            resources.ApplyResources(pathTextE, "pathTextE");
+            pathTextE.Location = new Point(12, 354);
             pathTextE.Name = "pathTextE";
+            pathTextE.Size = new Size(100, 23);
+            pathTextE.TabIndex = 13;
+            pathTextE.Text = Language.Form1_pathTextE_Text;
             // 
             // nameTextE
             // 
-            resources.ApplyResources(nameTextE, "nameTextE");
+            nameTextE.Location = new Point(12, 391);
             nameTextE.Name = "nameTextE";
+            nameTextE.Size = new Size(100, 23);
+            nameTextE.TabIndex = 14;
+            nameTextE.Text = Language.Form1_nameTextE_Text;
             // 
             // exportSelect
             // 
-            resources.ApplyResources(exportSelect, "exportSelect");
+            exportSelect.Location = new Point(58, 430);
             exportSelect.Name = "exportSelect";
+            exportSelect.Size = new Size(100, 33);
+            exportSelect.TabIndex = 15;
+            exportSelect.Text = Language.Form1_exportSelect_Text;
             exportSelect.Click += exportSelect_Click;
             // 
             // buttonExport
             // 
-            resources.ApplyResources(buttonExport, "buttonExport");
+            buttonExport.Location = new Point(173, 430);
             buttonExport.Name = "buttonExport";
+            buttonExport.Size = new Size(100, 33);
+            buttonExport.TabIndex = 16;
+            buttonExport.Text = Language.Form1_buttonExport_Text;
             buttonExport.Click += buttonExport_Click;
             // 
             // checkBoxNMSSHIP1
             // 
             checkBoxNMSSHIP1.Checked = true;
             checkBoxNMSSHIP1.CheckState = CheckState.Checked;
-            resources.ApplyResources(checkBoxNMSSHIP1, "checkBoxNMSSHIP1");
+            checkBoxNMSSHIP1.Location = new Point(173, 480);
             checkBoxNMSSHIP1.Name = "checkBoxNMSSHIP1";
+            checkBoxNMSSHIP1.Size = new Size(115, 24);
+            checkBoxNMSSHIP1.TabIndex = 10;
+            checkBoxNMSSHIP1.Text = Language.Form1_checkBoxNMSSHIP1_Text;
             // 
             // importPath
             // 
-            resources.ApplyResources(importPath, "importPath");
+            importPath.Location = new Point(506, 388);
             importPath.Name = "importPath";
             importPath.ReadOnly = true;
+            importPath.Size = new Size(419, 23);
+            importPath.TabIndex = 0;
             // 
             // inputImportText
             // 
-            resources.ApplyResources(inputImportText, "inputImportText");
+            inputImportText.Location = new Point(506, 61);
+            inputImportText.Multiline = true;
             inputImportText.Name = "inputImportText";
+            inputImportText.ScrollBars = ScrollBars.Both;
+            inputImportText.Size = new Size(419, 271);
+            inputImportText.TabIndex = 1;
             inputImportText.TextChanged += inputImportText_TextChanged;
             // 
             // importSelect
             // 
-            resources.ApplyResources(importSelect, "importSelect");
+            importSelect.Location = new Point(506, 430);
             importSelect.Name = "importSelect";
+            importSelect.Size = new Size(100, 33);
+            importSelect.TabIndex = 2;
+            importSelect.Text = Language.Form1_importSelect_Text;
             importSelect.Click += impoerSelect_Click;
             // 
             // shipSelectI
             // 
-            resources.ApplyResources(shipSelectI, "shipSelectI");
+            shipSelectI.Location = new Point(12, 35);
             shipSelectI.Name = "shipSelectI";
+            shipSelectI.Size = new Size(464, 23);
+            shipSelectI.TabIndex = 5;
+            shipSelectI.Text = Language.Form1_shipSelectI_Text;
             // 
             // pathTextI
             // 
-            resources.ApplyResources(pathTextI, "pathTextI");
+            pathTextI.Location = new Point(506, 354);
             pathTextI.Name = "pathTextI";
+            pathTextI.Size = new Size(98, 23);
+            pathTextI.TabIndex = 3;
+            pathTextI.Text = Language.Form1_pathTextI_Text;
             // 
             // inputTextI
             // 
-            resources.ApplyResources(inputTextI, "inputTextI");
+            inputTextI.Location = new Point(506, 35);
             inputTextI.Name = "inputTextI";
+            inputTextI.Size = new Size(419, 23);
+            inputTextI.TabIndex = 4;
+            inputTextI.Text = Language.Form1_inputTextI_Text;
             // 
             // inputTextIExplanation
             // 
-            resources.ApplyResources(inputTextIExplanation, "inputTextIExplanation");
+            inputTextIExplanation.Location = new Point(506, 480);
             inputTextIExplanation.Name = "inputTextIExplanation";
+            inputTextIExplanation.Size = new Size(390, 23);
+            inputTextIExplanation.TabIndex = 4;
+            inputTextIExplanation.Text = Language.Form1_inputTextIExplanation_Text;
+            inputTextIExplanation.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // buttonImport
             // 
-            resources.ApplyResources(buttonImport, "buttonImport");
+            buttonImport.Location = new Point(621, 430);
             buttonImport.Name = "buttonImport";
+            buttonImport.Size = new Size(100, 33);
+            buttonImport.TabIndex = 6;
+            buttonImport.Text = Language.Form1_buttonImport_Text;
             buttonImport.Click += buttonImport_Click;
             // 
             // radioPanelI
             // 
-            resources.ApplyResources(radioPanelI, "radioPanelI");
+            radioPanelI.AutoScroll = true;
+            radioPanelI.Location = new Point(50, 61);
             radioPanelI.Name = "radioPanelI";
+            radioPanelI.Size = new Size(426, 271);
+            radioPanelI.TabIndex = 8;
             // 
             // checkBoxI
             // 
             checkBoxI.Checked = true;
             checkBoxI.CheckState = CheckState.Checked;
-            resources.ApplyResources(checkBoxI, "checkBoxI");
+            checkBoxI.Location = new Point(58, 480);
             checkBoxI.Name = "checkBoxI";
+            checkBoxI.Size = new Size(98, 24);
+            checkBoxI.TabIndex = 9;
+            checkBoxI.Text = Language.Form1_checkBoxI_Text;
             checkBoxI.CheckedChanged += checkBoxI_CheckedChanged;
             // 
             // tabPage3
@@ -329,127 +413,188 @@ namespace NMSShipIOTool
             tabPage3.Controls.Add(seedText);
             tabPage3.Controls.Add(buttonSetSeed);
             tabPage3.Controls.Add(radioPanelS);
-            resources.ApplyResources(tabPage3, "tabPage3");
+            tabPage3.Location = new Point(4, 26);
             tabPage3.Name = "tabPage3";
+            tabPage3.Size = new Size(968, 580);
+            tabPage3.TabIndex = 3;
+            tabPage3.Text = Language.Form1_tabPage3_Text;
             // 
             // checkBoxTech
             // 
-            resources.ApplyResources(checkBoxTech, "checkBoxTech");
+            checkBoxTech.Location = new Point(620, 390);
             checkBoxTech.Name = "checkBoxTech";
+            checkBoxTech.Size = new Size(211, 24);
+            checkBoxTech.TabIndex = 18;
+            checkBoxTech.Text = Language.Form1_checkBoxTech_Text;
             // 
             // buttonImportShipTech
             // 
-            resources.ApplyResources(buttonImportShipTech, "buttonImportShipTech");
+            buttonImportShipTech.Location = new Point(620, 207);
             buttonImportShipTech.Name = "buttonImportShipTech";
+            buttonImportShipTech.Size = new Size(211, 33);
+            buttonImportShipTech.TabIndex = 17;
+            buttonImportShipTech.Text = Language.Form1_buttonImportShipTech_Text;
             buttonImportShipTech.Click += buttonImportShipTech_Click;
             // 
             // buttonExportShipTech
             // 
-            resources.ApplyResources(buttonExportShipTech, "buttonExportShipTech");
+            buttonExportShipTech.Location = new Point(620, 332);
             buttonExportShipTech.Name = "buttonExportShipTech";
+            buttonExportShipTech.Size = new Size(211, 33);
+            buttonExportShipTech.TabIndex = 16;
+            buttonExportShipTech.Text = Language.Form1_buttonExportShipTech_Text;
             buttonExportShipTech.Click += buttonExportShipTech_Click;
             // 
             // label1
             // 
-            resources.ApplyResources(label1, "label1");
+            label1.Location = new Point(506, 264);
             label1.Name = "label1";
+            label1.Size = new Size(100, 23);
+            label1.TabIndex = 15;
+            label1.Text = Language.Form1_label1_Text;
             // 
             // textBoxExportName
             // 
-            resources.ApplyResources(textBoxExportName, "textBoxExportName");
+            textBoxExportName.Location = new Point(506, 290);
             textBoxExportName.Name = "textBoxExportName";
+            textBoxExportName.Size = new Size(419, 23);
+            textBoxExportName.TabIndex = 14;
             // 
             // checkBoxNMSSHIP3
             // 
             checkBoxNMSSHIP3.Checked = true;
             checkBoxNMSSHIP3.CheckState = CheckState.Checked;
-            resources.ApplyResources(checkBoxNMSSHIP3, "checkBoxNMSSHIP3");
+            checkBoxNMSSHIP3.Location = new Point(506, 420);
             checkBoxNMSSHIP3.Name = "checkBoxNMSSHIP3";
+            checkBoxNMSSHIP3.Size = new Size(112, 24);
+            checkBoxNMSSHIP3.TabIndex = 11;
+            checkBoxNMSSHIP3.Text = Language.Form1_checkBoxNMSSHIP3_Text;
             checkBoxNMSSHIP3.CheckedChanged += checkBoxNMSSHIP3_CheckedChanged;
             // 
             // checkBoxNewShip
             // 
-            resources.ApplyResources(checkBoxNewShip, "checkBoxNewShip");
+            checkBoxNewShip.Location = new Point(506, 177);
             checkBoxNewShip.Name = "checkBoxNewShip";
+            checkBoxNewShip.Size = new Size(112, 24);
+            checkBoxNewShip.TabIndex = 13;
+            checkBoxNewShip.Text = Language.Form1_checkBoxNewShip_Text;
             // 
             // seedShipIOText
             // 
-            resources.ApplyResources(seedShipIOText, "seedShipIOText");
+            seedShipIOText.Location = new Point(506, 151);
             seedShipIOText.Name = "seedShipIOText";
+            seedShipIOText.Size = new Size(190, 23);
+            seedShipIOText.TabIndex = 12;
+            seedShipIOText.Text = Language.Form1_seedShipIOText_Text;
             // 
             // checkBoxSH0
             // 
-            resources.ApplyResources(checkBoxSH0, "checkBoxSH0");
+            checkBoxSH0.Location = new Point(506, 450);
             checkBoxSH0.Name = "checkBoxSH0";
+            checkBoxSH0.Size = new Size(100, 24);
+            checkBoxSH0.TabIndex = 11;
+            checkBoxSH0.Text = Language.Form1_checkBoxSH0_Text;
             checkBoxSH0.CheckedChanged += checkBoxSH0_CheckedChanged;
             // 
             // checkBoxS
             // 
             checkBoxS.Checked = true;
             checkBoxS.CheckState = CheckState.Checked;
-            resources.ApplyResources(checkBoxS, "checkBoxS");
+            checkBoxS.Location = new Point(506, 390);
             checkBoxS.Name = "checkBoxS";
+            checkBoxS.Size = new Size(100, 24);
+            checkBoxS.TabIndex = 4;
+            checkBoxS.Text = Language.Form1_checkBoxS_Text;
             checkBoxS.CheckedChanged += checkBoxS_CheckedChanged;
             // 
             // buttonSeedShipExport
             // 
-            resources.ApplyResources(buttonSeedShipExport, "buttonSeedShipExport");
+            buttonSeedShipExport.Location = new Point(506, 332);
             buttonSeedShipExport.Name = "buttonSeedShipExport";
+            buttonSeedShipExport.Size = new Size(100, 33);
+            buttonSeedShipExport.TabIndex = 1;
+            buttonSeedShipExport.Text = Language.Form1_buttonSeedShipExport_Text;
             buttonSeedShipExport.Click += buttonSeedShipExport_Click;
             // 
             // buttonSeedShipImport
             // 
-            resources.ApplyResources(buttonSeedShipImport, "buttonSeedShipImport");
+            buttonSeedShipImport.Location = new Point(506, 207);
             buttonSeedShipImport.Name = "buttonSeedShipImport";
+            buttonSeedShipImport.Size = new Size(100, 33);
+            buttonSeedShipImport.TabIndex = 10;
+            buttonSeedShipImport.Text = Language.Form1_buttonSeedShipImport_Text;
             buttonSeedShipImport.Click += buttonSeedShipImport_Click;
             // 
             // shipSeed
             // 
-            resources.ApplyResources(shipSeed, "shipSeed");
+            shipSeed.Location = new Point(506, 61);
             shipSeed.Name = "shipSeed";
+            shipSeed.Size = new Size(419, 23);
+            shipSeed.TabIndex = 0;
             // 
             // seedSelectText
             // 
-            resources.ApplyResources(seedSelectText, "seedSelectText");
+            seedSelectText.Location = new Point(12, 35);
             seedSelectText.Name = "seedSelectText";
+            seedSelectText.Size = new Size(464, 23);
+            seedSelectText.TabIndex = 0;
+            seedSelectText.Text = Language.Form1_seedSelectText_Text;
             // 
             // seedText
             // 
-            resources.ApplyResources(seedText, "seedText");
+            seedText.Location = new Point(506, 35);
             seedText.Name = "seedText";
+            seedText.Size = new Size(100, 23);
+            seedText.TabIndex = 0;
+            seedText.Text = Language.Form1_seedText_Text;
             // 
             // buttonSetSeed
             // 
-            resources.ApplyResources(buttonSetSeed, "buttonSetSeed");
+            buttonSetSeed.Location = new Point(506, 102);
             buttonSetSeed.Name = "buttonSetSeed";
+            buttonSetSeed.Size = new Size(100, 33);
+            buttonSetSeed.TabIndex = 0;
+            buttonSetSeed.Text = Language.Form1_buttonSetSeed_Text;
             buttonSetSeed.Click += buttonSetSeed_Click;
             // 
             // radioPanelS
             // 
-            resources.ApplyResources(radioPanelS, "radioPanelS");
+            radioPanelS.AutoScroll = true;
+            radioPanelS.Location = new Point(50, 61);
             radioPanelS.Name = "radioPanelS";
+            radioPanelS.Size = new Size(426, 413);
+            radioPanelS.TabIndex = 2;
             // 
             // progressBar
             // 
-            resources.ApplyResources(progressBar, "progressBar");
+            progressBar.Location = new Point(670, 560);
             progressBar.MarqueeAnimationSpeed = 30;
             progressBar.Name = "progressBar";
+            progressBar.Size = new Size(145, 40);
             progressBar.Style = ProgressBarStyle.Marquee;
+            progressBar.TabIndex = 1;
+            progressBar.Visible = false;
             // 
             // aboutButton
             // 
-            resources.ApplyResources(aboutButton, "aboutButton");
+            aboutButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            aboutButton.Location = new Point(867, 560);
             aboutButton.Name = "aboutButton";
+            aboutButton.Size = new Size(100, 40);
+            aboutButton.TabIndex = 0;
+            aboutButton.Text = Language.Form1_aboutButton_Text;
             aboutButton.Click += aboutButton_Click;
             // 
             // Form1
             // 
-            resources.ApplyResources(this, "$this");
+            AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1000, 633);
             Controls.Add(aboutButton);
             Controls.Add(progressBar);
             Controls.Add(tabControl1);
             Name = "Form1";
+            Text = Language.Form1_this_Text;
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();

@@ -1,5 +1,5 @@
-﻿
-namespace NMSModelIOTool.Tools
+
+namespace NMSShipIOTool.Model
 {
     internal static class ContentHelper
     {

@@ -1,3 +1,5 @@
+using NMSShipIOTool.Resources;
+
 namespace NMSShipIOTool
 {
     partial class AboutDialog
@@ -30,28 +32,39 @@ namespace NMSShipIOTool
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutDialog));
             title = new Label();
             info = new Label();
             SuspendLayout();
             // 
             // title
             // 
-            resources.ApplyResources(title, "title");
+            title.Font = new Font("微软雅黑", 20F, FontStyle.Bold);
+            title.Location = new Point(0, 0);
             title.Name = "title";
+            title.Size = new Size(600, 200);
+            title.TabIndex = 0;
+            title.Text = Language.AboutDialog_title_Text;
+            title.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // info
             // 
-            resources.ApplyResources(info, "info");
+            info.Font = new Font("微软雅黑", 10F);
+            info.Location = new Point(0, 200);
             info.Name = "info";
+            info.Size = new Size(600, 200);
+            info.TabIndex = 1;
+            info.Text = Language.AboutDialog_info_Text;
+            info.TextAlign = ContentAlignment.TopCenter;
             // 
             // AboutDialog
             // 
-            resources.ApplyResources(this, "$this");
+            AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(600, 400);
             Controls.Add(title);
             Controls.Add(info);
             Name = "AboutDialog";
+            Text = Language.AboutDialog_this_Text;
             ResumeLayout(false);
 
         }
