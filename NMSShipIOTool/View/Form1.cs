@@ -192,7 +192,7 @@ namespace NMSShipIOTool
                     Text = options1[i],
                     Name = "radioI_" + i,
                     AutoSize = true,
-                    Tag = int.Parse(options1[i].Split("飞船 ID：")[1].Split("，基地")[0])
+                    Tag = int.Parse(options1[i].Split(Language.飞船ID_)[1].Split(Language._基地ID_)[0])
                 };
                 radioPanelI.Controls.Add(radio);
             }
@@ -202,17 +202,17 @@ namespace NMSShipIOTool
             {
                 var radio = new RadioButton
                 {
-                    Text = options2[i].Split("，种子：")[0],
-                    Name = options2[i].Split("，种子：")[1],
+                    Text = options2[i].Split(Language._种子_)[0],
+                    Name = options2[i].Split(Language._种子_)[1],
                     AutoSize = true,
-                    Tag = int.Parse(options2[i].Split("飞船 ID：")[1].Split("，类型：")[0])
+                    Tag = int.Parse(options2[i].Split(Language.飞船ID_)[1].Split(Language._类型_)[0])
                 };
                 radio.CheckedChanged += (s, e) =>
                 {
                     if (((RadioButton)s!).Checked)
                     {
                         string seed = ((RadioButton)s).Name;
-                        if (seed.Contains("种子无效"))
+                        if (seed.Contains($"（{Language.种子无效}）"))
                         { seed = ""; buttonSetSeed.Enabled = false; }
                         else { buttonSetSeed.Enabled = true; }
                         shipSeed.Text = seed;
@@ -525,7 +525,7 @@ namespace NMSShipIOTool
                 tempPath = FileOperations.fileSelect(3);
                 if (tempPath == "")
                 {
-                    MessageClass.InfoMessageBox("操作取消！");
+                    MessageClass.InfoMessageBox(Language.操作取消);
                     finishLoading();
                     return;
                 }
@@ -560,7 +560,7 @@ namespace NMSShipIOTool
                 tempPath = FileOperations.folderSelect();
                 if (tempPath == "")
                 {
-                    MessageClass.InfoMessageBox("操作取消！");
+                    MessageClass.InfoMessageBox(Language.操作取消);
                     finishLoading();
                     return;
                 }

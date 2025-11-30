@@ -19,7 +19,7 @@ namespace NMSShipIOTool.Resources {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Language {
@@ -57,6 +57,42 @@ namespace NMSShipIOTool.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ，基地 ID： 的本地化字符串。
+        /// </summary>
+        internal static string _基地ID_ {
+            get {
+                return ResourceManager.GetString("_基地ID_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ，种子： 的本地化字符串。
+        /// </summary>
+        internal static string _种子_ {
+            get {
+                return ResourceManager.GetString("_种子_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ，类型： 的本地化字符串。
+        /// </summary>
+        internal static string _类型_ {
+            get {
+                return ResourceManager.GetString("_类型_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ，飞船名： 的本地化字符串。
+        /// </summary>
+        internal static string _飞船名_ {
+            get {
+                return ResourceManager.GetString("_飞船名_", resourceCulture);
             }
         }
         
@@ -401,7 +437,7 @@ namespace NMSShipIOTool.Resources {
         }
         
         /// <summary>
-        ///   查找类似 自定义飞船 的本地化字符串。
+        ///   查找类似 自定义护卫舰 的本地化字符串。
         /// </summary>
         internal static string Form1_tabPage2_Text {
             get {
@@ -446,6 +482,15 @@ namespace NMSShipIOTool.Resources {
         }
         
         /// <summary>
+        ///   查找类似 太阳帆 的本地化字符串。
+        /// </summary>
+        internal static string 太阳帆 {
+            get {
+                return ResourceManager.GetString("太阳帆", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 存档加载完成。 的本地化字符串。
         /// </summary>
         internal static string 存档加载完成 {
@@ -473,11 +518,65 @@ namespace NMSShipIOTool.Resources {
         }
         
         /// <summary>
+        ///   查找类似 异星 的本地化字符串。
+        /// </summary>
+        internal static string 异星 {
+            get {
+                return ResourceManager.GetString("异星", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 待加载 的本地化字符串。
         /// </summary>
         internal static string 待加载 {
             get {
                 return ResourceManager.GetString("待加载", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 战斗 的本地化字符串。
+        /// </summary>
+        internal static string 战斗 {
+            get {
+                return ResourceManager.GetString("战斗", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 托运 的本地化字符串。
+        /// </summary>
+        internal static string 托运 {
+            get {
+                return ResourceManager.GetString("托运", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 护卫 的本地化字符串。
+        /// </summary>
+        internal static string 护卫 {
+            get {
+                return ResourceManager.GetString("护卫", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 拼接 的本地化字符串。
+        /// </summary>
+        internal static string 拼接 {
+            get {
+                return ResourceManager.GetString("拼接", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 探险家 的本地化字符串。
+        /// </summary>
+        internal static string 探险家 {
+            get {
+                return ResourceManager.GetString("探险家", resourceCulture);
             }
         }
         
@@ -545,6 +644,15 @@ namespace NMSShipIOTool.Resources {
         }
         
         /// <summary>
+        ///   查找类似 常规飞船： 的本地化字符串。
+        /// </summary>
+        internal static string 普通飞船_ {
+            get {
+                return ResourceManager.GetString("普通飞船_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 最后保存时间： 的本地化字符串。
         /// </summary>
         internal static string 最后保存时间 {
@@ -572,11 +680,29 @@ namespace NMSShipIOTool.Resources {
         }
         
         /// <summary>
+        ///   查找类似 特殊船 的本地化字符串。
+        /// </summary>
+        internal static string 特殊船 {
+            get {
+                return ResourceManager.GetString("特殊船", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 玩家存档 的本地化字符串。
         /// </summary>
         internal static string 玩家存档 {
             get {
                 return ResourceManager.GetString("玩家存档", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 生物 的本地化字符串。
+        /// </summary>
+        internal static string 生物 {
+            get {
+                return ResourceManager.GetString("生物", resourceCulture);
             }
         }
         
@@ -595,6 +721,24 @@ namespace NMSShipIOTool.Resources {
         internal static string 种子无效 {
             get {
                 return ResourceManager.GetString("种子无效", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 自定义护卫舰 的本地化字符串。
+        /// </summary>
+        internal static string 自定义护卫舰 {
+            get {
+                return ResourceManager.GetString("自定义护卫舰", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 自定义护卫舰： 的本地化字符串。
+        /// </summary>
+        internal static string 自定义护卫舰_ {
+            get {
+                return ResourceManager.GetString("自定义护卫舰_", resourceCulture);
             }
         }
         
@@ -649,6 +793,24 @@ namespace NMSShipIOTool.Resources {
         internal static string 非法JSON格式 {
             get {
                 return ResourceManager.GetString("非法JSON格式", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 飞船 ID： 的本地化字符串。
+        /// </summary>
+        internal static string 飞船ID_ {
+            get {
+                return ResourceManager.GetString("飞船ID_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 飞艇 的本地化字符串。
+        /// </summary>
+        internal static string 飞艇 {
+            get {
+                return ResourceManager.GetString("飞艇", resourceCulture);
             }
         }
     }

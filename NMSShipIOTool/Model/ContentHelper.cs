@@ -1,3 +1,4 @@
+using NMSShipIOTool.Resources;
 
 namespace NMSShipIOTool.Model
 {
@@ -6,16 +7,16 @@ namespace NMSShipIOTool.Model
         public static string checkType(string input)
         {
             var parts = input.Split('/');
-            if (parts[parts.Count() - 1].Split('_')[0].Equals("FIGHTER")) { return "战斗"; }
-            else if (parts[parts.Count() - 1].Split('_')[0].Equals("SENTINELSHIP")) { return "护卫"; }
-            else if (parts[parts.Count() - 1].Split('_')[0].Equals("BIOSHIP")) { return "生物"; }
-            else if (parts[parts.Count() - 1].Split('_')[0].Equals("SHUTTLE")) { return "飞艇"; }
-            else if (parts[parts.Count() - 1].Split('_')[0].Equals("SAILSHIP")) { return "太阳帆"; }
-            else if (parts[parts.Count() - 1].Split('_')[0].Equals("S-CLASS")) { return "异星"; }
-            else if (parts[parts.Count() - 1].Split('_')[0].Equals("SCIENTIFIC")) { return "探险家"; }
-            else if (parts[parts.Count() - 1].Split('_')[0].Equals("DROPSHIP")) { return "托运"; }
-            else if (parts[parts.Count() - 1].Split('.')[0].Equals("BIGGS")) { return "自定义"; }
-            else { return "特殊船"; }
+            if (parts[parts.Count() - 1].Split('_')[0].Equals("FIGHTER")) { return Language.战斗; }
+            else if (parts[parts.Count() - 1].Split('_')[0].Equals("SENTINELSHIP")) { return Language.护卫; }
+            else if (parts[parts.Count() - 1].Split('_')[0].Equals("BIOSHIP")) { return Language.生物; }
+            else if (parts[parts.Count() - 1].Split('_')[0].Equals("SHUTTLE")) { return Language.飞艇; }
+            else if (parts[parts.Count() - 1].Split('_')[0].Equals("SAILSHIP")) { return Language.太阳帆; }
+            else if (parts[parts.Count() - 1].Split('_')[0].Equals("S-CLASS")) { return Language.异星; }
+            else if (parts[parts.Count() - 1].Split('_')[0].Equals("SCIENTIFIC")) { return Language.探险家; }
+            else if (parts[parts.Count() - 1].Split('_')[0].Equals("DROPSHIP")) { return Language.托运; }
+            else if (parts[parts.Count() - 1].Split('.')[0].Equals("BIGGS")) { return Language.自定义护卫舰; }
+            else { return Language.特殊船; }
         }
 
         public static string selectBetween(string pos1, string pos2, string target)

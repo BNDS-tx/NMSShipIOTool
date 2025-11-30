@@ -318,4 +318,58 @@ NMS Ship IO Tool  Copyright (C) 2025  徐腾（蓝夜深空）</value>
   <data name="种子无效" xml:space="preserve">
     <value>Seed Invalid</value>
   </data>
+  <data name="战斗" xml:space="preserve">
+    <value>Fighter</value>
+  </data>
+  <data name="护卫" xml:space="preserve">
+    <value>Interceptor</value>
+  </data>
+  <data name="生物" xml:space="preserve">
+    <value>Living</value>
+  </data>
+  <data name="飞艇" xml:space="preserve">
+    <value>Shuttle</value>
+  </data>
+  <data name="太阳帆" xml:space="preserve">
+    <value>Solar</value>
+  </data>
+  <data name="异星" xml:space="preserve">
+    <value>Exotic</value>
+  </data>
+  <data name="探险家" xml:space="preserve">
+    <value>Explorer</value>
+  </data>
+  <data name="托运" xml:space="preserve">
+    <value>Hauler</value>
+  </data>
+  <data name="自定义护卫舰" xml:space="preserve">
+    <value>Corvette</value>
+  </data>
+  <data name="特殊船" xml:space="preserve">
+    <value>Special</value>
+  </data>
+  <data name="普通飞船_" xml:space="preserve">
+    <value>Non-Corvette Ships: </value>
+  </data>
+  <data name="拼接" xml:space="preserve">
+    <value>Customized</value>
+  </data>
+  <data name="飞船ID_" xml:space="preserve">
+    <value>Ship ID: </value>
+  </data>
+  <data name="_类型_" xml:space="preserve">
+    <value>, Type: </value>
+  </data>
+  <data name="_飞船名_" xml:space="preserve">
+    <value>, Name: </value>
+  </data>
+  <data name="_种子_" xml:space="preserve">
+    <value>, Seed: </value>
+  </data>
+  <data name="自定义护卫舰_" xml:space="preserve">
+    <value>Corvettes: </value>
+  </data>
+  <data name="_基地ID_" xml:space="preserve">
+    <value>, Base ID: </value>
+  </data>
 </root>

@@ -233,7 +233,7 @@ NMS Ship IO Tool  Copyright (C) 2025  徐腾（蓝夜深空）</value>
     <value>游戏存档</value>
   </data>
   <data name="Form1.tabPage2.Text" xml:space="preserve">
-    <value>自定义飞船</value>
+    <value>自定义护卫舰</value>
   </data>
   <data name="Form1.tabPage3.Text" xml:space="preserve">
     <value>常规飞船</value>
@@ -318,5 +318,59 @@ NMS Ship IO Tool  Copyright (C) 2025  徐腾（蓝夜深空）</value>
   </data>
   <data name="种子无效" xml:space="preserve">
     <value>种子无效</value>
+  </data>
+  <data name="战斗" xml:space="preserve">
+    <value>战斗</value>
+  </data>
+  <data name="护卫" xml:space="preserve">
+    <value>护卫</value>
+  </data>
+  <data name="生物" xml:space="preserve">
+    <value>生物</value>
+  </data>
+  <data name="飞艇" xml:space="preserve">
+    <value>飞艇</value>
+  </data>
+  <data name="太阳帆" xml:space="preserve">
+    <value>太阳帆</value>
+  </data>
+  <data name="异星" xml:space="preserve">
+    <value>异星</value>
+  </data>
+  <data name="探险家" xml:space="preserve">
+    <value>探险家</value>
+  </data>
+  <data name="托运" xml:space="preserve">
+    <value>托运</value>
+  </data>
+  <data name="自定义护卫舰" xml:space="preserve">
+    <value>自定义护卫舰</value>
+  </data>
+  <data name="特殊船" xml:space="preserve">
+    <value>特殊船</value>
+  </data>
+  <data name="普通飞船_" xml:space="preserve">
+    <value>常规飞船：</value>
+  </data>
+  <data name="拼接" xml:space="preserve">
+    <value>拼接</value>
+  </data>
+  <data name="飞船ID_" xml:space="preserve">
+    <value>飞船 ID：</value>
+  </data>
+  <data name="_类型_" xml:space="preserve">
+    <value>，类型：</value>
+  </data>
+  <data name="_飞船名_" xml:space="preserve">
+    <value>，飞船名：</value>
+  </data>
+  <data name="_种子_" xml:space="preserve">
+    <value>，种子：</value>
+  </data>
+  <data name="自定义护卫舰_" xml:space="preserve">
+    <value>自定义护卫舰：</value>
+  </data>
+  <data name="_基地ID_" xml:space="preserve">
+    <value>，基地 ID：</value>
   </data>
 </root>

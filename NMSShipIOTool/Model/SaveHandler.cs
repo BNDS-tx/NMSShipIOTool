@@ -1,3 +1,4 @@
+using NMSShipIOTool.Resources;
 using System.Text.Json.Nodes;
 
 namespace NMSShipIOTool.Model
@@ -25,7 +26,7 @@ namespace NMSShipIOTool.Model
                 var shipBaseCount = BaseShipIndex.Count();
                 var shipCount = ShipOwnership.AsArray().Count() - shipBaseCount;
 
-                var allShipDetected = "普通飞船：" + Environment.NewLine + Environment.NewLine;
+                var allShipDetected = Language.普通飞船_ + Environment.NewLine + Environment.NewLine;
                 if (shipCount > 0)
                 {
                     foreach (var t in ShipOwnership.AsArray().ToList())
@@ -42,12 +43,12 @@ namespace NMSShipIOTool.Model
                         var ccdToken = CharacterCustomisationData.AsArray().ElementAt(slot);
                         if (ccdToken != null && ccdToken?["wnR"]?["SMP"]?.AsArray().ToList().Count > 0)
                         {
-                            shipType = "（拼接）" + shipType;
-                            shipSeed = "（种子无效）";
+                            shipType = $"（{Language.拼接}）" + shipType;
+                            shipSeed = $"（{Language.种子无效}）";
                         }
-                        if (shipType == "特殊船") { shipSeed = "（种子无效）"; }
-                        if (shipType == "自定义") { continue; }
-                        string option = "飞船 ID：" + shipID + "，类型：" + shipType + "，飞船名：" + shipName + "，种子：" + shipSeed;
+                        if (shipType == Language.特殊船) { shipSeed = $"（{Language.种子无效}）"; }
+                        if (shipType == Language.自定义护卫舰) { continue; }
+                        string option = Language.飞船ID_ + shipID + Language._类型_ + shipType + Language._飞船名_ + shipName + Language._种子_ + shipSeed;
                         shipOptons.Add(option);
                         allShipDetected = allShipDetected + option + Environment.NewLine;
                     }
@@ -55,14 +56,14 @@ namespace NMSShipIOTool.Model
                 }
                 else { allShipDetected += Environment.NewLine; }
 
-                var shipBaseDetected = "自定义飞船：" + Environment.NewLine + Environment.NewLine;
+                var shipBaseDetected = Language.自定义护卫舰_ + Environment.NewLine + Environment.NewLine;
                 if (shipBaseCount > 0)
                 {
                     foreach (int t in BaseShipIndex)
                     {
                         int shipID = int.Parse((PersistentPlayerBases.AsArray().ElementAt(t)?["CVX"] ?? "-1").ToString());
                         string shipName = (ShipOwnership.AsArray().ElementAt(shipID)?["NKm"] ?? "").ToString();
-                        string option = "飞船 ID：" + shipID + "，基地 ID：" + t.ToString() + "，飞船名：" + shipName;
+                        string option = Language.飞船ID_ + shipID + Language._基地ID_ + t.ToString() + Language._飞船名_ + shipName;
                         shipBaseOptions.Add(option);
                         shipBaseDetected = shipBaseDetected + option + Environment.NewLine;
                     }
