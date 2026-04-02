@@ -19,6 +19,25 @@
 
 本项目基于 [libNOM.io](https://github.com/zencq/libNOM.io) 及其依赖项目开发。
 
+## 应用界面
+
+- 首页：
+<div align="center">
+<img src="images/屏幕截图%202026-04-02%20060603.png" width="70%">
+</div>
+- 护卫舰：
+<div align="center">
+<img src="images/屏幕截图%202026-04-02%20060618.png" width="70%">
+</div>
+- 普通飞船：
+<div align="center">
+<img src="images/屏幕截图%202026-04-02%20060627.png" width="70%">
+</div>
+- 关于：
+<div align="center">
+<img src="images/屏幕截图%202026-04-02%20060609.png" width="70%">
+</div>
+
 ## 功能特性
 
 - 读取并展示存档中所有玩家可控飞船  
