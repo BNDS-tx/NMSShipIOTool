@@ -25,14 +25,17 @@
 <div align="center">
 <img src="images/屏幕截图%202026-04-02%20060603.png" width="70%">
 </div>
+
 - 护卫舰：
 <div align="center">
 <img src="images/屏幕截图%202026-04-02%20060618.png" width="70%">
 </div>
+
 - 普通飞船：
 <div align="center">
 <img src="images/屏幕截图%202026-04-02%20060627.png" width="70%">
 </div>
+
 - 关于：
 <div align="center">
 <img src="images/屏幕截图%202026-04-02%20060609.png" width="70%">
