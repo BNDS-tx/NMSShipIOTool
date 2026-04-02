@@ -3,6 +3,8 @@
 ![.NET 9.0](https://img.shields.io/badge/.NET-9.0-512BD4)
 ![WinUI 3](https://img.shields.io/badge/WinUI-3-0078D6)
 
+[![GitHub Release](https://img.shields.io/github/v/release/BNDS-tx/NMSShipIOTool?logo=github)](https://github.com/BNDS-tx/NMSShipIOTool/releases/latest)
+
 **NMS Ship IO Tool** 是一个基于 **.NET 9** 框架的 **WinUI 3 应用**，用于管理《无人深空 (No Man's Sky)》游戏存档中的玩家飞船数据。  
 本工具支持 **查看、导出、导入** 各类玩家可控飞船及其 **技术、模块与库存** 数据，包括：  
 
