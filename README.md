@@ -3,7 +3,7 @@
 ![.NET 9.0](https://img.shields.io/badge/.NET-9.0-512BD4)
 ![Windows Forms 9](https://img.shields.io/badge/WinForms-9-0078D6)
 
-**NMS Ship IO Tool** 是一个基于 **.NET 9** 框架的 **WinForm 应用**，用于管理《无人深空 (No Man's Sky)》游戏存档中的玩家飞船数据。  
+**NMS Ship IO Tool** 是一个基于 **.NET 9** 框架的 **WinUI 3 应用**，用于管理《无人深空 (No Man's Sky)》游戏存档中的玩家飞船数据。  
 本工具支持 **查看、导出、导入** 各类玩家可控飞船及其 **技术、模块与库存** 数据，包括：  
 
 - 普通种子飞船  | 及其技术、模块与库存数据  
@@ -31,8 +31,10 @@
 
 ## 安装与使用
 
-1. 从 [Releases 页面](../../releases) 下载最新版本。  
-2. 解压后运行 `NMSShipIOTool_Release_X64_[依赖外部运行时或独立].exe`。  
+1. 从 [Releases 页面](../../releases) 下载最新版本。
+2. 由于 WinUI 3 限制，自 1.2.0 后不再发布单一 exe 文件。您可以按您的实际需求，下载独立或依赖包体的安装包安装后使用，或直接下载 zip 压缩包解压后双击压缩包内 ```NMSShipIOTool.exe``` 文件使用。
+   - 独立包体：已包含需要的 .NET 9.0 运行时和 Windows App Runtime 1.7，安装后可直接使用，但占用较大；
+   - 依赖包体：仅包含应用本身文件，占用不大，但需 Windows 环境自带 .NET 9.0 与 Windows App Runtime 1.7。
 3. 在程序中选择你的《无人深空》存档路径。  
 4. 使用界面进行飞船查看、导入、导出操作。  
 
