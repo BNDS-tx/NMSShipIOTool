@@ -2,7 +2,7 @@ using libNOM.io;
 using libNOM.io.Enums;
 using libNOM.io.Settings;
 using Newtonsoft.Json.Linq;
-using NMSShipIOTool.View;
+using NMSShipIOTool.Resources;
 using System.Text.Json.Nodes;
 
 namespace NMSShipIOTool.Model
@@ -17,7 +17,7 @@ namespace NMSShipIOTool.Model
         private String PersistentPlayerBasesPath = "F?0";
         private String ShipOwnershipPath = "@Cs";
         private String CharacterCustomisationDataPath = "l:j";
-        private String defaultExportNameString = "导出飞船";
+        private String defaultExportNameString => Language.默认导出文件名;
 
         public libNOM.io.Interfaces.IPlatform? platform;
         private int saveSlot = 0;
@@ -35,11 +35,11 @@ namespace NMSShipIOTool.Model
         {
             if (string.IsNullOrEmpty(path))
             {
-                throw new ArgumentException("路径不能为空。", nameof(path));
+                throw new ArgumentException(Language.路径不能为空, nameof(path));
             }
             else if (!Directory.Exists(path))
             {
-                throw new DirectoryNotFoundException("指定的路径不存在或无效。");
+                throw new DirectoryNotFoundException(Language.路径不存在或无效);
             }
 
             var settings = new PlatformSettings { LoadingStrategy = LoadingStrategyEnum.Current };
@@ -270,7 +270,7 @@ namespace NMSShipIOTool.Model
         // 读取基地/货船基地/自定义飞船数据
         private string readBaseObject(int baseID, int shipID, bool isO)
         {
-            if (baseID == -1 && (!PersistentPlayerBases?.AsArray()?.Any(s => s?["CVX"]?.ToString() == shipID.ToString()) ?? true))
+            if (baseID == -1 && (!PersistentPlayerBases?.AsArray()?.Any(s => s?["CVX"]?.ToString() == shipID.ToString() && s?["peI"]?["DPp"]?.ToString() == "PlayerShipBase") ?? true))
                 return "";
             var baseJN = JsonNode.Parse(PersistentPlayerBases?.AsArray()?.ElementAt(
                 (baseID != -1 && shipID == -1) ? baseID
@@ -382,7 +382,7 @@ namespace NMSShipIOTool.Model
                     JsonNode? ccd = JsonNode.Parse(ccdString);
                     JsonNode? so = JsonNode.Parse(soString);
 
-                    if (index == -1 || isNew) { throw new Exception("暂不支持添加新自定义飞船。"); }
+                    if (index == -1 || isNew) { throw new Exception(Language.不支持添加新自定义飞船); }
                     await Task.Run(() => { writeBaseObject(objects!, -1, index, isOb); });
                     await Task.Run(() => { writeCCD(ccd!, index, isOb); });
                     await Task.Run(() => { writeSO(so!, index, isOb); });
@@ -396,9 +396,9 @@ namespace NMSShipIOTool.Model
                         .Where(s => s?["CVX"]?.ToString() == index.ToString())
                         .Select(s => PersistentPlayerBases.AsArray().ToList().IndexOf(s))
                         .FirstOrDefault() ?? -1;
-                    if (BaseShipIndex.Contains(baseID)) throw new Exception("无法导入普通船到自定义飞船！\n请导入完整的自定义飞船 .nmsship 文件，或选择一个非自定义飞船的飞船槽位。");
+                    if (BaseShipIndex.Contains(baseID)) throw new Exception(Language.无法导入普通船到自定义飞船);
                     if (isNew) { index = findAvailableShipID(); }
-                    if (index == -1) { throw new Exception("无法添加新飞船！\n你的飞船已经满了。"); }
+                    if (index == -1) { throw new Exception(Language.飞船槽位已满); }
                     await Task.Run(() => { writeCCD(ccd!, index, isOb); });
                     await Task.Run(() => { writeSO(so!, index, isOb); });
                 }
@@ -407,7 +407,7 @@ namespace NMSShipIOTool.Model
             {
                 var jsonString = File.ReadAllText(importPath);
                 JsonNode? json = JsonNode.Parse(jsonString);
-                if (json == null) { throw new Exception("文件内容无法解析！"); }
+                if (json == null) { throw new Exception(Language.文件内容无法解析); }
                 if (json is JsonObject)
                     await Task.Run(() => { writeSO(json, index, isOb); });
                 else await Task.Run(() => { writeBaseObject(json, -1, index, isOb); });
@@ -417,17 +417,17 @@ namespace NMSShipIOTool.Model
             {
                 var jsonString = File.ReadAllText(importPath);
                 JsonNode? json = JsonNode.Parse(jsonString);
-                if (json == null) { throw new Exception("文件内容无法解析！"); }
+                if (json == null) { throw new Exception(Language.文件内容无法解析); }
                 await Task.Run(() => { writeSO(json, index, isOb); });
 
             }
             else
             {
-                throw new Exception("未选择文件或不受支持的文件格式！");
+                throw new Exception(Language.不支持的文件格式);
             }
 
             await Task.Run(() => { SaveSave(currentSave!); });
-            MessageClass.InfoMessageBox("导入成功！");
+            MessageNotifier.NotifyInfo(Language.导入成功);
         }
 
         public async Task importShipTech(
@@ -436,15 +436,15 @@ namespace NMSShipIOTool.Model
             bool isOb
             )
         {
-            if (index < 0 && index > 11) throw new Exception("传入的飞船 ID 异常！");
+            if (index < 0 && index > 11) throw new Exception(Language.尚未选择飞船);
             if (importPath.Split('.').Last() != "json" && importPath.Split('.').Last() != "tech")
-                throw new Exception("未选择文件或不受支持的文件格式！");
+                throw new Exception(Language.不支持的文件格式);
             var jsonString = File.ReadAllText(importPath);
             JsonNode? json = JsonNode.Parse(jsonString);
-            if (json == null) { throw new Exception("文件内容无法解析！"); }
+            if (json == null) { throw new Exception(Language.文件内容无法解析); }
             await Task.Run(() => { writeTech(json, index, isOb); });
             await Task.Run(() => { SaveSave(currentSave!); });
-            MessageClass.InfoMessageBox("导入成功！");
+            MessageNotifier.NotifyInfo(Language.导入成功);
         }
 
         public async Task setShipSeed(
@@ -452,12 +452,12 @@ namespace NMSShipIOTool.Model
             string seed
             )
         {
-            if (shipID == -1) throw new Exception("尚未选择飞船！请先选择你要设置的飞船。");
-            if (seed == null) throw new Exception("尚未输入种子！请输入种子以设置飞船。");
+            if (shipID == -1) throw new Exception(Language.尚未选择飞船);
+            if (seed == null) throw new Exception(Language.尚未输入种子);
 
             await Task.Run(() => { writeSeed(seed, shipID); });
             await Task.Run(() => { SaveSave(currentSave!); });
-            MessageClass.InfoMessageBox("设置种子成功：" + seed);
+            MessageNotifier.NotifyInfo(Language.设置种子成功 + seed);
         }
 
         public async Task exportShip(
@@ -473,15 +473,15 @@ namespace NMSShipIOTool.Model
             var saveFilePath = "";
             if (!isOOnly && !isSOOnly)
             {
-                if (index == -1) throw new Exception("尚未选择要导出的飞船！");
+                if (index == -1) throw new Exception(Language.尚未选择要导出的飞船);
 
-                if (exportPath == "" || !Path.Exists(exportPath)) throw new Exception("未选择导出路径或路径无效！");
+                if (exportPath == "" || !Path.Exists(exportPath)) throw new Exception(Language.未选择导出路径或路径无效);
 
                 var objectsString = readBaseObject(-1, index, isOb);
                 var ccdString = readCCD(index, isOb);
                 var soString = readSO(index, isOb);
 
-                if (objectsString == "" && (ccdString == "" || soString == "")) throw new Exception("飞船数据异常，无法导出！");
+                if (objectsString == "" && (ccdString == "" || soString == "")) throw new Exception(Language.飞船数据异常无法导出);
 
                 var tempDir = Path.Combine(System.IO.Path.GetTempPath(), "NMSMIOT_Temp");
                 if (Directory.Exists(tempDir)) { Directory.Delete(tempDir, true); }
@@ -507,10 +507,10 @@ namespace NMSShipIOTool.Model
             }
             else
             {
-                if (isSOOnly && isOOnly) throw new Exception("不得同时设置仅限 Object 和 SO 数据！");
-                if (index == -1) throw new Exception("尚未选择要导出的飞船！");
+                if (isSOOnly && isOOnly) throw new Exception(Language.飞船数据异常无法导出);
+                if (index == -1) throw new Exception(Language.尚未选择要导出的飞船);
                 var stringJN = isOOnly ? readBaseObject(-1, index, isOb) : readSO(index, isOb);
-                if (stringJN == "") throw new Exception("飞船数据为空，无法导出！");
+                if (stringJN == "") throw new Exception(Language.飞船数据为空无法导出);
 
                 if (fileName == "")
                 {
@@ -522,7 +522,7 @@ namespace NMSShipIOTool.Model
                 saveFilePath = Path.Combine(exportPath, fileName + (isSH0 ? ".sh0" : ".json"));
                 File.WriteAllText(saveFilePath, stringJN);
             }
-            MessageClass.InfoMessageBox("导出文件成功：" + saveFilePath);
+            MessageNotifier.NotifyInfo(Language.导出文件成功 + saveFilePath);
         }
 
         public async Task exportShipTech(
@@ -533,20 +533,20 @@ namespace NMSShipIOTool.Model
             bool isTech
             )
         {
-            if (index == -1) throw new Exception("尚未选择要导出的飞船！");
+            if (index == -1) throw new Exception(Language.尚未选择要导出的飞船);
             var stringJN = readTech(index, isO);
-            if (stringJN == "" || stringJN.Count() < 4) throw new Exception("飞船技术、模块与库存数据异常，无法导出！");
+            if (stringJN == "" || stringJN.Count() < 4) throw new Exception(Language.飞船技术模块数据异常无法导出);
 
             if (fileName == "")
             {
                 if (!string.IsNullOrEmpty(ShipOwnership?.AsArray()?.ElementAt(index)?["NKm"]?.ToString()))
                     fileName = ShipOwnership?.AsArray()?.ElementAt(index)?["NKm"]?.ToString()
-                    ?? defaultExportNameString + "_技术、模块与库存";
-                else fileName = defaultExportNameString + "_技术、模块与库存";
+                    ?? defaultExportNameString + Language.默认导出技术文件名后缀;
+                else fileName = defaultExportNameString + Language.默认导出技术文件名后缀;
             }
             var saveFilePath = Path.Combine(exportPath, fileName + (isTech ? ".tech" : ".json"));
             File.WriteAllText(saveFilePath, stringJN);
-            MessageClass.InfoMessageBox("导出文件成功：" + saveFilePath);
+            MessageNotifier.NotifyInfo(Language.导出文件成功 + saveFilePath);
         }
 
         #endregion

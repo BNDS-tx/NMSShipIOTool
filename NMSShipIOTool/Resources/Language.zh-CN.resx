@@ -118,258 +118,371 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Form1.this.Text" xml:space="preserve">
-    <value>NMS Ship IO Tool</value>
+    <value>无人深空飞船导入与导出工具</value>
   </data>
   <data name="Form1.aboutButton.Text" xml:space="preserve">
-    <value>About</value>
+    <value>关于</value>
   </data>
   <data name="AboutDialog.this.Text" xml:space="preserve">
-    <value>About</value>
+    <value>关于</value>
   </data>
   <data name="AboutDialog.info.Text" xml:space="preserve">
-    <value>Version 1.2.0
-Author: 蓝夜深空 (BNDS-tx)
+    <value> 
+版本 1.3.0
+作者：蓝夜深空（BNDS-tx）
 
 
-This software is for communicate and study only.
-NMS Ship IO Tool  Copyright (C) 2025  徐腾（蓝夜深空）</value>
+本工具仅供学习和交流使用。
+NMS Ship IO Tool  Copyright (C) 2026  徐腾（蓝夜深空）</value>
   </data>
   <data name="AboutDialog.title.Text" xml:space="preserve">
     <value>NMS Ship IO Tool
 无人深空飞船导入导出工具</value>
   </data>
   <data name="Form1.buttonExport.Text" xml:space="preserve">
-    <value>Export</value>
+    <value>导出飞船</value>
   </data>
   <data name="Form1.buttonExportShipTech.Text" xml:space="preserve">
-    <value>Export Tech., Module</value>
+    <value>导出飞船技术、模块与库存</value>
   </data>
   <data name="Form1.buttonExportShipTechI.Text" xml:space="preserve">
-    <value>Export Tech., Module</value>
+    <value>导出飞船技术、模块与库存</value>
   </data>
   <data name="Form1.buttonImportShipTech.Text" xml:space="preserve">
-    <value>Import Tech., Module</value>
+    <value>导入飞船技术、模块与库存</value>
   </data>
   <data name="Form1.buttonImportShipTechI.Text" xml:space="preserve">
-    <value>Import Tech., Module</value>
+    <value>导入飞船技术、模块与库存</value>
   </data>
   <data name="Form1.buttonLoad.Text" xml:space="preserve">
-    <value>Load</value>
+    <value>加载存档</value>
   </data>
   <data name="Form1.buttonSeedShipExport.Text" xml:space="preserve">
-    <value>Export</value>
+    <value>导出飞船</value>
   </data>
   <data name="Form1.buttonSeedShipImport.Text" xml:space="preserve">
-    <value>Import</value>
+    <value>导入飞船</value>
   </data>
   <data name="Form1.buttonSelect.Text" xml:space="preserve">
-    <value>Choose Path</value>
+    <value>选择路径</value>
   </data>
   <data name="Form1.buttonSetSeed.Text" xml:space="preserve">
-    <value>Set Seed</value>
+    <value>导入种子</value>
   </data>
   <data name="Form1.checkBoxI.Text" xml:space="preserve">
-    <value>Use Obf.</value>
+    <value>启用混淆</value>
   </data>
   <data name="Form1.checkBoxNewShip.Text" xml:space="preserve">
-    <value>Import as new ship</value>
+    <value>作为新飞船导入</value>
   </data>
   <data name="Form1.checkBoxNMSSHIP1.Text" xml:space="preserve">
-    <value>Use .nmsship</value>
+    <value>启用完整包</value>
   </data>
   <data name="Form1.checkBoxNMSSHIP3.Text" xml:space="preserve">
-    <value>Use .nmsship</value>
+    <value>启用完整包</value>
   </data>
   <data name="Form1.checkBoxS.Text" xml:space="preserve">
-    <value>Use Obf.</value>
+    <value>启用混淆</value>
   </data>
   <data name="Form1.checkBoxSH0.Text" xml:space="preserve">
-    <value>Save as .sh0</value>
+    <value>保存为 .sh0</value>
   </data>
   <data name="Form1.checkBoxTech.Text" xml:space="preserve">
-    <value>Save Tech., Module as .tech</value>
+    <value>导出技术、模块与库存为 .tech</value>
   </data>
   <data name="Form1.checkBoxTechI.Text" xml:space="preserve">
-    <value>Save Tech., Module as .tech</value>
+    <value>导出技术、模块与库存为 .tech</value>
   </data>
   <data name="Form1.exportSelect.Text" xml:space="preserve">
-    <value>Choose Path</value>
+    <value>选择保存地址</value>
   </data>
   <data name="Form1.importSelect.Text" xml:space="preserve">
-    <value>Choose File</value>
+    <value>选择导入文件</value>
   </data>
   <data name="Form1.inputTextI.Text" xml:space="preserve">
-    <value>Or you can input Objects content mannually</value>
+    <value>（高级）手动输入 Objects 字段：</value>
   </data>
   <data name="Form1.inputTextIExplanation.Text" xml:space="preserve">
-    <value>Please adhere to the JSON format</value>
+    <value>请遵守 JSON 格式，并确保在最外围包含中括号"[]"</value>
   </data>
   <data name="Form1.label1.Text" xml:space="preserve">
-    <value>Save file name:</value>
+    <value>导出文件名：</value>
   </data>
   <data name="Form1.labelPath.Text" xml:space="preserve">
-    <value>Save path:</value>
+    <value>存档路径:</value>
   </data>
   <data name="Form1.nameTextE.Text" xml:space="preserve">
-    <value>Export file path:</value>
+    <value>导出文件名：</value>
   </data>
   <data name="Form1.pathTextE.Text" xml:space="preserve">
-    <value>Export file path:</value>
+    <value>导出文件地址：</value>
   </data>
   <data name="Form1.pathTextI.Text" xml:space="preserve">
-    <value>Import file path:</value>
+    <value>导入文件目录：</value>
   </data>
   <data name="Form1.seedSelectText.Text" xml:space="preserve">
-    <value>Please select your non-Corvette ship:</value>
+    <value>选择你要导入/导出的常规飞船：</value>
   </data>
   <data name="Form1.seedShipIOText.Text" xml:space="preserve">
-    <value>Import/Export youe ship here:</value>
+    <value>你可在此处导出/入飞船文件：</value>
   </data>
   <data name="Form1.shipSelectI.Text" xml:space="preserve">
-    <value>Please select your Corvette:</value>
+    <value>选择你要覆盖的飞船:</value>
   </data>
   <data name="Form1.tabPage1.Text" xml:space="preserve">
-    <value>Save</value>
+    <value>存档信息</value>
   </data>
   <data name="Form1.tabPage2.Text" xml:space="preserve">
-    <value>Corvette</value>
+    <value>自定义护卫舰</value>
   </data>
   <data name="Form1.tabPage3.Text" xml:space="preserve">
-    <value>Non-Corvette</value>
+    <value>常规飞船</value>
   </data>
   <data name="取消" xml:space="preserve">
-    <value>Cancel</value>
+    <value>取消</value>
   </data>
   <data name="存档平台" xml:space="preserve">
-    <value>Platform: </value>
+    <value>存档平台：</value>
   </data>
   <data name="待加载" xml:space="preserve">
-    <value>Waiting for loading</value>
+    <value>待加载</value>
   </data>
   <data name="提示" xml:space="preserve">
-    <value>Info</value>
+    <value>提示</value>
   </data>
   <data name="文件筛选内容A" xml:space="preserve">
-    <value>Supported File (*.json; *.sh0; *.nmsship; *.tech)|*.json; *.sh0; *.nmsship; *.tech|All (*.*)|*.*</value>
+    <value>支持文件（*.json；*.sh0；*.nmsship；*.tech）|*.json; *.sh0; *.nmsship; *.tech|所有文件（*.*）|*</value>
   </data>
   <data name="文件筛选内容BS" xml:space="preserve">
-    <value>Supported File (*.json; *.nmsship)|*.json; *.nmsship|All (*.*)|*.*</value>
+    <value>支持文件（*.json；*.nmsship; *.tech）|*.json; *.nmsship; *.tech|所有文件|*</value>
   </data>
   <data name="文件筛选内容S" xml:space="preserve">
-    <value>Supported File (*.json; *.sh0; *.nmsship)|*.json; *.sh0; *.nmsship|All (*.*)|*.*</value>
+    <value>支持文件（*.json；*.sh0；*.nmsship）|*.json; *.sh0; *.nmsship|所有文件（*.*）|*</value>
   </data>
   <data name="文件筛选内容T" xml:space="preserve">
-    <value>Supported File (*.json; *.tech)|*.json; *.tech|All (*.*)|*.*</value>
+    <value>支持文件（*.json；*.tech）|*.json; *.tech|所有文件 (*.*)|*</value>
   </data>
   <data name="无导入内容" xml:space="preserve">
-    <value>No content has been selected for import or entered yet! \nPlease select the file you wish to import or manually input the content to be imported!</value>
+    <value>还未选择导入内容或输入内容！请选择你要导入的文件或手动输入导入的内容！</value>
   </data>
   <data name="最后保存时间" xml:space="preserve">
-    <value>Last Saving Time: </value>
+    <value>最后保存时间：</value>
   </data>
   <data name="未命名" xml:space="preserve">
-    <value>Untitled</value>
+    <value>未命名</value>
   </data>
   <data name="玩家存档" xml:space="preserve">
-    <value>Save File</value>
+    <value>玩家存档</value>
   </data>
   <data name="确定" xml:space="preserve">
-    <value>Confirm</value>
+    <value>确定</value>
   </data>
   <data name="警告" xml:space="preserve">
-    <value>Warning</value>
+    <value>警告</value>
   </data>
   <data name="请先选择一个选项" xml:space="preserve">
-    <value>Please select an option!</value>
+    <value>请先选择一个选项！</value>
   </data>
   <data name="请选择一个选项" xml:space="preserve">
-    <value>Please Select An Option</value>
+    <value>请选择一个选项</value>
   </data>
   <data name="错误" xml:space="preserve">
-    <value>Error</value>
+    <value>错误</value>
   </data>
   <data name="非法JSON格式" xml:space="preserve">
-    <value>The input is not in valid JSON format!</value>
+    <value>输入内容不是合法的 JSON 格式！</value>
   </data>
   <data name="Form1.buttonImport.Text" xml:space="preserve">
-    <value>Import</value>
+    <value>导入飞船</value>
   </data>
   <data name="Form1.seedText.Text" xml:space="preserve">
-    <value>Ship Seed: </value>
+    <value>飞船种子：</value>
   </data>
   <data name="寻找存档失败_错误信息" xml:space="preserve">
-    <value>Searching for saves failed, with error: </value>
+    <value>寻找存档失败，错误信息：</value>
   </data>
   <data name="没有找到有效的存档" xml:space="preserve">
-    <value>No valid save found</value>
+    <value>没有找到有效的存档</value>
   </data>
   <data name="仅找到一个存档_自动选择" xml:space="preserve">
-    <value>Only 1 valid save found: </value>
+    <value>仅找到一个存档，自动选择 </value>
   </data>
   <data name="选择一个存档" xml:space="preserve">
-    <value>Select a Save File</value>
+    <value>选择一个存档</value>
   </data>
   <data name="操作取消" xml:space="preserve">
-    <value>Operation canceled!</value>
+    <value>操作取消！</value>
   </data>
   <data name="存档加载完成" xml:space="preserve">
-    <value>Save loaded successfully.</value>
+    <value>存档加载完成。</value>
   </data>
   <data name="种子无效" xml:space="preserve">
-    <value>Seed Invalid</value>
+    <value>种子无效</value>
   </data>
   <data name="战斗" xml:space="preserve">
-    <value>Fighter</value>
+    <value>战斗</value>
   </data>
   <data name="护卫" xml:space="preserve">
-    <value>Interceptor</value>
+    <value>护卫</value>
   </data>
   <data name="生物" xml:space="preserve">
-    <value>Living</value>
+    <value>生物</value>
   </data>
   <data name="飞艇" xml:space="preserve">
-    <value>Shuttle</value>
+    <value>飞艇</value>
   </data>
   <data name="太阳帆" xml:space="preserve">
-    <value>Solar</value>
+    <value>太阳帆</value>
   </data>
   <data name="异星" xml:space="preserve">
-    <value>Exotic</value>
+    <value>异星</value>
   </data>
   <data name="探险家" xml:space="preserve">
-    <value>Explorer</value>
+    <value>探险家</value>
   </data>
   <data name="托运" xml:space="preserve">
-    <value>Hauler</value>
+    <value>托运</value>
   </data>
   <data name="自定义护卫舰" xml:space="preserve">
-    <value>Corvette</value>
+    <value>自定义护卫舰</value>
   </data>
   <data name="特殊船" xml:space="preserve">
-    <value>Special</value>
+    <value>特殊船</value>
   </data>
   <data name="普通飞船_" xml:space="preserve">
-    <value>Non-Corvette Ships: </value>
+    <value>常规飞船：</value>
   </data>
   <data name="拼接" xml:space="preserve">
-    <value>Customized</value>
+    <value>拼接</value>
   </data>
   <data name="飞船ID_" xml:space="preserve">
-    <value>Ship ID: </value>
+    <value>飞船 ID：</value>
   </data>
   <data name="_类型_" xml:space="preserve">
-    <value>, Type: </value>
+    <value>，类型：</value>
   </data>
   <data name="_飞船名_" xml:space="preserve">
-    <value>, Name: </value>
+    <value>，飞船名：</value>
   </data>
   <data name="_种子_" xml:space="preserve">
-    <value>, Seed: </value>
+    <value>，种子：</value>
   </data>
   <data name="自定义护卫舰_" xml:space="preserve">
-    <value>Corvettes: </value>
+    <value>自定义护卫舰：</value>
   </data>
   <data name="_基地ID_" xml:space="preserve">
-    <value>, Base ID: </value>
+    <value>，基地 ID：</value>
+  </data>
+  <data name="已自动识别目录" xml:space="preserve">
+    <value>已自动识别到以下可能的存档目录：</value>
+  </data>
+  <data name="使用选中路径" xml:space="preserve">
+    <value>使用选中路径</value>
+  </data>
+  <data name="手动选择" xml:space="preserve">
+    <value>手动选择</value>
+  </data>
+  <data name="请先选择路径或手动选择" xml:space="preserve">
+    <value>请先选择一个路径，或点击"手动选择"。</value>
+  </data>
+  <data name="请先选择或输入导入内容" xml:space="preserve">
+    <value>请先选择或输入要导入的内容！</value>
+  </data>
+  <data name="两个导入来源" xml:space="preserve">
+    <value>你设置了两个导入来源，请只保留一个！</value>
+  </data>
+  <data name="文件不存在" xml:space="preserve">
+    <value>文件不存在！</value>
+  </data>
+  <data name="请输入有效种子" xml:space="preserve">
+    <value>请输入有效的种子！</value>
+  </data>
+  <data name="请先选择要导入文件路径" xml:space="preserve">
+    <value>请先选择要导入的文件路径！</value>
+  </data>
+  <data name="混淆关闭警告I" xml:space="preserve">
+    <value>你正在关闭混淆功能。
+由于游戏存档经过混淆加密，在导入明文内容和导出明文内容时需要经过混淆与反混淆。如果你的设备能流畅地运行无人深空，那么混淆对你的设备性能的影响可以忽略不计。
+即使你导入或导出的内容未经反混淆仍然是密文，我们也推荐你保持混淆开启。混淆算法不会影响已经经过混淆的内容，开启混淆可以尽可能地降低意外导出入明文且未经混淆而导致存档损坏的风险。
+你确定你想要关闭混淆，直接导入或导出内容吗？
+若确定继续，请确保你导入或导出的内容可以被安全地直接写入存档。</value>
+  </data>
+  <data name="请选择存档路径" xml:space="preserve">
+    <value>请选择存档路径</value>
+  </data>
+  <data name="读取数据时发生错误" xml:space="preserve">
+    <value>读取数据时发生错误：</value>
+  </data>
+  <data name="存档损坏提示" xml:space="preserve">
+    <value>您的存档版本过低或疑似发生损坏，请登录游戏刷新存档或使用其他工具检查。</value>
+  </data>
+  <data name="切换语言按钮" xml:space="preserve">
+    <value>简体中文</value>
+  </data>
+  <data name="路径不能为空" xml:space="preserve">
+    <value>路径不能为空。</value>
+  </data>
+  <data name="路径不存在或无效" xml:space="preserve">
+    <value>指定的路径不存在或无效。</value>
+  </data>
+  <data name="不支持添加新自定义飞船" xml:space="preserve">
+    <value>暂不支持添加新自定义飞船。</value>
+  </data>
+  <data name="无法导入普通船到自定义飞船" xml:space="preserve">
+    <value>无法导入普通船到自定义飞船！
+请导入完整的自定义飞船 .nmsship 文件，或选择一个非自定义飞船的飞船槽位。</value>
+  </data>
+  <data name="飞船槽位已满" xml:space="preserve">
+    <value>无法添加新飞船！
+你的飞船已经满了。</value>
+  </data>
+  <data name="文件内容无法解析" xml:space="preserve">
+    <value>文件内容无法解析！</value>
+  </data>
+  <data name="不支持的文件格式" xml:space="preserve">
+    <value>未选择文件或不受支持的文件格式！</value>
+  </data>
+  <data name="导入成功" xml:space="preserve">
+    <value>导入成功！</value>
+  </data>
+  <data name="尚未选择飞船" xml:space="preserve">
+    <value>尚未选择飞船！请先选择你要设置的飞船。</value>
+  </data>
+  <data name="尚未输入种子" xml:space="preserve">
+    <value>尚未输入种子！请输入种子以设置飞船。</value>
+  </data>
+  <data name="设置种子成功" xml:space="preserve">
+    <value>设置种子成功：</value>
+  </data>
+  <data name="尚未选择要导出的飞船" xml:space="preserve">
+    <value>尚未选择要导出的飞船！</value>
+  </data>
+  <data name="未选择导出路径或路径无效" xml:space="preserve">
+    <value>未选择导出路径或路径无效！</value>
+  </data>
+  <data name="飞船数据异常无法导出" xml:space="preserve">
+    <value>飞船数据异常，无法导出！</value>
+  </data>
+  <data name="飞船数据为空无法导出" xml:space="preserve">
+    <value>飞船数据为空，无法导出！</value>
+  </data>
+  <data name="导出文件成功" xml:space="preserve">
+    <value>导出文件成功：</value>
+  </data>
+  <data name="飞船技术模块数据异常无法导出" xml:space="preserve">
+    <value>飞船技术、模块与库存数据异常，无法导出！</value>
+  </data>
+  <data name="默认导出文件名" xml:space="preserve">
+    <value>导出飞船</value>
+  </data>
+  <data name="默认导出技术文件名后缀" xml:space="preserve">
+    <value>_技术、模块与库存</value>
+  </data>
+  <data name="混淆关闭警告S" xml:space="preserve">
+    <value>你正在关闭混淆功能。
+由于游戏存档经过混淆加密，在导入明文内容和导出明文内容时需要经过混淆与反混淆。如果你的设备能流畅地运行无人深空，那么混淆对你的设备性能的影响可以忽略不计。
+混淆算法不会影响已经经过混淆的内容，开启混淆可以尽可能地降低意外导出入明文且未经混淆而导致存档损坏的风险。
+你确定你想要关闭混淆，直接导出/入内容吗？
+若确定继续，请确保你导入或导出的内容可以被安全地直接写入存档。</value>
   </data>
 </root>

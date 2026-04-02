@@ -2,4 +2,12 @@
 Release/
 NMSShipIOTool/bin/
 NMSShipIOTool/obj/
+/ScratchWinUI/bin
+/ScratchWinUI/obj
+/NMSShipIOTool.Tabs/bin
+/NMSShipIOTool.Tabs/obj
 /.idea
+/publish/独立 X64
+/publish/依赖 X64
+/publish/_tmp
+/publish/packages

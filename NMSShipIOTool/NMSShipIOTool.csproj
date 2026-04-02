@@ -1,19 +1,84 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net9.0-windows</TargetFramework>
+    <TargetFramework>net9.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>NMSShipIOTool</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Platforms>x64</Platforms>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+    <UseWinUI>true</UseWinUI>
+    <EnableMsixTooling Condition="'$(MSBuildRuntimeType)' == 'Core'">false</EnableMsixTooling>
+    <EnableMsixTooling Condition="'$(MSBuildRuntimeType)' != 'Core'">true</EnableMsixTooling>
+    <WindowsPackageType>None</WindowsPackageType>
+    <AppxGeneratePriEnabled Condition="'$(MSBuildRuntimeType)' == 'Core'">false</AppxGeneratePriEnabled>
+    <AppxGeneratePriEnabled Condition="'$(MSBuildRuntimeType)' != 'Core'">true</AppxGeneratePriEnabled>
+    <!-- 开发阶段先使用 framework-dependent 方式，避免 self-contained app-local WinUI 主题资源解析失败。 -->
+    <WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>
+    <!-- WinUI/MSIX PRI 在 Platform=x64 构建下可能把 XBF 路径扁平化，导致 ms-appx URI 与资源索引不匹配。 -->
+    <GenerateLibraryLayout>true</GenerateLibraryLayout>
+    <EnableCoreMrtTooling Condition="'$(MSBuildRuntimeType)' == 'Core'">false</EnableCoreMrtTooling>
+    <EnableCoreMrtTooling Condition="'$(MSBuildRuntimeType)' != 'Core'">true</EnableCoreMrtTooling>
     <Nullable>enable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-	<Version>1.2.0</Version>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <Version>1.3.0</Version>
+    <ApplicationIcon>Resources\logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\mapping.json" />
+    <!--
+      GlobalPropertiesToRemove 阻止发布时主项目的自包含属性传入 Tabs 类库，
+      避免 Tabs 生成重复 MsixContent。配置与平台仍显式透传，保证输出路径稳定。
+      RuntimeIdentifier 仍然透传，保证 Tabs DLL 输出到 win-x64 子目录供 XAML 编译引用。
+    -->
+    <ProjectReference Include="..\NMSShipIOTool.Tabs\NMSShipIOTool.Tabs.csproj">
+      <GlobalPropertiesToRemove>WindowsAppSDKSelfContained;SelfContained</GlobalPropertiesToRemove>
+      <SetConfiguration>Configuration=$(Configuration)</SetConfiguration>
+      <SetPlatform>Platform=$(Platform)</SetPlatform>
+    </ProjectReference>
   </ItemGroup>
 
+  <!--
+    WinUI 3 WindowsPackageType=None 自包含发布时，XBF 有时不会进入最终发布目录，
+    直接参与 ResolvedFileToPublish 又可能触发 NETSDK1152 重复冲突。
+    这里改为在 Publish 完成后，从 $(TargetDir) 复制 XBF 到 $(PublishDir)，
+    既避免冲突，也确保 ms-appx:/// 能找到编译后的 XAML 资源。
+  -->
+  <Target Name="CopyXbfFilesToPublishDir"
+          AfterTargets="Publish"
+          Condition="'$(RuntimeIdentifier)' != '' and '$(PublishDir)' != ''">
+    <ItemGroup>
+      <_AppXbfFilesToCopy Include="$(TargetDir)**\*.xbf" />
+      <_TabsXbfFilesToCopy Include="$(MSBuildProjectDirectory)\..\NMSShipIOTool.Tabs\bin\$(Platform)\$(Configuration)\$(TargetFramework)\$(RuntimeIdentifier)\NMSShipIOTool.Tabs\**\*.xbf" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_AppXbfFilesToCopy)"
+          DestinationFiles="@(_AppXbfFilesToCopy->'$(PublishDir)%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(_TabsXbfFilesToCopy)"
+          DestinationFiles="@(_TabsXbfFilesToCopy->'$(PublishDir)%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+  </Target>
+
+  <!--
+    VS 发布时（RuntimeIdentifier 非空）会增量跳过 Tabs 的 RID 专属构建，
+    导致 XAML 中间编译找不到 win-x64\NMSShipIOTool.Tabs.dll。
+    此 Target 在 XAML 第一遍编译前强制用相同 RID 重新构建 Tabs，确保 DLL 落在 win-x64\ 子目录。
+  -->
+  <Target Name="EnsureTabsRidBuild"
+          BeforeTargets="MarkupCompilePass1"
+          Condition="'$(RuntimeIdentifier)' != ''">
+    <MSBuild Projects="$(MSBuildProjectDirectory)\..\NMSShipIOTool.Tabs\NMSShipIOTool.Tabs.csproj"
+             Targets="Build"
+             BuildInParallel="false"
+             Properties="Configuration=$(Configuration);Platform=$(Platform);RuntimeIdentifier=$(RuntimeIdentifier);WindowsAppSDKSelfContained=false;SelfContained=false;EnableMsixTooling=$(EnableMsixTooling);AppxGeneratePriEnabled=$(AppxGeneratePriEnabled);EnableCoreMrtTooling=$(EnableCoreMrtTooling)" />
+    <RemoveDir Directories="$(MSBuildProjectDirectory)\..\NMSShipIOTool.Tabs\obj\x64\$(Configuration)\$(TargetFramework)\$(RuntimeIdentifier)\MsixContent" />
+  </Target>
+
   <ItemGroup>
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250909003" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1" />
     <PackageReference Include="CommunityToolkit.Diagnostics" Version="8.4.0" />
     <PackageReference Include="CommunityToolkit.HighPerformance" Version="8.4.0" />
     <PackageReference Include="K4os.Compression.LZ4" Version="1.3.8" />
@@ -23,6 +88,15 @@
     <PackageReference Include="libNOM.map" Version="0.13.7" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="9.0.8" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\mapping.json" />
+    <None Remove="Resources\logo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\logo.ico" />
   </ItemGroup>
 
   <ItemGroup>

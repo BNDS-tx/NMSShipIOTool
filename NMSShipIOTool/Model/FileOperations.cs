@@ -1,104 +1,151 @@
 using NMSShipIOTool.Resources;
 using System.Text.Json.Nodes;
+using Windows.Storage.Pickers;
+using WinRT.Interop;
 
-namespace NMSShipIOTool.Model
+namespace NMSShipIOTool.Model;
+
+internal static class FileOperations
 {
-    internal class FileOperations
+    public static IReadOnlyList<string> GetDetectedSaveFolders()
     {
-        public static string selectSaveFile(string savePath)
+        var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        var localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        var xboxDataPath = Path.Combine(localAppDataPath, "Packages", "HelloGames.NoMansSky_bs190hzg1sesy", "SystemAppData", "wgs");
+        var otherDataPath = Path.Combine(appDataPath, "HelloGames", "NMS");
+
+        var folderGroup = new List<string>();
+
+        try
         {
-            using var dialog = new FolderBrowserDialog();
-            // 预设路径，例如 savePath
-            if (!string.IsNullOrWhiteSpace(savePath) && System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(savePath)))
-            {
-                dialog.InitialDirectory = Path.GetDirectoryName(savePath) ?? "";
-            }
-            else
-            {
-                // 获取 %AppData% 路径
-                var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                // 获取 %LocalAppData% 路径
-                var localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-
-                var nmsPath1 = System.IO.Path.Combine(appDataPath, "HelloGames", "NMS");
-                var nmsPath2 = System.IO.Path.Combine(localAppDataPath, "Packages", "HelloGames.NoMansSky_bs190hzg1sesy", "SystemAppData", "wgs");
-                if (System.IO.Directory.Exists(nmsPath1)) { dialog.InitialDirectory = nmsPath1; }
-                else if (System.IO.Directory.Exists(nmsPath2)) { dialog.InitialDirectory = nmsPath2; }
-            }
-
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                // 用户选择了文件
-                // 将 dialog.ToString 替换为 dialog.SelectedPath
-                savePath = dialog.SelectedPath;
-            }
-            return savePath;
+            if (Directory.Exists(xboxDataPath))
+                folderGroup.AddRange(Directory.GetDirectories(xboxDataPath));
+        }
+        catch
+        {
+            // ignore invalid or inaccessible locations
         }
 
-        // 选择文件夹
-        public static string folderSelect()
+        try
         {
-            var storageProvider = new FolderBrowserDialog();
-            if (storageProvider.ShowDialog() == DialogResult.OK)
-            {
-                var folder = storageProvider.SelectedPath;
-                return folder;
-            }
-            return "";
+            if (Directory.Exists(otherDataPath))
+                folderGroup.AddRange(Directory.GetDirectories(otherDataPath));
+        }
+        catch
+        {
+            // ignore invalid or inaccessible locations
         }
 
-        // 选择文件
-        public static string fileSelect(int type)
+        return folderGroup
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(path => path, StringComparer.OrdinalIgnoreCase)
+            .ToList();
+    }
+
+    public static async Task<string> SelectSaveFileAsync(Microsoft.UI.Xaml.Window window, string savePath)
+    {
+        var folderPicker = new FolderPicker
         {
-            var filter = "";
-            switch (type)
-            {
-                case 1:
-                    filter = Language.文件筛选内容BS;
-                    break;
-                case 2:
-                    filter = Language.文件筛选内容S;
-                    break;
-                case 3:
-                    filter = Language.文件筛选内容T;
-                    break;
-                default:
-                    filter = Language.文件筛选内容A;
-                    break;
-            }
-            using (OpenFileDialog dialog = new OpenFileDialog())
-            {
-                dialog.Filter = filter;
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    string selectedFile = dialog.FileName;
-                    // 这里可以处理选中的文件路径，例如显示到文本框
-                    return selectedFile;
-                }
-            }
-            return "";
+            SuggestedStartLocation = PickerLocationId.DocumentsLibrary,
+        };
+        folderPicker.FileTypeFilter.Add("*");
+        InitializePickerWindow(folderPicker, window);
+
+        var folder = await folderPicker.PickSingleFolderAsync();
+        return folder?.Path ?? savePath;
+    }
+
+    public static async Task<string> FolderSelectAsync(Microsoft.UI.Xaml.Window window)
+    {
+        var folderPicker = new FolderPicker
+        {
+            SuggestedStartLocation = PickerLocationId.DocumentsLibrary,
+        };
+        folderPicker.FileTypeFilter.Add("*");
+        InitializePickerWindow(folderPicker, window);
+
+        var folder = await folderPicker.PickSingleFolderAsync();
+        return folder?.Path ?? "";
+    }
+
+    public static async Task<string> FileSelectAsync(Microsoft.UI.Xaml.Window window, int type)
+    {
+        var picker = new FileOpenPicker
+        {
+            SuggestedStartLocation = PickerLocationId.DocumentsLibrary,
+            ViewMode = PickerViewMode.List,
+        };
+        InitializePickerWindow(picker, window);
+
+        switch (type)
+        {
+            case 1:
+                AddFilters(picker, Language.文件筛选内容BS);
+                break;
+            case 2:
+                AddFilters(picker, Language.文件筛选内容S);
+                break;
+            case 3:
+                AddFilters(picker, Language.文件筛选内容T);
+                break;
+            default:
+                AddFilters(picker, Language.文件筛选内容A);
+                break;
         }
 
-        public static string setTempFile(string content)
+        var file = await picker.PickSingleFileAsync();
+        return file?.Path ?? "";
+    }
+
+    private static void AddFilters(FileOpenPicker picker, string filterString)
+    {
+        // WinForms 格式: "描述|*.a;*.b|描述2|*.c"
+        // WinRT FileTypeFilter 只接受 "*" 或 ".ext" 形式，".*" 是非法值会导致 picker 静默失败
+        var segments = filterString.Split('|');
+        for (var i = 1; i < segments.Length; i += 2)
         {
-            if (content == null || content == "") throw new Exception(Language.无导入内容);
-
-            // 包装为 JSON 对象：
-            string formattedJson;
-            try
+            var exts = segments[i].Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            foreach (var ext in exts)
             {
-                var JN = JsonNode.Parse(content);
-                formattedJson = JN!.ToJsonString();
+                var e = ext.Trim();
+                if (e.StartsWith('*'))
+                    e = e[1..];
+                // ".*" 来自 "*.*"（全文件通配符），"" 来自单独的 "*"，均跳过
+                if (e == ".*" || e == "" || e == "*")
+                    continue;
+                if (!e.StartsWith('.'))
+                    e = "." + e.TrimStart('.');
+                if (e.Length > 1 && !picker.FileTypeFilter.Contains(e))
+                    picker.FileTypeFilter.Add(e);
             }
-            catch
-            {
-                throw new Exception(Language.非法JSON格式);
-            }
-
-            // 写入文件
-            string tempPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "temp.json");
-            File.WriteAllText(tempPath, formattedJson);
-            return tempPath;
         }
+        if (picker.FileTypeFilter.Count == 0)
+            picker.FileTypeFilter.Add("*");
+    }
+
+    private static void InitializePickerWindow(object picker, Microsoft.UI.Xaml.Window window)
+    {
+        var hwnd = WindowNative.GetWindowHandle(window);
+        InitializeWithWindow.Initialize(picker, hwnd);
+    }
+
+    public static string setTempFile(string content)
+    {
+        if (content == null || content == "") throw new Exception(Language.无导入内容);
+
+        string formattedJson;
+        try
+        {
+            var jn = JsonNode.Parse(content);
+            formattedJson = jn!.ToJsonString();
+        }
+        catch
+        {
+            throw new Exception(Language.非法JSON格式);
+        }
+
+        string tempPath = Path.Combine(AppContext.BaseDirectory, "temp.json");
+        File.WriteAllText(tempPath, formattedJson);
+        return tempPath;
     }
 }

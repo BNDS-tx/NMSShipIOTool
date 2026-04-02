@@ -75,7 +75,7 @@ namespace NMSShipIOTool.Model
             }
             catch (Exception ex)
             {
-                string errorInfo = "读取数据时发生错误：" + ex.Message + "\n\n您的存档版本过低或疑似发生损坏，请登录游戏刷新存档或使用其他工具检查。";
+                string errorInfo = Language.读取数据时发生错误 + ex.Message + "\n\n" + Language.存档损坏提示;
                 //MessageClass.ShowError(errorInfo);
                 //return errorInfo;
                 throw new Exception(errorInfo);

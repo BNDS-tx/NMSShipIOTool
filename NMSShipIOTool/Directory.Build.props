@@ -1,0 +1,8 @@
+<Project>
+  <!-- Rider/VS 使用 Debug|Any CPU 时，与 Platforms=x64 不一致会导致输出在 bin\Debug\ 而引用期望 bin\x64\Debug\（CS0006）。 -->
+  <PropertyGroup>
+    <Platform Condition="'$(Platform)' == ''">x64</Platform>
+    <Platform Condition="'$(Platform)' == 'AnyCPU'">x64</Platform>
+    <Platform Condition="'$(Platform)' == 'Any CPU'">x64</Platform>
+  </PropertyGroup>
+</Project>

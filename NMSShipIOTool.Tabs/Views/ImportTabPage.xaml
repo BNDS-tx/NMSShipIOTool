@@ -1,0 +1,94 @@
+<UserControl
+    x:Class="NMSShipIOTool.Views.ImportTabPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Grid Padding="4" RowSpacing="10" ColumnSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+						<ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock x:FieldModifier="public" x:Name="shipSelectI" Grid.Row="0" Grid.Column="0" TextWrapping="Wrap" />
+                    <TextBlock x:FieldModifier="public" x:Name="inputTextI" Grid.Row="8" Grid.Column="1" TextWrapping="Wrap" />
+
+                    <StackPanel
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.RowSpan="9"
+                        Orientation="Vertical">
+                        <StackPanel x:FieldModifier="public" x:Name="RadioPanelI" Orientation="Vertical" />
+                    </StackPanel>
+
+                    <TextBox
+                        x:FieldModifier="public" x:Name="inputImportText"
+                        Grid.Row="9"
+                        Grid.Column="1"
+                        Grid.RowSpan="1"
+                        AcceptsReturn="True"
+                        VerticalAlignment="Stretch"
+                        ScrollViewer.VerticalScrollMode="Enabled"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        TextWrapping="Wrap" />
+
+                    <TextBlock x:FieldModifier="public" x:Name="pathTextI" Grid.Row="0" Grid.Column="1" />
+                    <TextBox x:FieldModifier="public" x:Name="importPath" Grid.Row="1" Grid.Column="1" IsReadOnly="True" />
+
+                    <TextBlock x:FieldModifier="public" x:Name="pathTextE" Grid.Row="3" Grid.Column="1" />
+                    <TextBox x:FieldModifier="public" x:Name="exportPath" Grid.Row="4" Grid.Column="1" IsReadOnly="True" />
+
+                    <TextBlock x:FieldModifier="public" x:Name="nameTextE" Grid.Row="5" Grid.Column="1" />
+                    <TextBox x:FieldModifier="public" x:Name="exportName" Grid.Row="6" Grid.Column="1" />
+
+                    <StackPanel
+                        Grid.Row="7"
+                        Grid.Column="1"
+                        Orientation="Horizontal">
+                        <Button x:FieldModifier="public" x:Name="exportSelect" Margin="0,0,10,0"/>
+                        <Button x:FieldModifier="public" x:Name="buttonExport" Margin="0,0,10,0"/>
+                        <Button x:FieldModifier="public" x:Name="buttonExportShipTechI" />
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Orientation="Horizontal">
+                        <Button x:FieldModifier="public" x:Name="importSelect" Margin="0,0,10,0"/>
+                        <Button x:FieldModifier="public" x:Name="buttonImport" Margin="0,0,10,0"/>
+                        <Button x:FieldModifier="public" x:Name="buttonImportShipTechI" />
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Row="10"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Orientation="Horizontal">
+                        <CheckBox x:FieldModifier="public" x:Name="checkBoxI" />
+                        <CheckBox x:FieldModifier="public" x:Name="checkBoxNMSSHIP1" />
+                        <CheckBox x:FieldModifier="public" x:Name="checkBoxTechI" />
+                    </StackPanel>
+
+                    <TextBlock
+                        x:FieldModifier="public" x:Name="inputTextIExplanation"
+                        Grid.Row="10"
+                        Grid.Column="2"
+                        HorizontalAlignment="Center"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+    </Grid>
+</UserControl>

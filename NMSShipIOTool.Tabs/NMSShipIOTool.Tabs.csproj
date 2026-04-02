@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>NMSShipIOTool.Views</RootNamespace>
+    <Platforms>x64</Platforms>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+    <UseWinUI>true</UseWinUI>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <EnableMsixTooling Condition="'$(MSBuildRuntimeType)' == 'Core'">false</EnableMsixTooling>
+    <EnableMsixTooling Condition="'$(MSBuildRuntimeType)' != 'Core'">true</EnableMsixTooling>
+    <WindowsPackageType>None</WindowsPackageType>
+    <AppxGeneratePriEnabled Condition="'$(MSBuildRuntimeType)' == 'Core'">false</AppxGeneratePriEnabled>
+    <AppxGeneratePriEnabled Condition="'$(MSBuildRuntimeType)' != 'Core'">true</AppxGeneratePriEnabled>
+    <WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>
+    <!-- 保持 XBF/PRI 中的相对路径，避免 Views\*.xaml 在 Platform=x64 构建下运行时报 Cannot locate resource。 -->
+    <GenerateLibraryLayout>true</GenerateLibraryLayout>
+    <!-- dotnet CLI 缺少 VS AppxPackage 任务；完整 MSBuild/VS 发布时再启用 PRI 生成。 -->
+    <EnableCoreMrtTooling Condition="'$(MSBuildRuntimeType)' == 'Core'">false</EnableCoreMrtTooling>
+    <EnableCoreMrtTooling Condition="'$(MSBuildRuntimeType)' != 'Core'">true</EnableCoreMrtTooling>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250909003" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1" />
+  </ItemGroup>
+
+</Project>
